@@ -90,6 +90,10 @@ class _LoginBodyState extends State<LoginBody> {
                           ? null
                           : () {
                               FocusScope.of(context).unfocus();
+                              if (cubit.formKey.currentState!.validate() ==
+                                  false) {
+                                return;
+                              }
                               cubit.doIntent(LoginEvents.loginUserEvent());
                             },
                     );

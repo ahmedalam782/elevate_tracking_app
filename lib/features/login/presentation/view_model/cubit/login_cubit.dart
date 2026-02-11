@@ -25,9 +25,6 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   Future<void> _login() async {
-    if (formKey.currentState!.validate() == false) {
-      return;
-    }
     if (emailController.text.trim().isEmpty ||
         passwordController.text.isEmpty) {
       return;
