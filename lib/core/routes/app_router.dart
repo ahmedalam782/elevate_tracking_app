@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/routes/routes.dart';
+import 'package:elevate_tracking_app/features/forget_password/presentation/view/pages/forgetPassword_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,6 +24,12 @@ final GoRouter router = GoRouter(
       route: Routes.login,
       page: (state, context) =>
           LoginPage(key: ValueKey(context.locale.languageCode.toString())),
+    ),
+   _customAnimatedGoRoute(
+      route: Routes.forgetPassword,
+      page: (state, context) => ForgetPasswordPage(
+        key: ValueKey(context.locale.languageCode.toString()),
+      ),
     ),
   ],
 );
