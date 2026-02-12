@@ -112,5 +112,12 @@
     "pin_required": "Verification code is required",
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
+  },
+   "reset_password": {
+    "reset_password": "Reset Password",
+    "new_password": "New Password",
+    "current_password": "Current Password",
+    "confirm_password": "Confirm Password",
+    "update_button": "Update"
   }
 }

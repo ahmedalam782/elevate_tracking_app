@@ -6,6 +6,7 @@ class EndPoints {
   static const String verifyResetEndpoint = "/auth/verifyResetCode";
   static const String resetPasswordEndpoint = "/auth/resetPassword";
 
+  static const String changePassword = "/auth/change-password";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>

@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/routes/routes.dart';
+import 'package:elevate_tracking_app/features/reset_password/presentation/view/pages/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +19,12 @@ final GoRouter router = GoRouter(
       route: Routes.splash,
       page: (state, context) =>
           SplashPage(key: ValueKey(context.locale.languageCode.toString())),
+    ),
+      _customAnimatedGoRoute(
+      route: Routes.resetPassword,
+      page: (state, context) => ResetPasswordPage(
+        key: ValueKey(context.locale.languageCode.toString()),
+      ),
     ),
     _customAnimatedGoRoute(
       route: Routes.login,
