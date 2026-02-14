@@ -112,5 +112,40 @@
     "pin_required": "Verification code is required",
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
+  },
+  "apply":{
+    "app_bar_title": "Apply",
+    "welcome": "Welcome!!",
+    "discription": "You want to be a delivery man?\nJoin our team",
+    "first_name_label": "First legal name",
+    "last_name_label": "Last legal name",
+    "email_label": "Email",
+    "phone_label": "Phone number",
+    "password_label": "Password",
+    "confirm_password_label": "Confirm password",
+    "vehicle_type_label": "Vehicle type",
+    "vehicle_number_label": "Vehicle number",
+    "vehicle_license_label": "Vehicle license",
+    "id_number_label": "ID number",
+    "id_image_label": "ID image",
+    "country_label": "Country",
+
+    "first_name_hint": "Enter your first name",
+    "last_name_hint": "Enter your last name",
+    "email_hint": "Enter your email",
+    "phone_hint": "Enter your phone number",
+    "password_hint": "Enter your password",
+    "confirm_password_hint": "Enter your password again",
+    "country_hint": "Select your country",
+    "vehicle_license_hint": "Upload license image",
+    "id_image_hint": "Upload ID image",
+    "id_number_hint": "Enter your ID number",
+    "vehicle_number_hint": "Enter your vehicle number",
+    "vehicle_type_hint": "Select vehicle type",
+    "gender_hint": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "submit": "Submit"
+
   }
 }

@@ -5,6 +5,23 @@ import 'package:easy_localization/easy_localization.dart';
 import '../helper/phone_helper/phone_length_helper.dart';
 
 class Validations {
+  static String? validateVehicleNumber(String? num) {
+    if (num == null || num.isEmpty) {
+      return 'Vehicle number is required';
+    }
+    return null;
+  }
+
+  static String? validateNationalId(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'National ID is required';
+    } else if (value.length != 14) {
+      return 'National ID must be 14 digits';
+    }
+
+    return null;
+  }
+
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'validations.password_required'.tr();
