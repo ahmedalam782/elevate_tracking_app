@@ -136,7 +136,6 @@ flutter:
 #   ignore_comments: true
 #   field_prefix: null
 #   classname: AppIcons
-
 # ---------- Animations (inactive) ----------
 # flutter_assets:
 #   assets_path: assets/animations
@@ -153,7 +152,6 @@ flutter:
 #   ignore_comments: true
 #   field_prefix: null
 #   classname: AppJson
-
 # ---------- videos (inactive) ----------
 # flutter_assets:
 #   assets_path: assets/videos
@@ -162,7 +160,6 @@ flutter:
 #   ignore_comments: true
 #   field_prefix: null
 #   classname: AppVideos
-
 # ---------- Images (inactive) ----------
 flutter_assets:
   assets_path: assets/images
