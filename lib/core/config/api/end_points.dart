@@ -5,7 +5,7 @@ class EndPoints {
   static const String forgetPasswordEndpoint = "/auth/forgotPassword";
   static const String verifyResetEndpoint = "/auth/verifyResetCode";
   static const String resetPasswordEndpoint = "/auth/resetPassword";
-
+  static const String profileData = "/auth/profile-data";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>
@@ -14,7 +14,8 @@ class EndPoints {
   //! About App
   static const String aboutApp = "/about-app";
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>
-  static const String aboutAppPath = 'assets/json/Flowery About Section JSON with Expanded Content.json';
+  static const String aboutAppPath =
+      'assets/json/Flowery About Section JSON with Expanded Content.json';
 }
 
 class Apikeys {
