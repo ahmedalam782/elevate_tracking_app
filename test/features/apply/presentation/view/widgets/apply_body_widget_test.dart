@@ -14,7 +14,6 @@ import 'package:elevate_tracking_app/features/apply/domain/use_cases/get_countri
 import 'package:elevate_tracking_app/features/apply/domain/use_cases/get_vehicles_use_case.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_body.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_country_field.dart';
-import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_text_field.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_vehcile_field.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/gender_section.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/upload_field.dart';

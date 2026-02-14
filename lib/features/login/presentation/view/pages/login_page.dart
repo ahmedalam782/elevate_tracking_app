@@ -11,10 +11,10 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('login page'),
+            const Text('login page'),
             ElevatedButton(
               onPressed: () => context.push(Routes.apply),
-              child: Text('apply'),
+              child: const Text('apply'),
             ),
           ],
         ),
