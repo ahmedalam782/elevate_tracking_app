@@ -37,7 +37,6 @@ void main() async {
 
   //Disable crashlytics in debug => await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
 
-
   // Set custom Bloc observer for debugging
   Bloc.observer = MyBlocObserver();
 
@@ -48,6 +47,7 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [arabicLocale, englishLocale],
+      startLocale: englishLocale,
       fallbackLocale: englishLocale,
       path: assetsLocalization,
       saveLocale: true,

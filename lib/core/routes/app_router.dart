@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/routes/routes.dart';
 import 'package:elevate_tracking_app/features/on_boarding/presentation/view/pages/on_boarding_page.dart';
+import 'package:elevate_tracking_app/features/apply/presentation/view/pages/apply_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,6 +28,11 @@ final GoRouter router = GoRouter(
       route: Routes.onBoarding,
       page: (state, context) =>
           OnBoardingPage(key: ValueKey(context.locale.languageCode.toString())),
+    ),
+    _customAnimatedGoRoute(
+      route: Routes.apply,
+      page: (state, context) =>
+          ApplyPage(key: ValueKey(context.locale.languageCode.toString())),
     ),
   ],
 );
