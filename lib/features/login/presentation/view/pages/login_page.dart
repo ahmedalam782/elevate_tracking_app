@@ -1,23 +1,18 @@
-import 'package:elevate_tracking_app/core/routes/routes.dart';
+import '../widgets/login_body.dart';
+import '../../view_model/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/config/di/injectable_config.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('login page'),
-            ElevatedButton(
-              onPressed: () => context.push(Routes.apply),
-              child: const Text('apply'),
-            ),
-          ],
-        ),
+      body: BlocProvider(
+        create: (context) => getIt<LoginCubit>(),
+        child: const LoginBody(),
       ),
     );
   }

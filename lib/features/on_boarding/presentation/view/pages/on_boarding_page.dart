@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
+import 'package:elevate_tracking_app/core/routes/routes.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -30,7 +32,9 @@ class OnBoardingPage extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(Routes.login);
+              },
               title: LocaleKeys.on_boarding_login.tr(),
             ),
             SizedBox(height: 16.h),
@@ -38,7 +42,9 @@ class OnBoardingPage extends StatelessWidget {
               backGroundColor: Colors.white,
               borderColor: Colors.black,
               titleStyle: 16.medium.copyWith(color: Colors.black),
-              onPressed: () {},
+              onPressed: () {
+                context.push(Routes.apply);
+              },
               title: LocaleKeys.on_boarding_apply_now.tr(),
             ),
           ],
