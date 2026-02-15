@@ -113,7 +113,14 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
-  "apply":{
+
+  "on_boarding": {
+    "welcome_text": "مرحبا بك في /n تطبيق سائق تطبيق فلاوري",
+    "login": "تسجيل الدخول",
+    "apply_now": "تسجيل الأن"
+  },
+
+  "apply": {
     "app_bar_title": "تقديم",
     "welcome": "مرحبا",
     "discription": "تريد ان تعمل بالتوصيل؟\nانضم لفريقنا",
@@ -147,5 +154,4 @@
     "gender_female": "أنثى",
     "submit": "إرسال"
   }
-
 }
