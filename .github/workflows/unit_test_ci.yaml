@@ -2,10 +2,6 @@ name: Unit Test CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-    branches:
-      - main
-      - development
   push:
     branches:
       - main
@@ -34,7 +30,7 @@ jobs:
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.6'
+          flutter-version: '3.38.9'
           channel: 'stable'
           cache: true
           

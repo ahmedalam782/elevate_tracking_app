@@ -113,7 +113,7 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
-    "login": {
+  "login": {
     "title": "تسجيل الدخول",
     "subtitle": "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة",
     "email_hint_text": "أدخل بريدك الإلكتروني",
@@ -129,5 +129,46 @@
     "welcome_message": "مرحباً {name}!",
     "Invalid_email_or_password": "بريد إلكتروني أو كلمة مرور غير صحيحة",
     "loading": "جارٍ التحميل"
+  },
+
+  "on_boarding": {
+    "welcome_text": "مرحبا بك في /n تطبيق سائق تطبيق فلاوري",
+    "login": "تسجيل الدخول",
+    "apply_now": "تسجيل الأن"
+  },
+
+  "apply": {
+    "app_bar_title": "تقديم",
+    "welcome": "مرحبا",
+    "discription": "تريد ان تعمل بالتوصيل؟\nانضم لفريقنا",
+    "first_name_label": "الاسم الأول",
+    "last_name_label": "اسم العائلة",
+    "email_label": "البريد الإلكتروني",
+    "phone_label": "رقم الهاتف",
+    "password_label": "كلمة المرور",
+    "confirm_password_label": "تأكيد كلمة المرور",
+    "vehicle_type_label": "نوع المركبة",
+    "vehicle_number_label": "رقم المركبة",
+    "vehicle_license_label": "رخصة المركبة",
+    "id_number_label": "رقم الهوية",
+    "id_image_label": "صورة الهوية",
+    "country_label": "الدولة",
+
+    "first_name_hint": "أدخل اسمك الأول",
+    "last_name_hint": "أدخل اسم عائلتك",
+    "email_hint": "أدخل بريدك الإلكتروني",
+    "phone_hint": "أدخل رقم هاتفك",
+    "password_hint": "أدخل كلمة المرور",
+    "confirm_password_hint": "أدخل كلمة المرور مرة أخرى",
+    "country_hint": "اختر دولتك",
+    "vehicle_license_hint": "رفع صورة الرخصة",
+    "id_image_hint": "رفع صورة الهوية",
+    "id_number_hint": "أدخل رقم هويتك",
+    "vehicle_number_hint": "أدخل رقم مركبتك",
+    "vehicle_type_hint": "اختر نوع المركبة",
+    "gender_hint": "الجنس",
+    "gender_male": "ذكر",
+    "gender_female": "أنثى",
+    "submit": "إرسال"
   }
 }
