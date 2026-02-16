@@ -22,7 +22,8 @@ class AppIcons {
 
   static const String iconsClosedEye = "assets/icons/closed_eye.svg";
 
-  static const String iconsConnectionError = "assets/icons/connection_error.svg";
+  static const String iconsConnectionError =
+      "assets/icons/connection_error.svg";
 
   static const String iconsDelete = "assets/icons/delete.svg";
 
@@ -62,12 +63,14 @@ class AppIcons {
 
   static const String iconsSearch = "assets/icons/search.svg";
 
-  static const String iconsTransactionOrder = "assets/icons/transaction_order.svg";
+  static const String iconsTransactionOrder =
+      "assets/icons/transaction_order.svg";
 
   static const String iconsTranslateLang = "assets/icons/translate_lang.svg";
 
   static const String iconsWarning = "assets/icons/warning.svg";
 
   static const String iconsUpload = "assets/icons/upload.svg";
-}
 
+  static const String orders = "assets/icons/orders.svg";
+}
