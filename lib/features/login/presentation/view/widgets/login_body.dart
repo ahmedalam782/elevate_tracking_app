@@ -56,12 +56,7 @@ class _LoginBodyState extends State<LoginBody> {
                         CustomToast(
                           context: context,
                           header: LocaleKeys.global_success.tr(),
-                          description: LocaleKeys.login_welcome_message.tr(
-                            namedArgs: {
-                              'name':
-                                  '${loginResponse.user.firstName} ${loginResponse.user.lastName}',
-                            },
-                          ),
+
                           type: ToastificationType.success,
                         ).showToast();
 

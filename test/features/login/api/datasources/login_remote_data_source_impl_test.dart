@@ -5,7 +5,6 @@ import 'package:elevate_tracking_app/features/login/api/api_client/login_api_cli
 import 'package:elevate_tracking_app/features/login/api/datasources/login_remote_data_source_impl.dart';
 import 'package:elevate_tracking_app/features/login/data/models/login_request_model.dart';
 import 'package:elevate_tracking_app/features/login/data/models/login_response_model.dart';
-import 'package:elevate_tracking_app/features/login/data/models/login_user_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -21,7 +20,6 @@ void main() {
   late MockInternetConnection mockInternetConnection;
 
   setUp(() async {
-
     await GetIt.instance.reset();
 
     mockInternetConnection = MockInternetConnection();
@@ -32,7 +30,6 @@ void main() {
     GetIt.instance.registerSingleton<InternetConnection>(
       mockInternetConnection,
     );
-
 
     apiClientMock = MockLoginApiClient();
     dataSourceImpl = LoginRemoteDataSourceImpl(apiClient: apiClientMock);
@@ -51,19 +48,6 @@ void main() {
       final LoginResponseModel response = LoginResponseModel(
         message: "Login successful",
         token: "test_token_123",
-        user: LoginUserDto(
-          id: "user_id_123",
-          firstName: "Test",
-          lastName: "User",
-          email: requestBody.email,
-          gender: "male",
-          phone: "1234567890",
-          photo: "photo_url",
-          role: "user",
-          wishlist: [],
-          addresses: [],
-          createdAt: "2024-01-01T00:00:00.000Z",
-        ),
       );
 
       when(apiClientMock.login(requestBody)).thenAnswer((_) async => response);
@@ -80,7 +64,6 @@ void main() {
       expect(successResult.data, response);
       expect(successResult.data?.token, "test_token_123");
       expect(successResult.data?.message, "Login successful");
-      expect(successResult.data?.user.email, requestBody.email);
       verify(apiClientMock.login(requestBody)).called(1);
     });
 
