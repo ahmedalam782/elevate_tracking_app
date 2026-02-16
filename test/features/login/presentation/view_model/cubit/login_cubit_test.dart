@@ -22,18 +22,6 @@ void main() {
         data: LoginResponseEntity(
           message: "Login successful",
           token: "dummy_token",
-          user: UserModelEntity(
-            id: "dummy_id",
-            firstName: "Dummy",
-            lastName: "User",
-            email: "dummy@test.com",
-            phone: "000000",
-            photo: "",
-            role: "user",
-            wishlist: [],
-            addresses: [],
-            createdAt: "2024-01-01",
-          ),
         ),
       ),
     );
@@ -85,18 +73,6 @@ void main() {
         const response = LoginResponseEntity(
           message: "Login successful",
           token: "token_123",
-          user: UserModelEntity(
-            id: "1",
-            firstName: "John",
-            lastName: "Doe",
-            email: "test@example.com",
-            phone: "123",
-            photo: "",
-            role: "user",
-            wishlist: [],
-            addresses: [],
-            createdAt: "2024-01-01",
-          ),
         );
 
         when(
@@ -188,18 +164,6 @@ void main() {
             data: LoginResponseEntity(
               message: "Login successful",
               token: "dummy",
-              user: UserModelEntity(
-                id: "1",
-                firstName: "Test",
-                lastName: "User",
-                email: "test@test.com",
-                phone: "000",
-                photo: "",
-                role: "user",
-                wishlist: [],
-                addresses: [],
-                createdAt: "2024-01-01",
-              ),
             ),
           ),
         );

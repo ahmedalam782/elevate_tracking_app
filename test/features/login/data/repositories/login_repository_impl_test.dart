@@ -1,10 +1,8 @@
-
 import 'package:elevate_tracking_app/core/config/base_response/result.dart';
 import 'package:elevate_tracking_app/features/login/api/datasources/login_local_data_source_impl.dart';
 import 'package:elevate_tracking_app/features/login/api/datasources/login_remote_data_source_impl.dart';
 import 'package:elevate_tracking_app/features/login/data/models/login_request_model.dart';
 import 'package:elevate_tracking_app/features/login/data/models/login_response_model.dart';
-import 'package:elevate_tracking_app/features/login/data/models/login_user_dto.dart';
 import 'package:elevate_tracking_app/features/login/data/repositories/login_repository_impl.dart';
 import 'package:elevate_tracking_app/features/login/domain/entities/login_response_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -69,19 +67,6 @@ void main() {
         final dummyResponse = LoginResponseModel(
           message: "Login successful",
           token: "test_token_123",
-          user: LoginUserDto(
-            id: "user_123",
-            firstName: "John",
-            lastName: "Doe",
-            email: email,
-            gender: "male",
-            phone: "123456",
-            photo: "",
-            role: "user",
-            wishlist: [],
-            addresses: [],
-            createdAt: "2024-01-01",
-          ),
         );
 
         provideDummy<Result<LoginResponseModel>>(
@@ -115,7 +100,6 @@ void main() {
         final successResult = result as Success<LoginResponseEntity>;
         expect(successResult.data?.message, dummyResponse.message);
         expect(successResult.data?.token, dummyResponse.token);
-        expect(successResult.data?.user.email, email);
 
         verify(mockLocalDataSource.saveToken(dummyResponse.token)).called(1);
         verify(mockLocalDataSource.saveRememberMe(rememberMe)).called(1);
