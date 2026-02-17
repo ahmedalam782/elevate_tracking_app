@@ -170,5 +170,14 @@
     "gender_male": "ذكر",
     "gender_female": "أنثى",
     "submit": "إرسال"
+  },
+  "home": {
+    "flowery_rider": "فلاوري سائك",
+    "flower_order": "طلب ورود",
+    "pickup_address": "عنوان التحميل",
+    "user_address": "عنوان اليوزر",
+    "egp": "جنية",
+    "reject": "رفض",
+    "accept": "قبول"
   }
 }

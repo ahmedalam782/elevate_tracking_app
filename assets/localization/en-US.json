@@ -168,5 +168,14 @@
     "sign_up": "Sign up",
     "welcome_message": "Welcome {name}!",
     "Invalid_email_or_password": "Invalid email or password"
+  },
+  "home": {
+    "flowery_rider": "Flowery rider",
+    "flower_order": "Flower order",
+    "pickup_address": "Pickup address",
+    "user_address": "User address",
+    "egp": "EGP",
+    "reject": "Reject",
+    "accept": "Accept"
   }
 }
