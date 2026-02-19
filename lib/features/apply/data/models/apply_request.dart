@@ -3,36 +3,39 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:elevate_tracking_app/core/utils/enums/gender.dart';
+import 'package:elevate_tracking_app/features/apply/domain/entities/country_entity.dart';
+import 'package:elevate_tracking_app/features/apply/domain/entities/vehicles_list_entity.dart';
 
 class ApplyRequest {
-  final String? firstName;
-  final String? lastName;
-  final String? email;
-  final String? phone;
-  final String? vehicleType;
-  final String? vehicleNumber;
-  final String? NID;
-  final String? gender;
-  final String? password;
-  final String? rePassword;
-  final String? country;
-  final File? licenseImage;
-  final File? NIDImage;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? phone;
+  VehicleEntity? vehicleType;
+  String? vehicleNumber;
+  String? NID;
+  Gender gender;
+  String? password;
+  String? rePassword;
+  CountryEntity? country;
+  File? licenseImage;
+  File? NIDImage;
 
   ApplyRequest({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phone,
-    required this.vehicleType,
-    required this.vehicleNumber,
-    required this.NID,
-    required this.NIDImage,
-    required this.gender,
-    required this.password,
-    required this.rePassword,
-    required this.country,
-    required this.licenseImage,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.vehicleType,
+    this.vehicleNumber,
+    this.NID,
+    this.NIDImage,
+    this.gender = Gender.male,
+    this.password,
+    this.rePassword,
+    this.country,
+    this.licenseImage,
   });
 }
 
@@ -44,12 +47,12 @@ extension UserRegistrationRequestExtension on ApplyRequest {
       'email': email,
       'password': password,
       'rePassword': rePassword,
-      'vehicleType': vehicleType,
+      'vehicleType': vehicleType?.id,
       'vehicleNumber': vehicleNumber,
       'NID': NID,
       'phone': phone,
-      'country': country,
-      'gender': gender,
+      'country': country?.name,
+      'gender': gender.label,
     };
 
     if (NIDImage != null) {

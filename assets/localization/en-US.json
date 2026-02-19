@@ -113,7 +113,7 @@
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
   },
-  "apply":{
+  "apply": {
     "app_bar_title": "Apply",
     "welcome": "Welcome!!",
     "discription": "You want to be a delivery man?\nJoin our team",
@@ -129,13 +129,12 @@
     "id_number_label": "ID number",
     "id_image_label": "ID image",
     "country_label": "Country",
-
     "first_name_hint": "Enter your first name",
     "last_name_hint": "Enter your last name",
     "email_hint": "Enter your email",
     "phone_hint": "Enter your phone number",
     "password_hint": "Enter your password",
-    "confirm_password_hint": "Enter your password again",
+    "confirm_password_hint": "Confirm password",
     "country_hint": "Select your country",
     "vehicle_license_hint": "Upload license image",
     "id_image_hint": "Upload ID image",
@@ -146,6 +145,5 @@
     "gender_male": "Male",
     "gender_female": "Female",
     "submit": "Submit"
-
   }
 }

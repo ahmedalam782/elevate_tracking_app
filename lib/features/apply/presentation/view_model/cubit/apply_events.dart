@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:elevate_tracking_app/core/utils/enums/gender.dart';
+import 'package:elevate_tracking_app/features/apply/data/models/apply_request.dart';
 import 'package:elevate_tracking_app/features/apply/domain/entities/country_entity.dart';
 import 'package:elevate_tracking_app/features/apply/domain/entities/vehicles_list_entity.dart';
 
@@ -24,5 +27,16 @@ class SelectGenderEvent extends ApplyEvents {
 }
 
 class ApplySubmitEvent extends ApplyEvents {
-  ApplySubmitEvent();
+  final ApplyRequest request;
+  ApplySubmitEvent({required this.request});
+}
+
+class UploadNIdEvent extends ApplyEvents {
+  final File image;
+  UploadNIdEvent({required this.image});
+}
+
+class UploadLicenseEvent extends ApplyEvents {
+  final File image;
+  UploadLicenseEvent({required this.image});
 }

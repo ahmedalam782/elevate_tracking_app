@@ -3,6 +3,7 @@ import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
 import 'package:elevate_tracking_app/core/validations/validations.dart';
+import 'package:elevate_tracking_app/features/apply/data/models/apply_request.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_country_field.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_text_field.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/widgets/apply_vehcile_field.dart';
@@ -22,7 +23,50 @@ class ApplyBody extends StatefulWidget {
 }
 
 class _ApplyBodyState extends State<ApplyBody> {
+  late ApplyCubit cubit;
+
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController emailController;
+  late TextEditingController phoneController;
+  late TextEditingController vehicleTypeController;
+  late TextEditingController vehicleNumberController;
+  late TextEditingController NIDController;
+  late TextEditingController genderController;
+  late TextEditingController passwordController;
+  late TextEditingController rePasswordController;
   late bool isLoading;
+
+  @override
+  void initState() {
+    cubit = context.read<ApplyCubit>();
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneController = TextEditingController();
+    vehicleTypeController = TextEditingController();
+    vehicleNumberController = TextEditingController();
+    NIDController = TextEditingController();
+    genderController = TextEditingController();
+    passwordController = TextEditingController();
+    rePasswordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    vehicleTypeController.dispose();
+    vehicleNumberController.dispose();
+    NIDController.dispose();
+    genderController.dispose();
+    passwordController.dispose();
+    rePasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +74,6 @@ class _ApplyBodyState extends State<ApplyBody> {
       (ApplyCubit value) => value.state.applyState.state == StateType.loading,
     );
     final formKey = GlobalKey<FormState>();
-    ApplyCubit cubit = context.read<ApplyCubit>();
     return Form(
       key: formKey,
       child: Column(
@@ -38,18 +81,21 @@ class _ApplyBodyState extends State<ApplyBody> {
         spacing: 25,
         children: [
           const WelcomeSection(),
-          const ApplyCountryField(hint: "Select country", label: "Country"),
+          ApplyCountryField(
+            hint: LocaleKeys.apply_country_hint.tr(),
+            label: LocaleKeys.apply_country_label.tr(),
+          ),
           ApplyTextField(
             hint: LocaleKeys.apply_first_name_hint.tr(),
             label: LocaleKeys.apply_first_name_label.tr(),
-            controller: cubit.firstNameController,
+            controller: firstNameController,
             textInputType: TextInputType.name,
             validator: (value) => Validations.validateFirstName(value),
           ),
           ApplyTextField(
             hint: LocaleKeys.apply_last_name_hint.tr(),
             label: LocaleKeys.apply_last_name_label.tr(),
-            controller: cubit.lastNameController,
+            controller: lastNameController,
             textInputType: TextInputType.name,
             validator: (value) => Validations.validateLastName(value),
           ),
@@ -60,7 +106,7 @@ class _ApplyBodyState extends State<ApplyBody> {
           ApplyTextField(
             hint: LocaleKeys.apply_vehicle_number_hint.tr(),
             label: LocaleKeys.apply_vehicle_number_label.tr(),
-            controller: cubit.vehicleNumberController,
+            controller: vehicleNumberController,
             textInputType: TextInputType.number,
             validator: (value) => Validations.validateVehicleNumber(value),
           ),
@@ -72,14 +118,14 @@ class _ApplyBodyState extends State<ApplyBody> {
           ApplyTextField(
             hint: LocaleKeys.apply_email_hint.tr(),
             label: LocaleKeys.apply_email_label.tr(),
-            controller: cubit.emailController,
+            controller: emailController,
             textInputType: TextInputType.emailAddress,
             validator: (value) => Validations.validateEmail(value),
           ),
           ApplyTextField(
             hint: LocaleKeys.apply_phone_hint.tr(),
             label: LocaleKeys.apply_phone_label.tr(),
-            controller: cubit.phoneController,
+            controller: phoneController,
             textInputType: TextInputType.number,
             validator: (value) =>
                 Validations.validatePhoneNumber(value, 11, "+20"),
@@ -87,7 +133,7 @@ class _ApplyBodyState extends State<ApplyBody> {
           ApplyTextField(
             hint: LocaleKeys.apply_id_number_hint.tr(),
             label: LocaleKeys.apply_id_number_label.tr(),
-            controller: cubit.NIDController,
+            controller: NIDController,
             textInputType: TextInputType.number,
             validator: (value) => Validations.validateNationalId(value),
           ),
@@ -97,32 +143,38 @@ class _ApplyBodyState extends State<ApplyBody> {
             label: LocaleKeys.apply_id_image_label.tr(),
           ),
 
-          Row(
-            spacing: 17,
-            children: [
-              Expanded(
-                child: ApplyTextField(
-                  hint: LocaleKeys.apply_password_hint.tr(),
-                  label: LocaleKeys.apply_password_label.tr(),
-                  controller: cubit.passwordController,
-                  textInputType: TextInputType.name,
-                  validator: (value) => Validations.validatePassword(value),
+          SizedBox(
+            height: 56,
+            child: Row(
+              spacing: 17,
+
+              children: [
+                Expanded(
+                  child: ApplyTextField(
+                    isPassword: true,
+                    hint: LocaleKeys.apply_password_hint.tr(),
+                    label: LocaleKeys.apply_password_label.tr(),
+                    controller: passwordController,
+                    textInputType: TextInputType.name,
+                    validator: (value) => Validations.validatePassword(value),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ApplyTextField(
-                  hint: LocaleKeys.apply_confirm_password_hint.tr(),
-                  label: LocaleKeys.apply_confirm_password_label.tr(),
-                  controller: cubit.rePasswordController,
-                  textInputType: TextInputType.name,
-                  validator: (value) =>
-                      Validations.validatePasswordVerification(
-                        value,
-                        cubit.passwordController.text,
-                      ),
+                Expanded(
+                  child: ApplyTextField(
+                    isPassword: true,
+                    hint: LocaleKeys.apply_confirm_password_hint.tr(),
+                    label: LocaleKeys.apply_confirm_password_label.tr(),
+                    controller: rePasswordController,
+                    textInputType: TextInputType.name,
+                    validator: (value) =>
+                        Validations.validatePasswordVerification(
+                          value,
+                          passwordController.text,
+                        ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const GenderSection(),
           CustomButton(
@@ -130,7 +182,20 @@ class _ApplyBodyState extends State<ApplyBody> {
             title: LocaleKeys.apply_submit.tr(),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                await cubit.doIntent(ApplySubmitEvent());
+                await cubit.doIntent(
+                  ApplySubmitEvent(
+                    request: ApplyRequest(
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                      email: emailController.text,
+                      phone: phoneController.text,
+                      vehicleNumber: vehicleNumberController.text,
+                      NID: NIDController.text,
+                      password: passwordController.text,
+                      rePassword: rePasswordController.text,
+                    ),
+                  ),
+                );
                 if (cubit.state.applyState.state == StateType.success &&
                     context.mounted) {
                   //  context.go(Routes.home);

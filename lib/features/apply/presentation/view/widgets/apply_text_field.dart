@@ -10,8 +10,10 @@ class ApplyTextField extends StatefulWidget {
     this.controller,
     this.hint,
     this.validator,
+    this.isPassword,
   });
   final TextEditingController? controller;
+  final bool? isPassword;
   final String? label;
   final String? hint;
   final TextInputType? textInputType;
@@ -41,21 +43,25 @@ class _ApplyTextFieldState extends State<ApplyTextField> {
       child: TextFormField(
         validator: widget.validator,
         controller: widget.controller,
-        focusNode: focusNode,
         keyboardType: widget.textInputType,
         maxLines: 1,
         style: 16.regular.copyWith(color: AppColors.black0C),
+        obscureText: widget.isPassword ?? false,
+        onTapOutside: (event) {
+          focusNode.unfocus();
+        },
+        onTapUpOutside: (event) {
+          focusNode.unfocus();
+        },
         decoration: InputDecoration(
-          hint: Text(
-            widget.hint ?? "",
-            style: 14.regular.copyWith(color: AppColors.grayA6),
+          hint: Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 10),
+            child: Text(
+              widget.hint ?? "",
+              style: 14.regular.copyWith(color: AppColors.grayA6),
+            ),
           ),
           labelText: widget.label,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
-
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelStyle: WidgetStateTextStyle.resolveWith((
             Set<WidgetState> states,

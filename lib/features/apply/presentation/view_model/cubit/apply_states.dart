@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/core/utils/enums/gender.dart';
 import 'package:elevate_tracking_app/features/apply/data/models/apply_response.dart';
@@ -10,6 +12,8 @@ class ApplyStates extends Equatable {
   final BaseState<VehiclesListEntity> vehicleState;
   final BaseState<ApplyResponse> applyState;
   final String errorMessage;
+  final File? NIDImage;
+  final File? licenseImage;
   final CountryEntity? selectedCountry;
   final VehicleEntity? selectedVehicle;
   final Gender selectedGender;
@@ -20,7 +24,8 @@ class ApplyStates extends Equatable {
     this.vehicleState = const BaseState.initial(),
     this.selectedCountry,
     this.selectedVehicle,
-    this.selectedGender = Gender.male, this.errorMessage ='',
+    this.selectedGender = Gender.male,
+    this.errorMessage = '',  this.NIDImage,  this.licenseImage,
   });
 
   ApplyStates copyWith({
@@ -30,7 +35,9 @@ class ApplyStates extends Equatable {
     CountryEntity? selectedCountry,
     VehicleEntity? selectedVehicle,
     Gender? selectedGender,
-    String? errorMessage ,
+    String? errorMessage,
+    File? NIDImage,
+    File? licenseImage
   }) => ApplyStates(
     countryState: countryState ?? this.countryState,
     vehicleState: vehicleState ?? this.vehicleState,
@@ -39,6 +46,8 @@ class ApplyStates extends Equatable {
     selectedVehicle: selectedVehicle ?? this.selectedVehicle,
     selectedGender: selectedGender ?? this.selectedGender,
     errorMessage: errorMessage ?? this.errorMessage,
+    NIDImage: NIDImage ?? this.NIDImage,
+    licenseImage: licenseImage ?? this.licenseImage
   );
 
   @override
@@ -49,6 +58,8 @@ class ApplyStates extends Equatable {
     selectedCountry,
     selectedVehicle,
     selectedGender,
-    errorMessage
+    errorMessage,
+    NIDImage,
+    licenseImage
   ];
 }
