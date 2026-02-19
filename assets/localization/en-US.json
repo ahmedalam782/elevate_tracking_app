@@ -145,5 +145,10 @@
     "gender_male": "Male",
     "gender_female": "Female",
     "submit": "Submit"
+  },
+  "on_boarding": {
+    "welcome_text": "Welcome to Flowery rider app",
+    "login": "Login",
+    "apply_now": "Apply now"
   }
 }
