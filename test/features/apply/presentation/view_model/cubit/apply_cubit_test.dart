@@ -132,19 +132,11 @@ void main() {
         vehicle: const VehicleEntity(id: 'vid', type: 't', image: 'i'),
       ),
     );
-    cubit.phoneController.text = '1234';
-    cubit.firstNameController.text = 'FN';
-    cubit.lastNameController.text = 'LN';
-    cubit.emailController.text = 'e@e.com';
-    cubit.vehicleNumberController.text = 'num';
-    cubit.NIDController.text = 'nid';
-    cubit.passwordController.text = 'p';
-    cubit.rePasswordController.text = 'p';
 
     final response = ApplyResponse(message: 'ok');
     fakeApply.setResponse(Success(data: response));
 
-    await cubit.doIntent(ApplySubmitEvent());
+    await cubit.doIntent(ApplySubmitEvent(request: ApplyRequest()));
 
     expect(cubit.state.applyState.state, StateType.success);
     expect(cubit.state.applyState.data?.message, 'ok');
@@ -162,12 +154,11 @@ void main() {
         vehicle: const VehicleEntity(id: 'vid', type: 't', image: 'i'),
       ),
     );
-    cubit.phoneController.text = '1234';
 
     final exception = Exception('fail');
     fakeApply.setResponse(Error(exception: exception));
 
-    await cubit.doIntent(ApplySubmitEvent());
+    await cubit.doIntent(ApplySubmitEvent(request: ApplyRequest()));
 
     expect(cubit.state.applyState.state, StateType.error);
     expect(cubit.state.errorMessage, isNotEmpty);
