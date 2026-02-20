@@ -1,10 +1,13 @@
-import 'package:flutter_test/flutter_test.dart';
-// Using a simple fake instead of Mockito to avoid matcher issues
-import 'package:elevate_tracking_app/features/apply/data/repositories/apply_repository_impl.dart';
+import 'package:elevate_tracking_app/core/config/base_response/result.dart';
+import 'package:elevate_tracking_app/core/utils/enums/gender.dart';
 import 'package:elevate_tracking_app/features/apply/data/datasources/apply_remote_data_source_contract.dart';
 import 'package:elevate_tracking_app/features/apply/data/models/apply_request.dart';
 import 'package:elevate_tracking_app/features/apply/data/models/apply_response.dart';
-import 'package:elevate_tracking_app/core/config/base_response/result.dart';
+// Using a simple fake instead of Mockito to avoid matcher issues
+import 'package:elevate_tracking_app/features/apply/data/repositories/apply_repository_impl.dart';
+import 'package:elevate_tracking_app/features/apply/domain/entities/country_entity.dart';
+import 'package:elevate_tracking_app/features/apply/domain/entities/vehicles_list_entity.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 class FakeApplyRemoteDataSourceContract
     implements ApplyRemoteDataSourceContract {
@@ -37,14 +40,18 @@ void main() {
       lastName: 'Doe',
       email: 'john@example.com',
       phone: '123456',
-      vehicleType: 'car',
+      vehicleType: const VehicleEntity(type: "truck", image: "", id: ""),
       vehicleNumber: 'ABC123',
       NID: 'NID123',
       NIDImage: null,
-      gender: 'M',
+      gender: Gender.male,
       password: 'pass',
       rePassword: 'pass',
-      country: 'Country',
+      country: const CountryEntity(
+        flag: 'flag',
+        phoneCode: '+20',
+        name: 'Egypt',
+      ),
       licenseImage: null,
     );
 
@@ -78,14 +85,18 @@ void main() {
       lastName: 'Roe',
       email: 'jane@example.com',
       phone: '654321',
-      vehicleType: 'bike',
+      vehicleType: const VehicleEntity(type: "bike", image: "", id: ""),
       vehicleNumber: 'XYZ789',
       NID: 'NID789',
       NIDImage: null,
-      gender: 'F',
+      gender: Gender.female,
       password: 'pass',
       rePassword: 'pass',
-      country: 'Country',
+      country: const CountryEntity(
+        flag: 'flag',
+        phoneCode: '+20',
+        name: 'Egypt',
+      ),
       licenseImage: null,
     );
 

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:io';
+
 import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/core/errors/handle_errors/handle_errors.dart';
 import 'package:elevate_tracking_app/core/utils/enums/gender.dart';
@@ -12,7 +12,6 @@ import 'package:elevate_tracking_app/features/apply/domain/use_cases/get_countri
 import 'package:elevate_tracking_app/features/apply/domain/use_cases/get_vehicles_use_case.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view_model/cubit/apply_events.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view_model/cubit/apply_states.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -21,85 +20,43 @@ class ApplyCubit extends Cubit<ApplyStates> {
   final ApplyUseCase applyUseCase;
   final GetCountriesUseCase getCountriesUseCase;
   final GetVehiclesUseCase getVehiclesUseCase;
-  TextEditingController firstNameController;
-  TextEditingController lastNameController;
-  TextEditingController emailController;
-  TextEditingController phoneController;
-  TextEditingController vehicleTypeController;
-  TextEditingController vehicleNumberController;
-  TextEditingController NIDController;
-  TextEditingController genderController;
-  TextEditingController passwordController;
-  TextEditingController rePasswordController;
-  File? NIDImage;
-  File? licenseImage;
 
   ApplyCubit(
     this.applyUseCase,
     this.getCountriesUseCase,
     this.getVehiclesUseCase,
-  ) : firstNameController = TextEditingController(),
-      lastNameController = TextEditingController(),
-      emailController = TextEditingController(),
-      phoneController = TextEditingController(),
-      vehicleTypeController = TextEditingController(),
-      vehicleNumberController = TextEditingController(),
-      NIDController = TextEditingController(),
-      genderController = TextEditingController(),
-      passwordController = TextEditingController(),
-      rePasswordController = TextEditingController(),
-      super(const ApplyStates());
-
-  @override
-  Future<void> close() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    vehicleTypeController.dispose();
-    vehicleNumberController.dispose();
-    NIDController.dispose();
-    genderController.dispose();
-    passwordController.dispose();
-    rePasswordController.dispose();
-    return super.close();
-  }
+  ) : super(const ApplyStates());
 
   Future<void> doIntent(ApplyEvents event) async {
-    if (event is GetCountriesEvent) {
+    if (event is GetCountriesEvent && state.countryState.data == null) {
       await _getCountries();
-    } else if (event is GetVehiclesEvent) {
+    } else if (event is GetVehiclesEvent && state.vehicleState.data == null) {
       await _getVehicles();
     } else if (event is SelectCountryEvent) {
       await _selectCountry(event.country);
     } else if (event is SelectVehicleEvent) {
       await _selectVehicle(event.vehicle);
     } else if (event is SelectGenderEvent) {
-      await selectGender(event.gender);
+      await _selectGender(event.gender);
     } else if (event is ApplySubmitEvent) {
-      await apply();
+      await apply(request: event.request);
+    } else if (event is UploadLicenseEvent) {
+      _uploadLicense(license: event.image);
+    } else if (event is UploadNIdEvent) {
+      _uploadNID(NIDImage: event.image);
     }
   }
 
-  Future<void> apply() async {
+  Future<void> apply({required ApplyRequest request}) async {
     emit(state.copyWith(applyState: const BaseState.loading()));
-    final result = await applyUseCase.call(
-      request: ApplyRequest(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        phone: "+${state.selectedCountry!.phoneCode}${phoneController.text}",
-        vehicleType: state.selectedVehicle!.id,
-        vehicleNumber: vehicleNumberController.text,
-        NID: NIDController.text,
-        NIDImage: NIDImage,
-        gender: state.selectedGender.label,
-        password: passwordController.text,
-        rePassword: rePasswordController.text,
-        country: state.selectedCountry!.name,
-        licenseImage: licenseImage,
-      ),
-    );
+    request.phone = _formPhoneNumWithCode(phoneNum: request.phone ?? "");
+    request.NIDImage = state.NIDImage;
+    request.licenseImage = state.licenseImage;
+    request.gender = state.selectedGender;
+    request.vehicleType = state.selectedVehicle;
+    request.country = state.selectedCountry;
+
+    final result = await applyUseCase.call(request: request);
     result.when(
       success: (data) {
         emit(state.copyWith(applyState: BaseState.success(data)));
@@ -164,7 +121,19 @@ class ApplyCubit extends Cubit<ApplyStates> {
     );
   }
 
-  Future<void> selectGender(Gender gender) async {
+  Future<void> _selectGender(Gender gender) async {
     emit(state.copyWith(selectedGender: gender));
+  }
+
+  String? _formPhoneNumWithCode({required String phoneNum}) {
+    return "+${state.selectedCountry!.phoneCode}$phoneNum";
+  }
+
+  void _uploadNID({required File NIDImage}) {
+    emit(state.copyWith(NIDImage: NIDImage));
+  }
+
+  void _uploadLicense({required File license}) {
+    emit(state.copyWith(licenseImage: license));
   }
 }

@@ -153,13 +153,12 @@
     "id_number_label": "رقم الهوية",
     "id_image_label": "صورة الهوية",
     "country_label": "الدولة",
-
     "first_name_hint": "أدخل اسمك الأول",
     "last_name_hint": "أدخل اسم عائلتك",
     "email_hint": "أدخل بريدك الإلكتروني",
     "phone_hint": "أدخل رقم هاتفك",
     "password_hint": "أدخل كلمة المرور",
-    "confirm_password_hint": "أدخل كلمة المرور مرة أخرى",
+    "confirm_password_hint": "أعد إدخال كلمة المرور",
     "country_hint": "اختر دولتك",
     "vehicle_license_hint": "رفع صورة الرخصة",
     "id_image_hint": "رفع صورة الهوية",
@@ -171,4 +170,8 @@
     "gender_female": "أنثى",
     "submit": "إرسال"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5a12d714acc4b6fd944884bc315afad071db186d

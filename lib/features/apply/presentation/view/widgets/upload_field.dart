@@ -7,6 +7,7 @@ import 'package:elevate_tracking_app/core/theme/app_icons.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:elevate_tracking_app/core/validations/validations.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view_model/cubit/apply_cubit.dart';
+import 'package:elevate_tracking_app/features/apply/presentation/view_model/cubit/apply_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,9 +49,9 @@ class _UploadFieldState extends State<UploadField> {
 
     if (pickedFile != null) {
       if (widget.type == UploadType.license) {
-        cubit.licenseImage = File(pickedFile.path);
+        cubit.doIntent(UploadLicenseEvent(image: File(pickedFile.path)));
       } else {
-        cubit.NIDImage = File(pickedFile.path);
+        cubit.doIntent(UploadNIdEvent(image: File(pickedFile.path)));
       }
       setState(() {
         fileName = pickedFile.name;
@@ -65,14 +66,24 @@ class _UploadFieldState extends State<UploadField> {
       canRequestFocus: false,
       controller: widget.controller,
       focusNode: widget.focusNode,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+        _pickImage(ImageSource.gallery);
+      },
       decoration: InputDecoration(
         hint: Text(
           (widget.type == UploadType.license
-                  ? cubit.licenseImage?.path.split('/').last
-                  : cubit.NIDImage?.path.split('/').last) ??
-              widget.hint ??
-              "",
-          style: fileName != null
+              ? cubit.state.licenseImage?.path.split('/').last ??
+                    widget.hint ??
+                    ""
+              : cubit.state.NIDImage?.path.split('/').last ??
+                    widget.hint ??
+                    ""),
+          style:
+              (widget.type == UploadType.license
+                      ? cubit.state.licenseImage?.path.split('/').last
+                      : cubit.state.NIDImage?.path.split('/').last) !=
+                  null
               ? 16.regular.copyWith(color: AppColors.black0C)
               : 14.regular.copyWith(color: AppColors.grayA6),
         ),
@@ -99,14 +110,14 @@ class _UploadFieldState extends State<UploadField> {
           borderSide: BorderSide(color: AppColors.gray53, width: 1.0),
         ),
         suffixIcon: IconButton(
-          onPressed: () async {
-            await _pickImage(ImageSource.gallery);
-          },
+          onPressed: null,
           icon: SvgPicture.asset(AppIcons.iconsUpload),
         ),
       ),
       validator: (value) => Validations.validateUserImage(
-        widget.type == UploadType.license ? cubit.licenseImage : cubit.NIDImage,
+        widget.type == UploadType.license
+            ? cubit.state.licenseImage
+            : cubit.state.NIDImage,
       ),
     );
   }
