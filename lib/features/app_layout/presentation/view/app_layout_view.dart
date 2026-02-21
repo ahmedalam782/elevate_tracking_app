@@ -48,16 +48,18 @@ class AppLayoutView extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   cubit.changeIndex(index);
-                                  print(cubit.index);
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       item.imagePath,
-                                      color: isSelected
-                                          ? AppColors.primerColor
-                                          : AppColors.gray7D,
+                                      colorFilter: ColorFilter.mode(
+                                        isSelected
+                                            ? AppColors.primerColor
+                                            : AppColors.gray7D,
+                                        BlendMode.srcIn,
+                                      ),
                                     ),
                                     SizedBox(height: 6.h),
                                     Text(

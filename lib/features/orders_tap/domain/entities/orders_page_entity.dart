@@ -1,7 +1,7 @@
 class OrdersPageEntity {
   final List<OrderEntity?>? orders;
-
-  OrdersPageEntity({this.orders});
+  final int? totalPages;
+  OrdersPageEntity({this.orders, this.totalPages});
 }
 
 class OrderEntity {

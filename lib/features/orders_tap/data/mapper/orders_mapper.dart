@@ -4,6 +4,7 @@ import 'package:elevate_tracking_app/features/orders_tap/domain/entities/orders_
 extension OrdersMapper on OrdersResponse {
   OrdersPageEntity toEntity() {
     return OrdersPageEntity(
+      totalPages: metadata?.totalPages,
       orders: orders?.map((order) => order?.toEntity()).toList(),
     );
   }

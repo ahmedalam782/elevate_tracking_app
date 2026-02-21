@@ -2,6 +2,10 @@
 class AppIcons {
   AppIcons._();
 
+  static const String cancelled = "assets/icons/cancelled.svg";
+
+  static const String completed = "assets/icons/completed.svg";
+
   static const String arrowDown = "assets/icons/arrow_down.svg";
 
   static const String iconsAddImage = "assets/icons/add_image.svg";
