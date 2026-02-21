@@ -102,7 +102,7 @@ class PendingOrderData {
       storeAddress: store?.address ?? "",
       userAvatar: user?.photo ?? "",
       userName: user?.firstName ?? "",
-      userAddress: "DUMMY ADDRESS",
+      userAddress: "User address",
       totalPrice: totalPrice?.toDouble() ?? 0.0,
     );
   }

@@ -14,10 +14,10 @@ class AppLayoutCubit extends Cubit<AppLayoutState> {
   int index = 0;
   List<Widget> pages = [
     BlocProvider(
+      lazy: false,
       create: (_) =>
-          HomeCubit(getPendingOrdersUseCase: getIt<GetPendingOrdersUseCase>())
-            ..doIntent(GetPendingOrdersEvent()),
-      child: HomePage(),
+          HomeCubit(getPendingOrdersUseCase: getIt<GetPendingOrdersUseCase>()),
+      child: const HomePage(),
     ),
     // HomePage()
     Container(),

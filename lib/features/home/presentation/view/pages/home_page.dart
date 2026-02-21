@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
+import 'package:elevate_tracking_app/core/shared/widgets/custom_skeltonizer_widget.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/home_order_widget.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    homeCubit.doIntent(GetPendingOrdersEvent());
     return BlocBuilder<HomeCubit, HomeStates>(
       builder: (context, state) {
         return SafeArea(
@@ -43,15 +45,23 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 16.h),
               Expanded(
-                child: ListView.separated(
-                  clipBehavior: Clip.hardEdge,
-                  itemBuilder: (context, index) {
-                    return HomeOrderWidget();
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(height: 24.h);
-                  },
-                  itemCount: 10,
+                child: CustomSkeltonizerWidget(
+                  isLoading: state.pendingOrders.isInitialLoading,
+                  child: ListView.separated(
+                    clipBehavior: Clip.hardEdge,
+                    itemBuilder: (context, index) {
+                      return HomeOrderWidget(
+                        onRejectCallback: () {
+                          homeCubit.doIntent(RejectOrderEventt(index: index));
+                        },
+                        order: state.pendingOrders.items[index],
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: 24.h);
+                    },
+                    itemCount: state.pendingOrders.items.length,
+                  ),
                 ),
               ),
               SizedBox(height: 64.h),

@@ -5,12 +5,20 @@ import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/optimized_cached_image.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
+import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/adress_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeOrderWidget extends StatelessWidget {
-  const HomeOrderWidget({super.key});
+  final PendingOrdersEntity order;
+  final void Function()? onRejectCallback;
+  const HomeOrderWidget({
+    super.key,
+    required this.order,
+    this.onRejectCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +43,48 @@ class HomeOrderWidget extends StatelessWidget {
           SizedBox(height: 16.h),
           AddressContainer(
             addressTypText: LocaleKeys.home_pickup_address.tr(),
-            image: "https://placehold.co/600x400",
-            name: "Flowery store",
-            address: "20th st, Sheikh Zayed, Giza ",
+            image: order.storeAvatar,
+            name: order.storeName,
+            address: order.storeAddress,
           ),
           SizedBox(height: 16.h),
           AddressContainer(
             addressTypText: LocaleKeys.home_user_address.tr(),
-            image: "https://placehold.co/600x400",
-            name: "Flowery store",
-            address: "20th st, Sheikh Zayed, Giza ",
+            image: order.userAvatar,
+            name: order.userName,
+            address: order.userAddress,
           ),
           SizedBox(height: 16.h),
           Row(
             children: [
               Text(
-                "${LocaleKeys.home_egp} 3000",
+                "${LocaleKeys.home_egp.tr()} ${order.totalPrice}",
                 style: 12.semiBold.copyWith(color: Color(0xff0C1015)),
               ),
               SizedBox(width: 10.w),
               Expanded(
-                child: CustomButton(
-                  onPressed: () {},
-                  backGroundColor: Colors.white,
-                  title: LocaleKeys.home_reject.tr(),
-                  titleStyle: 14.medium.copyWith(color: AppColors.primerColor),
-                  height: 45.h,
+                child: Skeleton.shade(
+                  child: CustomButton(
+                    onPressed: onRejectCallback,
+                    backGroundColor: Colors.white,
+                    title: LocaleKeys.home_reject.tr(),
+                    titleStyle: 14.medium.copyWith(
+                      color: AppColors.primerColor,
+                    ),
+                    height: 45.h,
+                  ),
                 ),
               ),
               SizedBox(width: 8.w),
               Expanded(
-                child: CustomButton(
-                  onPressed: () {},
-                  backGroundColor: AppColors.primerColor,
-                  title: LocaleKeys.home_accept.tr(),
-                  titleStyle: 14.medium.copyWith(color: Colors.white),
-                  height: 45.h,
+                child: Skeleton.shade(
+                  child: CustomButton(
+                    onPressed: () {},
+                    backGroundColor: AppColors.primerColor,
+                    title: LocaleKeys.home_accept.tr(),
+                    titleStyle: 14.medium.copyWith(color: Colors.white),
+                    height: 45.h,
+                  ),
                 ),
               ),
             ],

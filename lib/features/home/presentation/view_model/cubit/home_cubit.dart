@@ -18,6 +18,8 @@ class HomeCubit extends Cubit<HomeStates> {
     switch (event) {
       case GetPendingOrdersEvent():
         return _getPendingOrders();
+      case RejectOrderEventt():
+        rejectOrder(event.index);
     }
   }
 
@@ -53,6 +55,14 @@ class HomeCubit extends Cubit<HomeStates> {
           ),
         );
       },
+    );
+  }
+
+  void rejectOrder(int index) {
+    final data = List<PendingOrdersEntity>.from(state.pendingOrders.items);
+    data.removeAt(index);
+    emit(
+      state.copyWith(pendingOrders: state.pendingOrders.copyWith(items: data)),
     );
   }
 }
