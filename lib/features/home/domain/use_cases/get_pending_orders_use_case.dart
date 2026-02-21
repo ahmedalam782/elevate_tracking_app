@@ -8,7 +8,7 @@ class GetPendingOrdersUseCase {
   final HomeRepository homeRepository;
 
   GetPendingOrdersUseCase({required this.homeRepository});
-  Future<Result<List<PendingOrdersEntity>>> call() {
+  Future<Result<List<OrderEntity>>> call() {
     return homeRepository.getPendingOrders();
   }
 }

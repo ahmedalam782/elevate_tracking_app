@@ -22,50 +22,62 @@ class _HomePageState extends State<HomePage> {
   late HomeCubit homeCubit;
   @override
   void initState() {
-    homeCubit = context.read<HomeCubit>();
     super.initState();
+    homeCubit = context.read<HomeCubit>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      homeCubit.doIntent(GetPendingOrdersEvent());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    homeCubit.doIntent(GetPendingOrdersEvent());
     return BlocBuilder<HomeCubit, HomeStates>(
       builder: (context, state) {
         return SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 16.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: Text(
-                  LocaleKeys.home_flowery_rider.tr(),
-                  style: 20.regular.copyWith(color: AppColors.primerColor),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Expanded(
-                child: CustomSkeltonizerWidget(
-                  isLoading: state.pendingOrders.isInitialLoading,
-                  child: ListView.separated(
-                    clipBehavior: Clip.hardEdge,
-                    itemBuilder: (context, index) {
-                      return HomeOrderWidget(
-                        onRejectCallback: () {
-                          homeCubit.doIntent(RejectOrderEventt(index: index));
-                        },
-                        order: state.pendingOrders.items[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: 24.h);
-                    },
-                    itemCount: state.pendingOrders.items.length,
+          child: RefreshIndicator(
+            backgroundColor: Colors.white,
+            onRefresh: () async {
+              await homeCubit.doIntent(GetPendingOrdersEvent());
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Text(
+                    LocaleKeys.home_flowery_rider.tr(),
+                    style: 20.regular.copyWith(color: AppColors.primerColor),
                   ),
                 ),
-              ),
-              SizedBox(height: 64.h),
-            ],
+                SizedBox(height: 16.h),
+                Expanded(
+                  child: CustomSkeltonizerWidget(
+                    isLoading: state.pendingOrders.isInitialLoading,
+                    child: ListView.separated(
+                      clipBehavior: Clip.hardEdge,
+                      itemBuilder: (context, index) {
+                        return HomeOrderWidget(
+                          onAcceptCallback: () {
+                            homeCubit.doIntent(AcceptOrderEvent(index: index));
+                          },
+                          onRejectCallback: () {
+                            homeCubit.doIntent(RejectOrderEvent(index: index));
+                          },
+                          order: state.pendingOrders.items[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 24.h);
+                      },
+                      itemCount: state.pendingOrders.items.length,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 64.h),
+              ],
+            ),
           ),
         );
       },

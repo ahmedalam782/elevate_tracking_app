@@ -1,6 +1,8 @@
 // TODO: presentation HomeCubit
 
+import 'package:elevate_tracking_app/core/shared/widgets/loading_flower_widget.dart';
 import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
+import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_use_case.dart';
 import 'package:elevate_tracking_app/features/home/domain/use_cases/get_pending_orders_use_case.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_events.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_states.dart';
@@ -10,25 +12,30 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeCubit extends Cubit<HomeStates> {
   final GetPendingOrdersUseCase getPendingOrdersUseCase;
+  final AcceptOrderUsercase acceptOrderUsercase;
 
-  HomeCubit({required this.getPendingOrdersUseCase})
-    : super(HomeStates.initial());
+  HomeCubit({
+    required this.getPendingOrdersUseCase,
+    required this.acceptOrderUsercase,
+  }) : super(HomeStates.initial());
 
-  void doIntent(HomeEvents event) {
+  Future<void> doIntent(HomeEvents event) async {
     switch (event) {
       case GetPendingOrdersEvent():
         return _getPendingOrders();
-      case RejectOrderEventt():
+      case RejectOrderEvent():
         rejectOrder(event.index);
+      case AcceptOrderEvent():
+        _acceptOrder(event.index);
     }
   }
 
-  void _getPendingOrders() async {
+  Future<void> _getPendingOrders() async {
     emit(
       state.copyWith(
         pendingOrders: state.pendingOrders.copyWith(
           isInitialLoading: true,
-          items: PendingOrdersEntity.getDummyData(),
+          items: OrderEntity.getDummyData(),
         ),
       ),
     );
@@ -58,8 +65,31 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
+  Future<void> _acceptOrder(int index) async {
+    showOverLayLoading();
+    final result = await acceptOrderUsercase.call(
+      state.pendingOrders.items[index].id,
+    );
+    result.when(
+      success: (data) {
+        hideOverlayLoading();
+        emit(
+          state.copyWith(
+            pendingOrders: state.pendingOrders.copyWith(
+              items: List<OrderEntity>.from(state.pendingOrders.items)
+                ..removeAt(index),
+            ),
+          ),
+        );
+      },
+      error: (exception) {
+        hideOverlayLoading();
+      },
+    );
+  }
+
   void rejectOrder(int index) {
-    final data = List<PendingOrdersEntity>.from(state.pendingOrders.items);
+    final data = List<OrderEntity>.from(state.pendingOrders.items);
     data.removeAt(index);
     emit(
       state.copyWith(pendingOrders: state.pendingOrders.copyWith(items: data)),

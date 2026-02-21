@@ -94,8 +94,8 @@ class PendingOrderData {
 
   Map<String, dynamic> toJson() => _$PendingOrderDataToJson(this);
 
-  PendingOrdersEntity toPendingOrderEntity() {
-    return PendingOrdersEntity(
+  OrderEntity toPendingOrderEntity() {
+    return OrderEntity(
       id: id ?? "",
       storeAvatar: store?.image ?? "",
       storeName: store?.name ?? "",

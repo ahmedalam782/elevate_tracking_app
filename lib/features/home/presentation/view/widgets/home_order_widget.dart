@@ -12,12 +12,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeOrderWidget extends StatelessWidget {
-  final PendingOrdersEntity order;
+  final OrderEntity order;
   final void Function()? onRejectCallback;
+  final void Function()? onAcceptCallback;
   const HomeOrderWidget({
     super.key,
     required this.order,
     this.onRejectCallback,
+    this.onAcceptCallback,
   });
 
   @override
@@ -79,7 +81,7 @@ class HomeOrderWidget extends StatelessWidget {
               Expanded(
                 child: Skeleton.shade(
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: onAcceptCallback,
                     backGroundColor: AppColors.primerColor,
                     title: LocaleKeys.home_accept.tr(),
                     titleStyle: 14.medium.copyWith(color: Colors.white),

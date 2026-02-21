@@ -5,15 +5,13 @@ import 'package:elevate_tracking_app/features/home/domain/entities/pending_order
 import 'package:elevate_tracking_app/shared/pagination/lodable_paginated_data.dart';
 
 class HomeStates {
-  LoadablePaginatedModel<PendingOrdersEntity> pendingOrders;
+  LoadablePaginatedModel<OrderEntity> pendingOrders;
   HomeStates({required this.pendingOrders});
 
   factory HomeStates.initial() {
     return HomeStates(pendingOrders: LoadablePaginatedModel.initial());
   }
-  HomeStates copyWith({
-    LoadablePaginatedModel<PendingOrdersEntity>? pendingOrders,
-  }) {
+  HomeStates copyWith({LoadablePaginatedModel<OrderEntity>? pendingOrders}) {
     return HomeStates(pendingOrders: pendingOrders ?? this.pendingOrders);
   }
 }

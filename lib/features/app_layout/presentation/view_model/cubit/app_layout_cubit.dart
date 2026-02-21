@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:elevate_tracking_app/core/config/di/injectable_config.dart';
 import 'package:elevate_tracking_app/features/app_layout/presentation/view_model/cubit/app_layout_state.dart';
+import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_use_case.dart';
 import 'package:elevate_tracking_app/features/home/domain/use_cases/get_pending_orders_use_case.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/pages/home_page.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_cubit.dart';
@@ -15,8 +16,10 @@ class AppLayoutCubit extends Cubit<AppLayoutState> {
   List<Widget> pages = [
     BlocProvider(
       lazy: false,
-      create: (_) =>
-          HomeCubit(getPendingOrdersUseCase: getIt<GetPendingOrdersUseCase>()),
+      create: (_) => HomeCubit(
+        getPendingOrdersUseCase: getIt<GetPendingOrdersUseCase>(),
+        acceptOrderUsercase: getIt<AcceptOrderUsercase>(),
+      ),
       child: const HomePage(),
     ),
     // HomePage()

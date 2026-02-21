@@ -1,4 +1,4 @@
-class PendingOrdersEntity {
+class OrderEntity {
   final String id;
   final String storeAvatar;
   final String storeName;
@@ -8,7 +8,7 @@ class PendingOrdersEntity {
   final String userAddress;
   final double totalPrice;
 
-  PendingOrdersEntity({
+  OrderEntity({
     required this.id,
     required this.storeAvatar,
     required this.storeName,
@@ -18,9 +18,9 @@ class PendingOrdersEntity {
     required this.userAddress,
     required this.totalPrice,
   });
-  static List<PendingOrdersEntity> getDummyData() {
+  static List<OrderEntity> getDummyData() {
     return [
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-001',
         storeAvatar: 'https://picsum.photos/200/200?store1',
         storeName: 'Tech Store',
@@ -30,7 +30,7 @@ class PendingOrdersEntity {
         userAddress: 'Maadi, Cairo',
         totalPrice: 1250.50,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-002',
         storeAvatar: 'https://picsum.photos/200/200?store2',
         storeName: 'Fashion Hub',
@@ -40,7 +40,7 @@ class PendingOrdersEntity {
         userAddress: 'Zamalek, Cairo',
         totalPrice: 890.00,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-003',
         storeAvatar: 'https://picsum.photos/200/200?store3',
         storeName: 'Home Essentials',
@@ -50,7 +50,7 @@ class PendingOrdersEntity {
         userAddress: 'Haram, Giza',
         totalPrice: 2300.75,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-004',
         storeAvatar: 'https://picsum.photos/200/200?store4',
         storeName: 'Mobile Planet',
@@ -60,7 +60,7 @@ class PendingOrdersEntity {
         userAddress: 'Stanley, Alexandria',
         totalPrice: 4200.00,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-005',
         storeAvatar: 'https://picsum.photos/200/200?store5',
         storeName: 'Gadget Zone',
@@ -70,7 +70,7 @@ class PendingOrdersEntity {
         userAddress: 'El Mahalla, Gharbia',
         totalPrice: 1560.25,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-006',
         storeAvatar: 'https://picsum.photos/200/200?store6',
         storeName: 'Smart Living',
@@ -80,7 +80,7 @@ class PendingOrdersEntity {
         userAddress: '6th October, Giza',
         totalPrice: 780.00,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-007',
         storeAvatar: 'https://picsum.photos/200/200?store7',
         storeName: 'Elite Market',
@@ -90,7 +90,7 @@ class PendingOrdersEntity {
         userAddress: 'Talkha, Dakahlia',
         totalPrice: 3420.90,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-008',
         storeAvatar: 'https://picsum.photos/200/200?store8',
         storeName: 'Fresh Basket',
@@ -100,7 +100,7 @@ class PendingOrdersEntity {
         userAddress: 'Rehab City, Cairo',
         totalPrice: 640.30,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-009',
         storeAvatar: 'https://picsum.photos/200/200?store9',
         storeName: 'Daily Needs',
@@ -110,7 +110,7 @@ class PendingOrdersEntity {
         userAddress: 'Port Said',
         totalPrice: 1999.99,
       ),
-      PendingOrdersEntity(
+      OrderEntity(
         id: 'order-010',
         storeAvatar: 'https://picsum.photos/200/200?store10',
         storeName: 'Urban Trends',
