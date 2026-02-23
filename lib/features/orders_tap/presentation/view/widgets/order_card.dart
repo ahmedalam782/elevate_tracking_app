@@ -4,6 +4,8 @@ import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:elevate_tracking_app/features/orders_tap/domain/entities/orders_page_entity.dart';
 import 'package:elevate_tracking_app/features/orders_tap/presentation/view/widgets/status_padge.dart';
+import 'package:elevate_tracking_app/features/orders_tap/presentation/view/widgets/store_card.dart';
+import 'package:elevate_tracking_app/features/orders_tap/presentation/view/widgets/user_card.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
@@ -14,6 +16,7 @@ class OrderCard extends StatelessWidget {
     return Container(
       height: 287,
       padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.whiteF9,
         boxShadow: [
@@ -30,10 +33,15 @@ class OrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              statusPadge(StatusPadge.cancelled),
-              Text("#123456789", style: 16.semiBold),
+              StatusPadgeWidget(
+                status: StatusPadgeWidget.fromString(order.orderDetails.state),
+              ),
+              Text(order.orderDetails.orderNumber, style: 16.semiBold),
             ],
           ),
+
+          StoreCard(store: order.store),
+          UserCard(user: order.orderDetails.user),
         ],
       ),
     );

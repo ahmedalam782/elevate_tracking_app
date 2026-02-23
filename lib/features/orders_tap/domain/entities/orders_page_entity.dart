@@ -1,55 +1,63 @@
 class OrdersPageEntity {
-  final List<OrderEntity?>? orders;
-  final int? totalPages;
-  OrdersPageEntity({this.orders, this.totalPages});
+  final List<OrderEntity> orders;
+  final int totalPages;
+  OrdersPageEntity({required this.orders, required this.totalPages});
 }
 
 class OrderEntity {
-  final String? driver;
-  final OrderDetailsEntity? orderDetails;
+  final String driver;
+  final OrderDetailsEntity orderDetails;
 
-  final StoreEntity? store;
+  final StoreEntity store;
 
   OrderEntity({
-    this.driver,
-    this.orderDetails,
-    this.store,
+    required this.driver,
+    required this.orderDetails,
+    required this.store,
   });
 }
 
 class OrderDetailsEntity {
-  final String? orderNumber;
-  final int? totalPrice;
-  final String? paymentType;
-  final bool? isPaid;
-  final bool? isDelivered;
-  final String? state;
+  final String orderNumber;
+  final int totalPrice;
+  final String paymentType;
+  final bool isPaid;
+  final bool isDelivered;
+  final String state;
+  final OrderUserEntity user;
 
   OrderDetailsEntity({
-    this.orderNumber,
-    this.totalPrice,
-    this.paymentType,
-    this.isPaid,
-    this.isDelivered,
-    this.state,
+    required this.orderNumber,
+    required this.totalPrice,
+    required this.paymentType,
+    required this.isPaid,
+    required this.isDelivered,
+    required this.state, required this.user,
   });
 }
 
 class StoreEntity {
-  final String? name;
-  final String? image;
-  final String? address;
+  final String name;
+  final String image;
+  final String address;
 
-  StoreEntity({this.name, this.image, this.address});
+  StoreEntity({required this.name, required this.image, required this.address});
 }
 
-class UserEntity {
-  final String? firstName;
-  final String? lastName;
-  final String? email;
-  final String? gender;
-  final String? phone;
-  final String? photo;
+class OrderUserEntity {
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String gender;
+  final String phone;
+  final String photo;
 
-  UserEntity({this.firstName, this.lastName, this.email, this.gender, this.phone, this.photo});
+  OrderUserEntity({
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.gender,
+    required this.phone,
+    required this.photo,
+  });
 }

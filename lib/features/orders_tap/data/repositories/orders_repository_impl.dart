@@ -13,8 +13,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
   Future<Result<OrdersPageEntity>> getOrders({required int page}) async {
     final result = await remoteDataSource.getOrders(page: page);
     return result.when(
-      success: (value) =>
-          Success(data: value?.toEntity() ?? OrdersPageEntity()),
+      success: (value) => Success(data: value?.toEntity()),
       error: (failure) => Error(exception: failure as Exception),
     );
   }

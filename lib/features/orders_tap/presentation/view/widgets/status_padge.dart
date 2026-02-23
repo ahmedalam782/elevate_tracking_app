@@ -6,43 +6,67 @@ import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+extension StatusPadgeExtension on StatusPadge {
+  String get title {
+    switch (this) {
+      case StatusPadge.pending:
+        return LocaleKeys.my_orders_pending.tr();
+      case StatusPadge.completed:
+        return LocaleKeys.my_orders_completed.tr();
+      case StatusPadge.cancelled:
+        return LocaleKeys.my_orders_cancelled.tr();
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case StatusPadge.pending:
+        return AppColors.primerColor;
+      case StatusPadge.completed:
+        return AppColors.green0C;
+      case StatusPadge.cancelled:
+        return AppColors.redCC;
+    }
+  }
+
+  String get icon {
+    switch (this) {
+      case StatusPadge.pending:
+        return '';
+      case StatusPadge.completed:
+        return AppIcons.completed;
+      case StatusPadge.cancelled:
+        return AppIcons.canceled;
+    }
+  }
+}
+
 enum StatusPadge { pending, completed, cancelled }
 
-Widget statusPadge(StatusPadge status) {
-  switch (status) {
-    case StatusPadge.pending:
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: AppColors.primerColor.withAlpha(16),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          LocaleKeys.my_orders_pending.tr(),
-          style: 12.medium.copyWith(color: AppColors.primerColor),
-        ),
-      );
-    case StatusPadge.completed:
-      return Row(
-        spacing: 4,
-        children: [
-          SvgPicture.asset(AppIcons.completed),
-          Text(
-            LocaleKeys.my_orders_completed.tr(),
-            style: 16.medium.copyWith(color: AppColors.green0C),
-          ),
-        ],
-      );
-    case StatusPadge.cancelled:
-      return Row(
-        spacing: 4,
-        children: [
-          SvgPicture.asset(AppIcons.cancelled),
-          Text(
-            LocaleKeys.my_orders_cancelled.tr(),
-            style: 16.medium.copyWith(color: AppColors.redCC),
-          ),
-        ],
-      );
+class StatusPadgeWidget extends StatelessWidget {
+  const StatusPadgeWidget({super.key, required this.status});
+  static StatusPadge fromString(String status) {
+    switch (status) {
+      case 'pending':
+        return StatusPadge.pending;
+      case 'completed':
+        return StatusPadge.completed;
+      case 'canceled':
+        return StatusPadge.cancelled;
+      default:
+        return StatusPadge.pending;
+    }
+  }
+
+  final StatusPadge status;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 4,
+      children: [
+        if (status.icon.isNotEmpty) SvgPicture.asset(status.icon),
+        Text(status.title, style: 16.medium.copyWith(color: status.color)),
+      ],
+    );
   }
 }

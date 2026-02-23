@@ -33,6 +33,7 @@ class AppLayoutView extends StatelessWidget {
                         height: 60.h,
                         padding: EdgeInsets.symmetric(horizontal: 24.w),
                         decoration: const BoxDecoration(
+                          color: AppColors.whiteF9,
                           border: Border(
                             top: BorderSide(width: 1, color: AppColors.grayCF),
                           ),

@@ -2,7 +2,9 @@
 class AppIcons {
   AppIcons._();
 
-  static const String cancelled = "assets/icons/cancelled.svg";
+  static const String location = "assets/icons/location.svg";
+
+  static const String canceled = "assets/icons/cancelled.svg";
 
   static const String completed = "assets/icons/completed.svg";
 
