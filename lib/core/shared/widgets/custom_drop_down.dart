@@ -163,13 +163,13 @@ class _SearchSheetState<T> extends State<_SearchSheet<T>> {
               child: Theme(
                 data: Theme.of(context).copyWith(
                   scrollbarTheme: ScrollbarThemeData(
-                    thumbColor: MaterialStateProperty.all(Colors.white),
-                    trackColor: MaterialStateProperty.all(
+                    thumbColor: WidgetStateProperty.all(Colors.white),
+                    trackColor: WidgetStateProperty.all(
                       Colors.white.withOpacity(0.25),
                     ),
                     radius: const Radius.circular(10),
-                    thickness: MaterialStateProperty.all(3),
-                    thumbVisibility: MaterialStateProperty.all(true),
+                    thickness: WidgetStateProperty.all(3),
+                    thumbVisibility: WidgetStateProperty.all(true),
                   ),
                 ),
                 child: Scrollbar(
