@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/routes/routes.dart';
 import 'package:elevate_tracking_app/features/forget_password/presentation/view/pages/forgetPassword_page.dart';
+import 'package:elevate_tracking_app/features/reset_password/presentation/view/pages/reset_password_page.dart';
 import 'package:elevate_tracking_app/features/app_layout/presentation/view/app_layout_view.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/pages/apply_page.dart';
+import 'package:elevate_tracking_app/features/order_details/presentation/view/pages/order_details_page.dart';
 import 'package:elevate_tracking_app/features/on_boarding/presentation/view/pages/on_boarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +23,12 @@ final GoRouter router = GoRouter(
       page: (state, context) =>
           SplashPage(key: ValueKey(context.locale.languageCode.toString())),
     ),
+      _customAnimatedGoRoute(
+      route: Routes.resetPassword,
+      page: (state, context) => ResetPasswordPage(
+        key: ValueKey(context.locale.languageCode.toString()),
+      ),
+    ),
     _customAnimatedGoRoute(
       route: Routes.login,
       page: (state, context) =>
@@ -31,6 +39,11 @@ final GoRouter router = GoRouter(
       page: (state, context) => ForgetPasswordPage(
         key: ValueKey(context.locale.languageCode.toString()),
       ),
+    _customAnimatedGoRoute(
+      route: Routes.OrderDetailsScreen,
+      page: (state, context) =>
+          OrderDetailsScreen(key: ValueKey(context.locale.languageCode.toString()), driverOrderId: '',),
+    ),
     _customAnimatedGoRoute(
       route: Routes.onBoarding,
       page: (state, context) =>

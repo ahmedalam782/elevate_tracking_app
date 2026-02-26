@@ -5,10 +5,13 @@ class EndPoints {
   static const String forgetPasswordEndpoint = "/auth/forgotPassword";
   static const String verifyResetEndpoint = "/auth/verifyResetCode";
   static const String resetPasswordEndpoint = "/auth/resetPassword";
+
+  static const String changePassword = "/auth/change-password";
   static const String vehicles = "/vehicles";
   static const String apply = "/drivers/apply";
   static const String pendingOrders = "/orders/pending-orders";
   static const String startOrder = "/orders/start";
+  static const String orderDetails = "/orders/driver-orders/{id}";
   static const String ordersPage = "/orders/driver-orders";
   static const String profileData = "/auth/profile-data";
 

@@ -113,6 +113,7 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
+<<<<<<< feature/FP-55-forget-password
    "forget_password": {
     "password": "كلمة المرور",
     "forget_password": "نسيت الرقم السري",
@@ -131,6 +132,16 @@
     "confirm_password": "تأكيد الرقم السري",
     "enter_your_password": "أدخل الرقم السري الخاص بك",
     "password_rest_successfully": "تم تغير الرقم السري بنجاح"
+=======
+ "reset_password": {
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "new_password": "كلمة المرور الجديدة",
+    "current_password": "كلمة المرور الحالية",
+    "confirm_password": "تأكيد كلمة المرور",
+    "update_button": "تحديث"
+  }
+}
+>>>>>>> develoment
   "login": {
     "title": "تسجيل الدخول",
     "subtitle": "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة",
@@ -224,4 +235,5 @@
     "Arabic": "العربية",
     "English": "الإنجليزية"
   }
+
 }
