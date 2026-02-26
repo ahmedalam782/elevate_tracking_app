@@ -1,11 +1,16 @@
 class EndPoints {
   static const String baseUrl = "https://flower.elevateegy.com/api/v1";
-  static const String login = "/auth/signin";
+  static const String login = "/drivers/signin";
   static const String register = "/auth/signup";
   static const String forgetPasswordEndpoint = "/auth/forgotPassword";
   static const String verifyResetEndpoint = "/auth/verifyResetCode";
   static const String resetPasswordEndpoint = "/auth/resetPassword";
-
+  static const String vehicles = "/vehicles";
+  static const String apply = "/drivers/apply";
+  static const String pendingOrders = "/orders/pending-orders";
+  static const String startOrder = "/orders/start";
+  static const String ordersPage = "/orders/driver-orders";
+  static const String profileData = "/auth/profile-data";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>
@@ -14,7 +19,8 @@ class EndPoints {
   //! About App
   static const String aboutApp = "/about-app";
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>
-  static const String aboutAppPath = 'assets/json/Flowery About Section JSON with Expanded Content.json';
+  static const String aboutAppPath =
+      'assets/json/Flowery About Section JSON with Expanded Content.json';
 }
 
 class Apikeys {
