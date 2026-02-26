@@ -113,6 +113,82 @@
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
   },
+  "apply": {
+    "app_bar_title": "Apply",
+    "welcome": "Welcome!!",
+    "discription": "You want to be a delivery man?\nJoin our team",
+    "first_name_label": "First legal name",
+    "last_name_label": "Last legal name",
+    "email_label": "Email",
+    "phone_label": "Phone number",
+    "password_label": "Password",
+    "confirm_password_label": "Confirm password",
+    "vehicle_type_label": "Vehicle type",
+    "vehicle_number_label": "Vehicle number",
+    "vehicle_license_label": "Vehicle license",
+    "id_number_label": "ID number",
+    "id_image_label": "ID image",
+    "country_label": "Country",
+    "first_name_hint": "Enter your first name",
+    "last_name_hint": "Enter your last name",
+    "email_hint": "Enter your email",
+    "phone_hint": "Enter your phone number",
+    "password_hint": "Enter your password",
+    "confirm_password_hint": "Confirm password",
+    "country_hint": "Select your country",
+    "vehicle_license_hint": "Upload license image",
+    "id_image_hint": "Upload ID image",
+    "id_number_hint": "Enter your ID number",
+    "vehicle_number_hint": "Enter your vehicle number",
+    "vehicle_type_hint": "Select vehicle type",
+    "gender_hint": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "submit": "Submit"
+  },
+  "on_boarding": {
+    "welcome_text": "Welcome to Flowery rider app",
+    "login": "Login",
+    "apply_now": "Apply now"
+  },
+
+  "login": {
+    "title": "Login",
+    "subtitle": "Welcome back! Please login to continue",
+    "email_hint_text": "Enter your email",
+    "email_label": "Email",
+    "password_hint_text": "Enter your password",
+    "password_label": "Password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "login_button": "Login",
+    "continue_as_guest": "Continue as guest",
+    "no_account": "Don't have an account? ",
+    "sign_up": "Sign up",
+    "welcome_message": "Welcome {name}!",
+    "Invalid_email_or_password": "Invalid email or password"
+  },
+  "home": {
+    "flowery_rider": "Flowery rider",
+    "flower_order": "Flower order",
+    "pickup_address": "Pickup address",
+    "user_address": "User address",
+    "egp": "EGP",
+    "reject": "Reject",
+    "accept": "Accept"
+  },
+
+  "my_orders": {
+    "title": "My orders",
+    "recent_orders": "Recent orders",
+    "pickup_address": "Pickup address",
+    "user_address": "User address",
+    "flower_order": "Flower order",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+
   "profile": {
     "profile_title": "Profile",
     "my_orders": "My orders",

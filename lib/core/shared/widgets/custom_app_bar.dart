@@ -1,3 +1,4 @@
+import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,7 +43,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () {
                   context.pop();
                 },
-                child: const Icon(Icons.chevron_left, size: 38),
+                child: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  size: 24,
+                  color: AppColors.black0C,
+                ),
               )
             : null,
         actions: actions,
