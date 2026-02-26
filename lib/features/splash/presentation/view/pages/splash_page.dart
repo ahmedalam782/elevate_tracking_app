@@ -81,7 +81,7 @@ class _SplashPageState extends State<SplashPage> {
     } else {
       await UserHelper.clearUserData();
       if (mounted) {
-        context.go(Routes.login);
+        context.go(Routes.onBoarding);
       }
     }
   }
