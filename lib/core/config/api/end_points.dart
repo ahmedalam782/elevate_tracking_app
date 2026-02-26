@@ -7,6 +7,8 @@ class EndPoints {
   static const String resetPasswordEndpoint = "/auth/resetPassword";
   static const String vehicles = "/vehicles";
   static const String apply = "/drivers/apply";
+  static const String pendingOrders = "/orders/pending-orders";
+  static const String startOrder = "/orders/start";
   static const String ordersPage = "/orders/driver-orders";
 
   //! TERMS AND CONDITIONS

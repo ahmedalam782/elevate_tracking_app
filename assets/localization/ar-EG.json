@@ -171,13 +171,22 @@
     "submit": "إرسال"
   },
   "my_orders": {
-  "title": "طلباتي",
-  "recent_orders": "الطلبات الأخيرة",
-  "pickup_address": "عنوان الاستلام",
-  "user_address": "عنوان المستخدم",
-  "flower_order": "طلب الزهور",
-  "pending": "قيد الانتظار",
-  "completed": "مكتمل",
-  "cancelled": "ملغي"
-}
+    "title": "طلباتي",
+    "recent_orders": "الطلبات الأخيرة",
+    "pickup_address": "عنوان الاستلام",
+    "user_address": "عنوان المستخدم",
+    "flower_order": "طلب الزهور",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "cancelled": "ملغي"
+  },
+  "home": {
+    "flowery_rider": "فلاوري سائك",
+    "flower_order": "طلب ورود",
+    "pickup_address": "عنوان التحميل",
+    "user_address": "عنوان اليوزر",
+    "egp": "جنية",
+    "reject": "رفض",
+    "accept": "قبول"
+  }
 }
