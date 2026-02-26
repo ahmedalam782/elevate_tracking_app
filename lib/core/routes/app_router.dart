@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/routes/routes.dart';
+import 'package:elevate_tracking_app/features/forget_password/presentation/view/pages/forgetPassword_page.dart';
 import 'package:elevate_tracking_app/features/reset_password/presentation/view/pages/reset_password_page.dart';
 import 'package:elevate_tracking_app/features/app_layout/presentation/view/app_layout_view.dart';
 import 'package:elevate_tracking_app/features/apply/presentation/view/pages/apply_page.dart';
@@ -33,6 +34,11 @@ final GoRouter router = GoRouter(
       page: (state, context) =>
           LoginPage(key: ValueKey(context.locale.languageCode.toString())),
     ),
+   _customAnimatedGoRoute(
+      route: Routes.forgetPassword,
+      page: (state, context) => ForgetPasswordPage(
+        key: ValueKey(context.locale.languageCode.toString()),
+      ),
     _customAnimatedGoRoute(
       route: Routes.OrderDetailsScreen,
       page: (state, context) =>
