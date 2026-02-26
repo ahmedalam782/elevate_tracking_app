@@ -23,10 +23,9 @@ class Routes {
   static const String webPay = "/web-pay";
   static const String addressDetails = "/address-details";
   static const String search = "/search";
-  static const String resetPassword = "/reset-password";
-  
-}
-  static const String onBoarding = "/on-boarding";
+  static const String resetPassword = "/reset-password"; static const String onBoarding = "/on-boarding";
   static const String apply = "/apply";
   static const String OrderDetailsScreen = "/apply";
+  
 }
+
