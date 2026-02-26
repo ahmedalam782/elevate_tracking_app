@@ -9,6 +9,7 @@ class EndPoints {
   static const String apply = "/drivers/apply";
   static const String pendingOrders = "/orders/pending-orders";
   static const String startOrder = "/orders/start";
+  static const String orderDetails = "/orders/driver-orders/{id}";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>

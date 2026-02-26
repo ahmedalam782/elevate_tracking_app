@@ -8,4 +8,5 @@ class Routes {
   static const String resetPassword = "/reset-password";
   static const String onBoarding = "/on-boarding";
   static const String apply = "/apply";
+  static const String OrderDetailsScreen = "/apply";
 }
