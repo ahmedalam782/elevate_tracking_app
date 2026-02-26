@@ -113,6 +113,14 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
+ "reset_password": {
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "new_password": "كلمة المرور الجديدة",
+    "current_password": "كلمة المرور الحالية",
+    "confirm_password": "تأكيد كلمة المرور",
+    "update_button": "تحديث"
+  }
+}
   "login": {
     "title": "تسجيل الدخول",
     "subtitle": "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة",
