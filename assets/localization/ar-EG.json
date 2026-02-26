@@ -188,5 +188,22 @@
     "egp": "جنية",
     "reject": "رفض",
     "accept": "قبول"
+  },
+
+  "profile": {
+    "profile_title": "الملف الشخصي",
+    "my_orders": "طلباتي",
+    "saved_address": "العناوين المحفوظة",
+    "notification": "الإشعارات",
+    "language": "اللغة",
+    "about_us": "من نحن",
+    "terms_conditions": "الشروط والأحكام",
+    "logout": "تسجيل الخروج",
+    "edit_profile": "تعديل الملف الشخصي",
+    "logout_confirmation": "هل أنت متأكد من تسجيل الخروج؟",
+    "logout_success": "تم تسجيل الخروج بنجاح",
+    "change_language": "تغيير اللغة",
+    "Arabic": "العربية",
+    "English": "الإنجليزية"
   }
 }

@@ -187,5 +187,22 @@
     "pending": "Pending",
     "completed": "Completed",
     "cancelled": "Cancelled"
+  },
+
+  "profile": {
+    "profile_title": "Profile",
+    "my_orders": "My orders",
+    "saved_address": "Saved address",
+    "notification": "Notification",
+    "language": "Language",
+    "about_us": "About us",
+    "terms_conditions": "Terms & conditions",
+    "logout": "Logout",
+    "edit_profile": "Edit profile",
+    "logout_confirmation": "Are you sure you want to logout?",
+    "logout_success": "Logged out successfully",
+    "change_language": "Change Language",
+    "Arabic": "Arabic",
+    "English": "English"
   }
 }
