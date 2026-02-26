@@ -170,6 +170,16 @@
     "gender_female": "أنثى",
     "submit": "إرسال"
   },
+  "my_orders": {
+    "title": "طلباتي",
+    "recent_orders": "الطلبات الأخيرة",
+    "pickup_address": "عنوان الاستلام",
+    "user_address": "عنوان المستخدم",
+    "flower_order": "طلب الزهور",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "cancelled": "ملغي"
+  },
   "home": {
     "flowery_rider": "فلاوري سائك",
     "flower_order": "طلب ورود",
@@ -178,6 +188,23 @@
     "egp": "جنية",
     "reject": "رفض",
     "accept": "قبول"
+  },
+
+  "profile": {
+    "profile_title": "الملف الشخصي",
+    "my_orders": "طلباتي",
+    "saved_address": "العناوين المحفوظة",
+    "notification": "الإشعارات",
+    "language": "اللغة",
+    "about_us": "من نحن",
+    "terms_conditions": "الشروط والأحكام",
+    "logout": "تسجيل الخروج",
+    "edit_profile": "تعديل الملف الشخصي",
+    "logout_confirmation": "هل أنت متأكد من تسجيل الخروج؟",
+    "logout_success": "تم تسجيل الخروج بنجاح",
+    "change_language": "تغيير اللغة",
+    "Arabic": "العربية",
+    "English": "الإنجليزية"
   }
 
 }

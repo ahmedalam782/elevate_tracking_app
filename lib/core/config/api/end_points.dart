@@ -10,6 +10,8 @@ class EndPoints {
   static const String pendingOrders = "/orders/pending-orders";
   static const String startOrder = "/orders/start";
   static const String orderDetails = "/orders/driver-orders/{id}";
+  static const String ordersPage = "/orders/driver-orders";
+  static const String profileData = "/auth/profile-data";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>
