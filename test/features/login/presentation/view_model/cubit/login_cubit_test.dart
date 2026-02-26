@@ -1,7 +1,6 @@
 import 'package:elevate_tracking_app/core/config/base_response/result.dart';
 import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/features/login/domain/entities/login_response_entity.dart';
-import 'package:elevate_tracking_app/features/login/domain/entities/user_model_entity.dart';
 import 'package:elevate_tracking_app/features/login/domain/use_cases/login_use_case.dart';
 import 'package:elevate_tracking_app/features/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:elevate_tracking_app/features/login/presentation/view_model/cubit/login_events.dart';
