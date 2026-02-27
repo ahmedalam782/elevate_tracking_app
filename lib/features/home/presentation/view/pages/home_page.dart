@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:elevate_tracking_app/core/config/di/injectable_config.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_skeltonizer_widget.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
@@ -23,64 +24,69 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    homeCubit = context.read<HomeCubit>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      homeCubit.doIntent(GetPendingOrdersEvent());
-    });
+    homeCubit = getIt<HomeCubit>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeStates>(
-      builder: (context, state) {
-        return SafeArea(
-          child: RefreshIndicator(
-            backgroundColor: Colors.white,
-            onRefresh: () async {
-              await homeCubit.doIntent(GetPendingOrdersEvent());
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 16.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Text(
-                    LocaleKeys.home_flowery_rider.tr(),
-                    style: 20.regular.copyWith(color: AppColors.primerColor),
-                  ),
-                ),
-                SizedBox(height: 16.h),
-                Expanded(
-                  child: CustomSkeltonizerWidget(
-                    isLoading: state.pendingOrders.isInitialLoading,
-                    child: ListView.separated(
-                      clipBehavior: Clip.hardEdge,
-                      itemBuilder: (context, index) {
-                        return HomeOrderWidget(
-                          onAcceptCallback: () {
-                            homeCubit.doIntent(AcceptOrderEvent(index: index));
-                          },
-                          onRejectCallback: () {
-                            homeCubit.doIntent(RejectOrderEvent(index: index));
-                          },
-                          order: state.pendingOrders.items[index],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: 24.h);
-                      },
-                      itemCount: state.pendingOrders.items.length,
+    return BlocProvider.value(
+      // create: (context) => homeCubit,
+      value: getIt<HomeCubit>()..doIntent(GetPendingOrdersEvent()),
+      child: BlocBuilder<HomeCubit, HomeStates>(
+        builder: (context, state) {
+          return SafeArea(
+            child: RefreshIndicator(
+              backgroundColor: Colors.white,
+              onRefresh: () async {
+                await homeCubit.doIntent(GetPendingOrdersEvent());
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 16.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Text(
+                      LocaleKeys.home_flowery_rider.tr(),
+                      style: 20.regular.copyWith(color: AppColors.primerColor),
                     ),
                   ),
-                ),
-                SizedBox(height: 64.h),
-              ],
+                  SizedBox(height: 16.h),
+                  Expanded(
+                    child: CustomSkeltonizerWidget(
+                      isLoading: state.pendingOrders.isInitialLoading,
+                      child: ListView.separated(
+                        clipBehavior: Clip.hardEdge,
+                        itemBuilder: (context, index) {
+                          return HomeOrderWidget(
+                            onAcceptCallback: () {
+                              homeCubit.doIntent(
+                                AcceptOrderEvent(index: index),
+                              );
+                            },
+                            onRejectCallback: () {
+                              print(index);
+                              homeCubit.doIntent(
+                                RejectOrderEvent(index: index),
+                              );
+                            },
+                            order: state.pendingOrders.items[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(height: 24.h);
+                        },
+                        itemCount: state.pendingOrders.items.length,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 64.h),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
