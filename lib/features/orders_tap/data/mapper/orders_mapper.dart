@@ -9,7 +9,7 @@ extension OrdersMapper on OrdersResponse {
           .map(
             (order) =>
                 order?.toEntity() ??
-                OrderEntity(
+                const OrderEntity(
                   driver: "",
                   orderDetails: OrderDetailsEntity(
                     user: OrderUserEntity(
@@ -41,7 +41,7 @@ extension OrderMapper on Orders {
       driver: driver ?? "",
       orderDetails:
           order?.toEntity() ??
-          OrderDetailsEntity(
+          const OrderDetailsEntity(
             user: OrderUserEntity(
               firstName: "",
               lastName: "",
@@ -57,7 +57,7 @@ extension OrderMapper on Orders {
             isDelivered: false,
             state: "",
           ),
-      store: store?.toEntity() ?? StoreEntity(name: "", image: "", address: ""),
+      store: store?.toEntity() ?? const StoreEntity(name: "", image: "", address: ""),
     );
   }
 }
@@ -67,7 +67,7 @@ extension OrderDetailsMapper on Order {
     return OrderDetailsEntity(
       user:
           user?.toEntity() ??
-          OrderUserEntity(
+          const OrderUserEntity(
             firstName: "",
             lastName: "",
             email: "",

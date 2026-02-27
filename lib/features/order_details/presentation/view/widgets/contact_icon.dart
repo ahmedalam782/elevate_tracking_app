@@ -6,7 +6,7 @@ class ContactIcon extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  const ContactIcon({required this.icon, required this.onTap});
+  const ContactIcon({super.key, required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

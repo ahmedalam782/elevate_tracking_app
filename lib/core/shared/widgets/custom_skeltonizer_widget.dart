@@ -42,8 +42,8 @@ class CustomSliverSkeltonizer extends StatelessWidget {
 }
 
 ShimmerEffect getShimmerEffect() {
-  return ShimmerEffect(
-    duration: const Duration(milliseconds: 1500),
+  return const ShimmerEffect(
+    duration: Duration(milliseconds: 1500),
     // baseColor: const Color(0xFFE0E0E0),
     baseColor: Color(0xffEBEBEB),
     highlightColor: Colors.white,

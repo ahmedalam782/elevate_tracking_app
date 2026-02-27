@@ -1,7 +1,6 @@
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/contact_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AddressCard extends StatelessWidget {
   final String label;
@@ -11,7 +10,7 @@ class AddressCard extends StatelessWidget {
   final String? imageUrl;
   final bool isStore;
 
-  const AddressCard({
+  const AddressCard({super.key, 
     required this.label,
     required this.name,
     required this.address,

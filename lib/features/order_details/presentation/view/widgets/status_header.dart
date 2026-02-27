@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class StatusHeaderWidget extends StatelessWidget {
   final OrderStatus currentStatus;
 
-  const StatusHeaderWidget({required this.currentStatus});
+  const StatusHeaderWidget({super.key, required this.currentStatus});
 
   @override
   Widget build(BuildContext context) {

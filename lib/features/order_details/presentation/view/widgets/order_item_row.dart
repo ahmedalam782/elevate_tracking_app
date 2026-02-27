@@ -1,12 +1,11 @@
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/features/order_details/domain/entities/order_details_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OrderItemRow extends StatelessWidget {
   final OrderItemEntity item;
 
-  const OrderItemRow({required this.item});
+  const OrderItemRow({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

@@ -2,14 +2,13 @@ import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/features/order_details/domain/entities/order_details_entity.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/order_item_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OrderItemsCard extends StatelessWidget {
   final List<OrderItemEntity> items;
   final double totalPrice;
   final String paymentType;
 
-  const OrderItemsCard({
+  const OrderItemsCard({super.key, 
     required this.items,
     required this.totalPrice,
     required this.paymentType,

@@ -62,7 +62,7 @@ HomeCubit _buildCubit(FakeHomeRepository repository) {
 Widget _buildTestWidget(Widget child) {
   return ScreenUtilInit(
     designSize: const Size(375, 812),
-    builder: (_, Widget? __) {
+    builder: (_, Widget? _) {
       return MaterialApp(home: Scaffold(body: child));
     },
   );

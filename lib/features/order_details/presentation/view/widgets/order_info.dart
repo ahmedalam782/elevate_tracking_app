@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class OrderInfoWidget extends StatelessWidget {
   final OrderDetailsEntity entity;
 
-  const OrderInfoWidget({required this.entity});
+  const OrderInfoWidget({super.key, required this.entity});
 
   @override
   Widget build(BuildContext context) {

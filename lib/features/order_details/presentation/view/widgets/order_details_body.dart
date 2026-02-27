@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderDetailsView extends StatefulWidget {
-  const OrderDetailsView();
+  const OrderDetailsView({super.key});
 
   @override
   State<OrderDetailsView> createState() => _OrderDetailsViewState();
@@ -45,7 +45,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
             loading: () => const Center(
               child: CircularProgressIndicator(color: AppColors.primerColor),
             ),
-            success: (data) => _buildContent(data!),
+            success: (data) => _buildContent(data),
             error: (_) => Center(
               child: Text(
                 state.message,
