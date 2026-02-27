@@ -7,6 +7,7 @@ import 'package:elevate_tracking_app/features/home/domain/use_cases/get_pending_
 import 'package:elevate_tracking_app/features/home/presentation/view/pages/home_page.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_cubit.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_events.dart';
+import 'package:elevate_tracking_app/features/profile/presentation/view/pages/profile_page.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,17 +17,10 @@ class AppLayoutCubit extends Cubit<AppLayoutState> {
   AppLayoutCubit() : super(AppLayoutInitial());
   int index = 0;
   List<Widget> pages = [
-    BlocProvider(
-      lazy: false,
-      create: (_) => HomeCubit(
-        getPendingOrdersUseCase: getIt<GetPendingOrdersUseCase>(),
-        acceptOrderUsercase: getIt<AcceptOrderUsercase>(),
-      ),
-      child: const HomePage(),
-    ),
+    const HomePage(),
     // HomePage()
     const OrdersPage(),
-    Container(),
+    const ProfilePage(),
   ];
   void changeIndex(int index) {
     this.index = index;
