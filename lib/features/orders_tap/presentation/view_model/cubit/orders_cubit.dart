@@ -11,7 +11,7 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class OrdersCubit extends Cubit<OrdersState> {
   final GetOrdersUseCase getOrdersUseCase;
-  OrdersCubit(this.getOrdersUseCase) : super(OrdersState());
+  OrdersCubit(this.getOrdersUseCase) : super(const OrdersState());
 
   Future<void> doInit(OrdersEvents event) async {
     if (event is GetOrdersEvent) {

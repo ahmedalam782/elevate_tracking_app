@@ -37,7 +37,7 @@ void main() {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, __) => BlocProvider<ApplyCubit>.value(
+      builder: (_, _) => BlocProvider<ApplyCubit>.value(
         value: mockApplyCubit,
         child: const MaterialApp(
           localizationsDelegates: [

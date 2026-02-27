@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:elevate_tracking_app/core/config/api/end_points.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
-import 'package:elevate_tracking_app/core/shared/widgets/optimized_cached_image.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
@@ -32,9 +30,9 @@ class HomeOrderWidget extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
             blurRadius: 4.r,
-            color: Color(0xff53535340).withAlpha(63),
+            color: const Color(0xff53535340).withAlpha(63),
           ),
         ],
       ),
@@ -61,7 +59,7 @@ class HomeOrderWidget extends StatelessWidget {
             children: [
               Text(
                 "${LocaleKeys.home_egp.tr()} ${order.totalPrice}",
-                style: 12.semiBold.copyWith(color: Color(0xff0C1015)),
+                style: 12.semiBold.copyWith(color: const Color(0xff0C1015)),
               ),
               SizedBox(width: 10.w),
               Expanded(

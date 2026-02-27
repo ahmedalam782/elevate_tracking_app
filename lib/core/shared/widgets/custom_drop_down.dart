@@ -178,7 +178,7 @@ class _SearchSheetState<T> extends State<_SearchSheet<T>> {
                   radius: const Radius.circular(10),
                   child: ListView.separated(
                     itemCount: filteredItems.length,
-                    separatorBuilder: (_, __) =>
+                    separatorBuilder: (_, _) =>
                         Divider(color: Colors.white.withOpacity(0.2)),
                     itemBuilder: (context, index) {
                       final item = filteredItems[index];

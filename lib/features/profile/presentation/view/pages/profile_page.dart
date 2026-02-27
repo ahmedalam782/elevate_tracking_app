@@ -46,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage>
     });
   }
 
+  // ignore: unused_element
   void _showLanguageBottomSheet() {
     showModalBottomSheet(
       context: context,

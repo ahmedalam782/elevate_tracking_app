@@ -83,3 +83,10 @@ abstract class AppColors {
     ),
   ];
 }
+class AppColorsStatus{
+  static const statusAccepted = Color(0xFFE91E8C);
+  static const statusPicked = Color(0xFF2196F3);
+  static const statusOutForDelivery = Color(0xFFFF9800);
+  static const statusArrived = Color(0xFF9C27B0);
+  static const statusDelivered = Color(0xFF4CAF50);
+}

@@ -34,9 +34,9 @@ class AddressContainer extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
                 blurRadius: 4.r,
-                color: Color(0xff53535340).withAlpha(63),
+                color: const Color(0xff53535340).withAlpha(63),
               ),
             ],
           ),
