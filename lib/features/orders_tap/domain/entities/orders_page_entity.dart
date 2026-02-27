@@ -33,6 +33,7 @@ class OrderDetailsEntity extends Equatable {
   final bool isDelivered;
   final String state;
   final OrderUserEntity user;
+  final String orderId;
 
   const OrderDetailsEntity({
     required this.orderNumber,
@@ -42,6 +43,7 @@ class OrderDetailsEntity extends Equatable {
     required this.isDelivered,
     required this.state,
     required this.user,
+    required this.orderId,
   });
 
   @override
@@ -53,6 +55,7 @@ class OrderDetailsEntity extends Equatable {
     isDelivered,
     state,
     user,
+    orderId,
   ];
 }
 

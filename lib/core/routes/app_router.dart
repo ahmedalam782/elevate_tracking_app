@@ -23,7 +23,7 @@ final GoRouter router = GoRouter(
       page: (state, context) =>
           SplashPage(key: ValueKey(context.locale.languageCode.toString())),
     ),
-      _customAnimatedGoRoute(
+    _customAnimatedGoRoute(
       route: Routes.resetPassword,
       page: (state, context) => ResetPasswordPage(
         key: ValueKey(context.locale.languageCode.toString()),
@@ -34,15 +34,20 @@ final GoRouter router = GoRouter(
       page: (state, context) =>
           LoginPage(key: ValueKey(context.locale.languageCode.toString())),
     ),
-   _customAnimatedGoRoute(
+    _customAnimatedGoRoute(
       route: Routes.forgetPassword,
       page: (state, context) => ForgetPasswordPage(
         key: ValueKey(context.locale.languageCode.toString()),
-      ),),
+      ),
+    ),
     _customAnimatedGoRoute(
       route: Routes.OrderDetailsScreen,
-      page: (state, context) =>
-          OrderDetailsScreen(key: ValueKey(context.locale.languageCode.toString()), driverOrderId: '',),
+      page: (state, context) {
+        return OrderDetailsScreen(
+          key: ValueKey(context.locale.languageCode.toString()),
+          driverOrderId: state.extra.toString(),
+        );
+      },
     ),
     _customAnimatedGoRoute(
       route: Routes.onBoarding,

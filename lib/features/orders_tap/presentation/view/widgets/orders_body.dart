@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/core/config/di/injectable_config.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
+import 'package:elevate_tracking_app/core/routes/routes.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
@@ -13,6 +14,7 @@ import 'package:elevate_tracking_app/features/orders_tap/presentation/view_model
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class OrdersBody extends StatefulWidget {
   const OrdersBody({super.key});
@@ -116,7 +118,22 @@ class _OrdersBodyState extends State<OrdersBody> {
                   return SliverList.builder(
                     itemCount: state.orders.data!.orders.length,
                     itemBuilder: (context, index) {
-                      return OrderCard(order: state.orders.data!.orders[index]);
+                      return InkWell(
+                        onTap: () {
+                          context.push(
+                            Routes.OrderDetailsScreen,
+                            extra: state
+                                .orders
+                                .data!
+                                .orders[index]
+                                .orderDetails
+                                .orderId,
+                          );
+                        },
+                        child: OrderCard(
+                          order: state.orders.data!.orders[index],
+                        ),
+                      );
                     },
                   );
                 } else {

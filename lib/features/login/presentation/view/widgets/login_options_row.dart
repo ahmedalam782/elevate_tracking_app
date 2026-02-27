@@ -39,7 +39,7 @@ class LoginOptionsRow extends StatelessWidget {
             TextButton(
               onPressed: () {
                 // context.push(Routes.forgetPassword);
-                context.push(Routes.OrderDetailsScreen);
+                context.push(Routes.forgetPassword);
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,

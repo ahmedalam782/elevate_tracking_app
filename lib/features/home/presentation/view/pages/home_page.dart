@@ -13,32 +13,64 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final HomeCubit? cubit;
+
+  const HomePage({super.key, this.cubit});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late HomeCubit homeCubit;
+  late final HomeCubit homeCubit;
+  late final bool _shouldCloseCubit;
+
   @override
   void initState() {
     super.initState();
-    homeCubit = getIt<HomeCubit>();
+    if (widget.cubit != null) {
+      homeCubit = widget.cubit!;
+      _shouldCloseCubit = false;
+    } else {
+      final providedCubit = _tryGetProvidedCubit();
+      if (providedCubit != null) {
+        homeCubit = providedCubit;
+        _shouldCloseCubit = false;
+      } else {
+        homeCubit = getIt<HomeCubit>();
+        _shouldCloseCubit = true;
+      }
+    }
+    homeCubit.doIntent(GetPendingOrdersEvent());
+  }
+
+  HomeCubit? _tryGetProvidedCubit() {
+    try {
+      return context.read<HomeCubit>();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_shouldCloseCubit) {
+      homeCubit.close();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      // create: (context) => homeCubit,
-      value: getIt<HomeCubit>()..doIntent(GetPendingOrdersEvent()),
+      value: homeCubit,
       child: BlocBuilder<HomeCubit, HomeStates>(
         builder: (context, state) {
           return SafeArea(
             child: RefreshIndicator(
               backgroundColor: Colors.white,
               onRefresh: () async {
-                await homeCubit.doIntent(GetPendingOrdersEvent());
+                await context.read<HomeCubit>().doIntent(GetPendingOrdersEvent());
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,13 +92,12 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return HomeOrderWidget(
                             onAcceptCallback: () {
-                              homeCubit.doIntent(
+                              context.read<HomeCubit>().doIntent(
                                 AcceptOrderEvent(index: index),
                               );
                             },
                             onRejectCallback: () {
-                              print(index);
-                              homeCubit.doIntent(
+                              context.read<HomeCubit>().doIntent(
                                 RejectOrderEvent(index: index),
                               );
                             },

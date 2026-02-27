@@ -26,7 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
       case RejectOrderEvent():
         rejectOrder(event.index);
       case AcceptOrderEvent():
-        _acceptOrder(event.index);
+        return _acceptOrder(event.index);
     }
   }
 
@@ -66,6 +66,8 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future<void> _acceptOrder(int index) async {
+    if (index < 0 || index >= state.pendingOrders.items.length) return;
+
     showOverLayLoading();
     final result = await acceptOrderUsercase.call(
       state.pendingOrders.items[index].id,
@@ -90,6 +92,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void rejectOrder(int index) {
     final data = List<OrderEntity>.from(state.pendingOrders.items);
+    if (index < 0 || index >= data.length) return;
+
     data.removeAt(index);
     emit(
       state.copyWith(pendingOrders: state.pendingOrders.copyWith(items: data)),
