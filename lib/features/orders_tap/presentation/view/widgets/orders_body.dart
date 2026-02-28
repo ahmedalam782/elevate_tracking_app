@@ -121,7 +121,7 @@ class _OrdersBodyState extends State<OrdersBody> {
                       return InkWell(
                         onTap: () {
                           context.push(
-                            Routes.OrderDetailsScreen,
+                            Routes.orderDetailsScreen,
                             extra: state
                                 .orders
                                 .data!

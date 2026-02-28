@@ -41,7 +41,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     _customAnimatedGoRoute(
-      route: Routes.OrderDetailsScreen,
+      route: Routes.orderDetailsScreen,
       page: (state, context) {
         return OrderDetailsScreen(
           key: ValueKey(context.locale.languageCode.toString()),
