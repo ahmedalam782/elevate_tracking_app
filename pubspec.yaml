@@ -67,6 +67,7 @@ dependencies:
   shimmer: ^3.0.0
   toastification: ^3.0.3
   video_player: ^2.11.0
+  firebase_storage: 13.0.6
 
 # ==============================================================
 # Dev Dependencies

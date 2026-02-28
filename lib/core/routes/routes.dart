@@ -27,4 +27,5 @@ class Routes {
   static const String onBoarding = "/on-boarding";
   static const String apply = "/apply";
   static const String orderDetailsScreen = "/order-details";
+  static const String orderTrackingScreen = "/order-tracking";
 }

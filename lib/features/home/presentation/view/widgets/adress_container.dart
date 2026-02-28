@@ -9,12 +9,14 @@ class AddressContainer extends StatelessWidget {
   final String image;
   final String name;
   final String address;
+  final TextStyle? textStyle;
   const AddressContainer({
     super.key,
     required this.addressTypText,
     required this.image,
     required this.name,
     required this.address,
+    this.textStyle,
   });
 
   @override
@@ -24,7 +26,7 @@ class AddressContainer extends StatelessWidget {
       children: [
         Text(
           addressTypText,
-          style: 12.regular.copyWith(color: AppColors.gray53),
+          style: textStyle ?? 12.regular.copyWith(color: AppColors.gray53),
         ),
         SizedBox(height: 8.h),
         Container(

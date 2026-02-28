@@ -113,7 +113,7 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
-   "forget_password": {
+  "forget_password": {
     "password": "كلمة المرور",
     "forget_password": "نسيت الرقم السري",
     "please_enter_your_email": "من فضلك أدخل البريد الالكتروني المرتبط بالحساب",
@@ -130,15 +130,15 @@
     "new_password": "رقم سري جديد",
     "confirm_password": "تأكيد الرقم السري",
     "enter_your_password": "أدخل الرقم السري الخاص بك",
-    "password_rest_successfully": "تم تغير الرقم السري بنجاح"},
- "reset_password": {
+    "password_rest_successfully": "تم تغير الرقم السري بنجاح"
+  },
+  "reset_password": {
     "reset_password": "إعادة تعيين كلمة المرور",
     "new_password": "كلمة المرور الجديدة",
     "current_password": "كلمة المرور الحالية",
     "confirm_password": "تأكيد كلمة المرور",
     "update_button": "تحديث"
-  }
-,
+  },
   "login": {
     "title": "تسجيل الدخول",
     "subtitle": "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة",
@@ -231,6 +231,26 @@
     "change_language": "تغيير اللغة",
     "Arabic": "العربية",
     "English": "الإنجليزية"
+  },
+  "order_track": {
+    "order_track": "تتبع الطلب",
+    "status": "الحالة",
+    "order_id": "رقم الطلب",
+    "pickup_address": "عنوان الاستلام",
+    "user_address": "عنوان المستخدم",
+    "order_details": "تفاصيل الطلب",
+    "total": "الإجمالي",
+    "payment_method": "طريقة الدفع",
+    "arrived_at_pcikup_point": "تم الوصول إلى نقطة الاستلام",
+    "start_deliver": "بدء التوصيل",
+    "arrived_at_user_location": "تم الوصول إلى موقع المستخدم",
+    "delivered_to_the_user": "تم تسليم الطلب للمستخدم",
+    "thank_you": "شكرًا لك",
+    "the_order_deliverd_successfully": "تم توصيل الطلب بنجاح",
+    "accepted": "تم القبول",
+    "picked": "تم الاستلام",
+    "out_of_delivery": "قيد التوصيل",
+    "arrived": "تم الوصول",
+    "delivered": "تم التسليم"
   }
-
 }

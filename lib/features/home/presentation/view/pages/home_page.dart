@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/config/di/injectable_config.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
+import 'package:elevate_tracking_app/core/routes/routes.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_skeltonizer_widget.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
@@ -11,6 +12,7 @@ import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   final HomeCubit? cubit;
@@ -97,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                               // context.read<HomeCubit>().doIntent(
                               //   AcceptOrderEvent(index: index),
                               // );
+                              context.push(Routes.orderTrackingScreen);
                             },
                             onRejectCallback: () {
                               context.read<HomeCubit>().doIntent(

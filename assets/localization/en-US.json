@@ -113,7 +113,7 @@
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
   },
-   "forget_password": {
+  "forget_password": {
     "password": "Password",
     "forget_password": "Forget password",
     "please_enter_your_email": "Please enter your email associated to your account",
@@ -130,13 +130,15 @@
     "new_password": "New password",
     "confirm_password": "Confirm password",
     "enter_your_password": "Enter your password",
-    "password_rest_successfully": "Password changed successfully"},
-   "reset_password": {
+    "password_rest_successfully": "Password changed successfully"
+  },
+  "reset_password": {
     "reset_password": "Reset Password",
     "new_password": "New Password",
     "current_password": "Current Password",
     "confirm_password": "Confirm Password",
-    "update_button": "Update"},
+    "update_button": "Update"
+  },
   "apply": {
     "app_bar_title": "Apply",
     "welcome": "Welcome!!",
@@ -228,5 +230,26 @@
     "change_language": "Change Language",
     "Arabic": "Arabic",
     "English": "English"
+  },
+  "order_track": {
+    "order_track": "Order track",
+    "status": "status",
+    "order_id": "Order id",
+    "pickup_address": "Pickup address",
+    "user_address": "User address",
+    "order_details": "Order details",
+    "total": "Total",
+    "payment_method": "Payment method",
+    "arrived_at_pcikup_point": "Arrived at pickup point",
+    "start_deliver": "Start deliver",
+    "arrived_at_user_location": "Arrived at user location",
+    "delivered_to_the_user": "Delivered to the user",
+    "thank_you": "Thank you",
+    "the_order_deliverd_successfully": "The order deliver",
+    "accepted": "Accepted",
+    "picked": "Picked",
+    "out_of_delivery": "Out of delivery",
+    "arrived": "Arrived",
+    "delivered": "Delivered"
   }
 }
