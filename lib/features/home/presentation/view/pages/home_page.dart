@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         _shouldCloseCubit = true;
       }
     }
-    homeCubit.doIntent(GetPendingOrdersEvent());
+    homeCubit.doIntent(GetPendingOrdersEvent(), context: context);
   }
 
   HomeCubit? _tryGetProvidedCubit() {
@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
               onRefresh: () async {
                 await context.read<HomeCubit>().doIntent(
                   GetPendingOrdersEvent(),
+                  context: context,
                 );
               },
               child: Column(
@@ -96,14 +97,16 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return HomeOrderWidget(
                             onAcceptCallback: () {
-                              // context.read<HomeCubit>().doIntent(
-                              //   AcceptOrderEvent(index: index),
-                              // );
-                              context.push(Routes.orderTrackingScreen);
+                              context.read<HomeCubit>().doIntent(
+                                AcceptOrderEvent(index: index),
+                                context: context,
+                              );
+                              // context.push(Routes.orderTrackingScreen);
                             },
                             onRejectCallback: () {
                               context.read<HomeCubit>().doIntent(
                                 RejectOrderEvent(index: index),
+                                context: context,
                               );
                             },
                             order: state.pendingOrders.items[index],

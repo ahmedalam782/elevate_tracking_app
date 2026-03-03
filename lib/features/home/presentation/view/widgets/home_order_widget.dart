@@ -3,14 +3,14 @@ import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
-import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
+import 'package:elevate_tracking_app/features/home/data/models/pending_orders_response/pending_orders_response.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/adress_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeOrderWidget extends StatelessWidget {
-  final OrderEntity order;
+  final PendingOrderData order;
   final void Function()? onRejectCallback;
   final void Function()? onAcceptCallback;
   const HomeOrderWidget({
@@ -43,16 +43,16 @@ class HomeOrderWidget extends StatelessWidget {
           SizedBox(height: 16.h),
           AddressContainer(
             addressTypText: LocaleKeys.home_pickup_address.tr(),
-            image: order.storeAvatar,
-            name: order.storeName,
-            address: order.storeAddress,
+            image: order.store?.image ?? "",
+            name: order.store?.name ?? "",
+            address: order.store?.address ?? "",
           ),
           SizedBox(height: 16.h),
           AddressContainer(
             addressTypText: LocaleKeys.home_user_address.tr(),
-            image: order.userAvatar,
-            name: order.userName,
-            address: order.userAddress,
+            image: order.user?.photo ?? "",
+            name: order.user?.photo ?? "",
+            address: order.shippingAddress?.street ?? "",
           ),
           SizedBox(height: 16.h),
           Row(

@@ -1,4 +1,7 @@
-import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_item_model.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_model.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_store_model.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part "pending_orders_response.g.dart";
 
@@ -94,16 +97,12 @@ class PendingOrderData {
 
   Map<String, dynamic> toJson() => _$PendingOrderDataToJson(this);
 
-  OrderEntity toPendingOrderEntity() {
-    return OrderEntity(
+  FirestoreOrderModel toFirestoreOrderModel() {
+    return FirestoreOrderModel(
       id: id ?? "",
-      storeAvatar: store?.image ?? "",
-      storeName: store?.name ?? "",
-      storeAddress: store?.address ?? "",
-      userAvatar: user?.photo ?? "",
-      userName: user?.firstName ?? "",
-      userAddress: "User address",
-      totalPrice: totalPrice?.toDouble() ?? 0.0,
+      paymentType: paymentType ?? "",
+      state: state ?? "",
+      totalPrice: totalPrice ?? 0,
     );
   }
 }
@@ -125,6 +124,16 @@ class PendingOrderItem {
       _$PendingOrderItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$PendingOrderItemToJson(this);
+
+  FirestoreOrderItemModel toFirestoreOrderItemModel() {
+    return FirestoreOrderItemModel(
+      image: product?.imgCover ?? "",
+      price: price ?? 0,
+      quantity: quantity ?? 0,
+      title: product?.title ?? "",
+      id: id ?? "",
+    );
+  }
 }
 
 @JsonSerializable()
@@ -239,6 +248,24 @@ class PendingStore {
       _$PendingStoreFromJson(json);
 
   Map<String, dynamic> toJson() => _$PendingStoreToJson(this);
+
+  FirestoreOrderStoreModel toFirestoreOrderStoreModel() {
+    List<num> latLngList =
+        latLong?.split(",").map((value) {
+          return num.parse(value.trim());
+        }).toList() ??
+        [];
+
+    return FirestoreOrderStoreModel(
+      address: address ?? "",
+      image: image ?? "",
+      name: name ?? "",
+      lat: latLngList.isNotEmpty ? latLngList.first : 0,
+      lng: latLngList.length > 1 ? latLngList[1] : 0,
+      id: "",
+      phoneNumber: phoneNumber ?? "",
+    );
+  }
 }
 
 @JsonSerializable()
@@ -284,4 +311,85 @@ class PendingUser {
       _$PendingUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$PendingUserToJson(this);
+
+  FirestoreOrderUserModel toFirestoreOrderUserModel({
+    required num lat,
+    required num lng,
+  }) {
+    return FirestoreOrderUserModel(
+      id: id ?? "",
+      lat: lat,
+      lng: lng,
+      firstName: firstName ?? "",
+      lastName: lastName ?? "",
+      phone: phone ?? "",
+      photo: photo ?? "",
+    );
+  }
 }
+
+/// ======================================================================
+/// 🔥🔥 DUMMY DATA FOR UI / TESTING / PAGINATION / SHIMMER
+/// ======================================================================
+
+final PendingOrdersResponse dummyPendingOrdersResponse = PendingOrdersResponse(
+  message: "Orders fetched successfully",
+  metadata: Metadata(currentPage: 1, totalPages: 1, totalItems: 2, limit: 10),
+  orders: [
+    PendingOrderData(
+      id: "65f1a9c2e8a14b0012a10001",
+      orderNumber: "ORD-2026-0001",
+      paymentType: "Cash",
+      isPaid: false,
+      isDelivered: false,
+      state: "Pending",
+      totalPrice: 3450,
+      createdAt: DateTime.parse("2026-03-01T10:00:00Z"),
+      updatedAt: DateTime.parse("2026-03-01T10:00:00Z"),
+      user: PendingUser(
+        id: "u1001",
+        firstName: "Mohamed",
+        lastName: "Hassan",
+        email: "mohamed@gmail.com",
+        phone: "+201064354196",
+        gender: "male",
+      ),
+      store: PendingStore(
+        name: "Tech Store",
+        image: "https://picsum.photos/200",
+        address: "Nasr City, Cairo",
+        phoneNumber: "+201122334455",
+        latLong: "30.0561,31.3300",
+      ),
+      shippingAddress: ShippingAddress(
+        street: "23 Abbas El Akkad",
+        city: "Cairo",
+        phone: "+201064354196",
+        lat: "30.0561",
+        long: "31.3300",
+      ),
+      orderItems: [
+        PendingOrderItem(
+          id: "oi1",
+          quantity: 1,
+          price: 3000,
+          product: PendingProduct(
+            id: "p1",
+            title: "Samsung Galaxy S24",
+            slug: "samsung-galaxy-s24",
+            imgCover: "https://picsum.photos/300",
+            price: 3000,
+            priceAfterDiscount: 2800,
+            quantity: 50,
+            category: "Electronics",
+            occasion: "Regular",
+            rateAvg: 4.5,
+            rateCount: 120,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          ),
+        ),
+      ],
+    ),
+  ],
+);

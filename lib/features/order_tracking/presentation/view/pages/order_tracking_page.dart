@@ -2,9 +2,10 @@ import 'package:elevate_tracking_app/features/order_tracking/presentation/view/w
 import 'package:flutter/material.dart';
 
 class OrderTrackingPage extends StatelessWidget {
-  const OrderTrackingPage({super.key});
+  final String id;
+  const OrderTrackingPage({super.key, required this.id});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: OrderTrackingBody());
+    return Scaffold(body: OrderTrackingBody(id: id));
   }
 }

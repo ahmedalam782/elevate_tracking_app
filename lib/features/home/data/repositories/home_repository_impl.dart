@@ -4,7 +4,6 @@ import 'package:elevate_tracking_app/core/config/base_response/result.dart';
 import 'package:elevate_tracking_app/features/home/data/datasources/home_remote_data_source_contract.dart';
 import 'package:elevate_tracking_app/features/home/data/models/accept_order_response/accept_order_response.dart';
 import 'package:elevate_tracking_app/features/home/data/models/pending_orders_response/pending_orders_response.dart';
-import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
 import 'package:elevate_tracking_app/features/home/domain/repositories/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,15 +14,15 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Result<List<OrderEntity>>> getPendingOrders() async {
-    List<OrderEntity> pendingOrders = [];
+  Future<Result<List<PendingOrderData>>> getPendingOrders() async {
+    List<PendingOrderData> pendingOrders = [];
     final result = await remoteDataSource.getAllPendingOrders();
     return result.when(
       success: (data) {
         for (PendingOrderData item in data?.orders ?? []) {
-          pendingOrders.add(item.toPendingOrderEntity());
+          pendingOrders.add(item);
         }
-        return Success<List<OrderEntity>>(data: pendingOrders);
+        return Success<List<PendingOrderData>>(data: pendingOrders);
       },
       error: (exception) {
         return Error(exception: exception);

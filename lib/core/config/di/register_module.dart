@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:location/location.dart';
 
 import '../api/app_interceptor.dart';
 import '../api/end_points.dart';
@@ -50,4 +53,10 @@ abstract class CoreInjectableModule {
 
   @lazySingleton
   InternetConnection internetConnection() => InternetConnection();
+
+  @lazySingleton
+  FirebaseFirestore firebaseFirestore() => FirebaseFirestore.instance;
+  
+  @lazySingleton
+  Location location() => Location();
 }

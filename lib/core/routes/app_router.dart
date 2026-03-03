@@ -69,6 +69,7 @@ final GoRouter router = GoRouter(
       route: Routes.orderTrackingScreen,
       page: (state, context) => OrderTrackingPage(
         key: ValueKey(context.locale.languageCode.toString()),
+        id: state.extra as String,
       ),
     ),
   ],

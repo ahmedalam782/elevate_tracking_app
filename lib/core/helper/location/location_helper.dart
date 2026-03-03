@@ -1,52 +1,64 @@
+import 'package:elevate_tracking_app/core/helper/location/location_exceptions.dart' hide LocationServiceDisabledException;
+import 'package:elevate_tracking_app/core/helper/location/loction_errors.dart' hide LocationException;
+import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart' as ph;
+import 'package:permission_handler/permission_handler.dart'
+    as permission_handler;
 
-import 'location_exceptions.dart';
-
-class LocationHelper {
-  LocationHelper._();
-  static final LocationHelper instance = LocationHelper._();
-
+@lazySingleton
+class LocationService {
   final Location _location = Location();
 
-  /// Main entry point → use this only
-  Future<LocationData> getUserLocation() async {
-    await _checkServiceEnabled();
-    await _checkPermissionGranted();
-
-    try {
-      return await _location.getLocation();
-    } catch (e) {
-      throw LocationUnknownException(e.toString());
-    }
-  }
-
-  // ------------------ PRIVATE METHODS ------------------
-
-  Future<void> _checkServiceEnabled() async {
+  Future<({double latitude, double longitude})> getCurrentLocation() async {
+    // Check if location service is enabled
     bool serviceEnabled = await _location.serviceEnabled();
-
     if (!serviceEnabled) {
       serviceEnabled = await _location.requestService();
       if (!serviceEnabled) {
-        throw const LocationServiceDisabledException();
+        throw LocationServiceDisabledException();
       }
+    }
+
+    // Check location permission status
+    PermissionStatus permissionStatus = await _location.hasPermission();
+
+    if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await _location.requestPermission();
+
+      if (permissionStatus == PermissionStatus.denied) {
+        throw LocationPermissionDeniedException();
+      }
+
+      if (permissionStatus == PermissionStatus.deniedForever) {
+        await _openAppSettings();
+        throw LocationPermissionPermanentlyDeniedException();
+      }
+    }
+
+    if (permissionStatus == PermissionStatus.deniedForever) {
+      await _openAppSettings();
+      throw LocationPermissionPermanentlyDeniedException();
+    }
+
+    // Fetch current location
+    try {
+      final locationData = await _location.getLocation();
+
+      if (locationData.latitude == null || locationData.longitude == null) {
+        throw LocationFetchException();
+      }
+
+      return (
+        latitude: locationData.latitude!,
+        longitude: locationData.longitude!,
+      );
+    } catch (e) {
+      if (e is LocationException) rethrow;
+      throw LocationFetchException();
     }
   }
 
-  Future<void> _checkPermissionGranted() async {
-    PermissionStatus permission = await _location.hasPermission();
-    if (permission == PermissionStatus.denied) {
-      permission = await _location.requestPermission();
-    }
-
-    if (permission == PermissionStatus.denied) {
-      throw const PermissionNotGrantedException();
-    }
-
-    if (permission == PermissionStatus.deniedForever) {
-      ph.openAppSettings();
-      throw const PermissionPermanentlyDeniedException();
-    }
+  Future<void> _openAppSettings() async {
+    await permission_handler.openAppSettings();
   }
 }
