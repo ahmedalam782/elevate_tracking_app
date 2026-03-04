@@ -315,6 +315,7 @@ class PendingUser {
   FirestoreOrderUserModel toFirestoreOrderUserModel({
     required num lat,
     required num lng,
+    String address = "",
   }) {
     return FirestoreOrderUserModel(
       id: id ?? "",
@@ -323,6 +324,7 @@ class PendingUser {
       firstName: firstName ?? "",
       lastName: lastName ?? "",
       phone: phone ?? "",
+      address: address,
       photo: photo ?? "",
     );
   }

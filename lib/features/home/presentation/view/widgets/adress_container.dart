@@ -60,13 +60,9 @@ class AddressContainer extends StatelessWidget {
                       style: 12.regular.copyWith(color: AppColors.gray53),
                     ),
                     SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Text(
-                          address,
-                          style: 12.regular.copyWith(color: AppColors.gray53),
-                        ),
-                      ],
+                    Text(
+                      address,
+                      style: 12.regular.copyWith(color: AppColors.gray53),
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ class FirestoreOrderUserModel {
   final String firstName;
   final String lastName;
   final String phone;
+  final String address;
   final num lat;
   final num lng;
   final String photo;
@@ -14,6 +15,7 @@ class FirestoreOrderUserModel {
     required this.firstName,
     required this.lastName,
     required this.phone,
+    required this.address,
     required this.lat,
     required this.lng,
     required this.photo,
@@ -24,6 +26,7 @@ class FirestoreOrderUserModel {
     String? firstName,
     String? lastName,
     String? phone,
+    String? address,
     num? lat,
     num? lng,
     String? photo,
@@ -33,6 +36,7 @@ class FirestoreOrderUserModel {
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       phone: phone ?? this.phone,
+      address: address ?? this.address,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
       photo: photo ?? this.photo,
@@ -48,6 +52,7 @@ class FirestoreOrderUserModel {
       firstName: (json['firstName'] ?? '').toString(),
       lastName: (json['lastName'] ?? '').toString(),
       phone: (json['phone'] ?? '').toString(),
+      address: (json['address'] ?? '').toString(),
       lat: _parseCoordinate(json['lat']),
       lng: _parseCoordinate(json['lng']),
       photo: (json['photo'] ?? '').toString(),
@@ -74,6 +79,7 @@ class FirestoreOrderUserModel {
       'firstName': firstName,
       'lastName': lastName,
       'phone': phone,
+      'address': address,
       'lat': lat,
       'lng': lng,
       'photo': photo,
@@ -97,15 +103,9 @@ class FirestoreUserLocationModel {
   final num lat;
   final num lng;
 
-  const FirestoreUserLocationModel({
-    required this.lat,
-    required this.lng,
-  });
+  const FirestoreUserLocationModel({required this.lat, required this.lng});
 
-  FirestoreUserLocationModel copyWith({
-    num? lat,
-    num? lng,
-  }) {
+  FirestoreUserLocationModel copyWith({num? lat, num? lng}) {
     return FirestoreUserLocationModel(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
@@ -120,9 +120,6 @@ class FirestoreUserLocationModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'lat': lat,
-      'lng': lng,
-    };
+    return {'lat': lat, 'lng': lng};
   }
 }

@@ -29,14 +29,14 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.4.1
-  skeletonizer:
+  cloud_firestore: ^6.1.0
   dio: ^5.9.1
   easy_localization: ^3.0.8
   equatable: ^2.0.8
   firebase_analytics: ^12.1.2
-  cloud_firestore: ^6.1.0
   firebase_core: ^4.4.0
   firebase_crashlytics: ^5.0.7
+  firebase_storage: 13.0.6
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -66,9 +66,10 @@ dependencies:
   retrofit: ^4.9.2
   shared_preferences: ^2.5.4
   shimmer: ^3.0.0
+  skeletonizer: null
   toastification: ^3.0.3
+  url_launcher: ^6.3.2
   video_player: ^2.11.0
-  firebase_storage: 13.0.6
 
 # ==============================================================
 # Dev Dependencies

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_details_model.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_driver_model.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_item_model.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_model.dart';
@@ -22,11 +25,13 @@ class FirebaseStoreService {
   CollectionReference<Map<String, dynamic>> get _ordersCollection =>
       _firestore.collection(_ordersCollectionName);
 
-  CollectionReference<Map<String, dynamic>> _driversCollection(String orderId) =>
-      _ordersCollection.doc(orderId).collection(_driversCollectionName);
+  CollectionReference<Map<String, dynamic>> _driversCollection(
+    String orderId,
+  ) => _ordersCollection.doc(orderId).collection(_driversCollectionName);
 
-  CollectionReference<Map<String, dynamic>> _orderItemsCollection(String orderId) =>
-      _ordersCollection.doc(orderId).collection(_orderItemsCollectionName);
+  CollectionReference<Map<String, dynamic>> _orderItemsCollection(
+    String orderId,
+  ) => _ordersCollection.doc(orderId).collection(_orderItemsCollectionName);
 
   CollectionReference<Map<String, dynamic>> _userCollection(String orderId) =>
       _ordersCollection.doc(orderId).collection(_userCollectionName);
@@ -43,11 +48,39 @@ class FirebaseStoreService {
       throw StateError('Order with id ${order.id} already exists.');
     }
 
-    await document.set(order.toJson());
+    await document.set({
+      ...order.toJson(),
+      // Use Firestore server UTC time when order is accepted.
+      'acceptedAt': FieldValue.serverTimestamp(),
+      'arrivedAtPickUpAt': null,
+      'deliveringAt': null,
+      'deliveredAt': null,
+      'completedAt': null,
+    });
   }
 
   Future<void> upsertOrder(FirestoreOrderModel order) async {
-    await _ordersCollection.doc(order.id).set(order.toJson());
+    final document = _ordersCollection.doc(order.id);
+    final snapshot = await document.get();
+
+    if (snapshot.exists) {
+      await document.set({
+        'id': order.id,
+        'paymentType': order.paymentType,
+        'state': order.state,
+        'totalPrice': order.totalPrice,
+      }, SetOptions(merge: true));
+      return;
+    }
+
+    await document.set({
+      ...order.toJson(),
+      'acceptedAt': FieldValue.serverTimestamp(),
+      'arrivedAtPickUpAt': order.arrivedAtPickUpAt,
+      'deliveringAt': order.deliveringAt,
+      'deliveredAt': order.deliveredAt,
+      'completedAt': order.completedAt,
+    });
   }
 
   Future<FirestoreOrderModel?> getOrderById(String orderId) async {
@@ -70,14 +103,23 @@ class FirebaseStoreService {
   }
 
   Future<void> updateOrder(FirestoreOrderModel order) async {
-    await _ordersCollection.doc(order.id).update(order.toJson());
+    await _ordersCollection.doc(order.id).update({
+      'id': order.id,
+      'paymentType': order.paymentType,
+      'state': order.state,
+      'totalPrice': order.totalPrice,
+    });
   }
 
   Future<void> updateOrderState({
     required String orderId,
     required String state,
+    bool withTimestamp = true,
   }) async {
-    await _ordersCollection.doc(orderId).update({'state': state});
+    await _ordersCollection.doc(orderId).update({
+      'state': state,
+      if (withTimestamp) ..._stateTimestampPatch(state),
+    });
   }
 
   Future<void> deleteOrder(String orderId) async {
@@ -92,6 +134,85 @@ class FirebaseStoreService {
 
       return FirestoreOrderModel.fromDocument(snapshot);
     });
+  }
+
+  Stream<FirestoreOrderDetailsModel?> listenToOrderWithDetails(String orderId) {
+    final controller = StreamController<FirestoreOrderDetailsModel?>();
+
+    FirestoreOrderModel? order;
+    List<FirestoreOrderDriverModel> drivers = const [];
+    List<FirestoreOrderUserModel> users = const [];
+    List<FirestoreOrderStoreModel> stores = const [];
+    List<FirestoreOrderItemModel> items = const [];
+
+    late final StreamSubscription<FirestoreOrderModel?> orderSubscription;
+    late final StreamSubscription<List<FirestoreOrderDriverModel>>
+    driverSubscription;
+    late final StreamSubscription<List<FirestoreOrderUserModel>>
+    userSubscription;
+    late final StreamSubscription<List<FirestoreOrderStoreModel>>
+    storeSubscription;
+    late final StreamSubscription<List<FirestoreOrderItemModel>>
+    itemSubscription;
+
+    void emitCombined() {
+      if (controller.isClosed) {
+        return;
+      }
+
+      final currentOrder = order;
+      if (currentOrder == null) {
+        controller.add(null);
+        return;
+      }
+
+      controller.add(
+        FirestoreOrderDetailsModel(
+          order: currentOrder,
+          drivers: List.unmodifiable(drivers),
+          users: List.unmodifiable(users),
+          stores: List.unmodifiable(stores),
+          items: List.unmodifiable(items),
+        ),
+      );
+    }
+
+    controller.onListen = () {
+      orderSubscription = listenToOrder(orderId).listen((value) {
+        order = value;
+        emitCombined();
+      }, onError: controller.addError);
+
+      driverSubscription = listenToOrderDrivers(orderId).listen((value) {
+        drivers = value;
+        emitCombined();
+      }, onError: controller.addError);
+
+      userSubscription = listenToOrderUsers(orderId).listen((value) {
+        users = value;
+        emitCombined();
+      }, onError: controller.addError);
+
+      storeSubscription = listenToOrderStores(orderId).listen((value) {
+        stores = value;
+        emitCombined();
+      }, onError: controller.addError);
+
+      itemSubscription = listenToOrderItems(orderId).listen((value) {
+        items = value;
+        emitCombined();
+      }, onError: controller.addError);
+    };
+
+    controller.onCancel = () async {
+      await orderSubscription.cancel();
+      await driverSubscription.cancel();
+      await userSubscription.cancel();
+      await storeSubscription.cancel();
+      await itemSubscription.cancel();
+    };
+
+    return controller.stream;
   }
 
   Stream<List<FirestoreOrderModel>> listenToOrders() {
@@ -109,6 +230,21 @@ class FirebaseStoreService {
       final data = snapshot.data();
       return data?['state']?.toString();
     });
+  }
+
+  Map<String, dynamic> _stateTimestampPatch(String state) {
+    switch (state) {
+      case 'arrivedAtPickup':
+        return {'arrivedAtPickUpAt': Timestamp.now()};
+      case 'delivering':
+        return {'deliveringAt': Timestamp.now()};
+      case 'deliveredToTheUser':
+        return {'deliveredAt': Timestamp.now()};
+      case 'completed':
+        return {'completedAt': Timestamp.now()};
+      default:
+        return const {};
+    }
   }
 
   // ==================== Drivers Subcollection ====================
@@ -148,7 +284,9 @@ class FirebaseStoreService {
     return FirestoreOrderDriverModel.fromDocument(snapshot);
   }
 
-  Future<List<FirestoreOrderDriverModel>> getOrderDrivers(String orderId) async {
+  Future<List<FirestoreOrderDriverModel>> getOrderDrivers(
+    String orderId,
+  ) async {
     final snapshot = await _driversCollection(orderId).get();
     return snapshot.docs.map(FirestoreOrderDriverModel.fromDocument).toList();
   }
@@ -174,10 +312,9 @@ class FirebaseStoreService {
     required num lat,
     required num lng,
   }) async {
-    await _driversCollection(orderId).doc(driverId).update({
-      'lat': lat,
-      'lng': lng,
-    });
+    await _driversCollection(
+      orderId,
+    ).doc(driverId).update({'lat': lat, 'lng': lng});
   }
 
   Future<void> deleteOrderDriver({
@@ -202,9 +339,7 @@ class FirebaseStoreService {
     });
   }
 
-  Stream<List<FirestoreOrderDriverModel>> listenToOrderDrivers(
-    String orderId,
-  ) {
+  Stream<List<FirestoreOrderDriverModel>> listenToOrderDrivers(String orderId) {
     return _driversCollection(orderId).snapshots().map((snapshot) {
       return snapshot.docs.map(FirestoreOrderDriverModel.fromDocument).toList();
     });
@@ -240,7 +375,9 @@ class FirebaseStoreService {
     final snapshot = await document.get();
 
     if (snapshot.exists) {
-      throw StateError('User with id ${user.id} already exists in order $orderId.');
+      throw StateError(
+        'User with id ${user.id} already exists in order $orderId.',
+      );
     }
 
     await document.set(user.toJson());
@@ -291,10 +428,7 @@ class FirebaseStoreService {
     required num lat,
     required num lng,
   }) async {
-    await _userCollection(orderId).doc(userId).update({
-      'lat': lat,
-      'lng': lng,
-    });
+    await _userCollection(orderId).doc(userId).update({'lat': lat, 'lng': lng});
   }
 
   Future<void> deleteOrderUser({
@@ -410,10 +544,9 @@ class FirebaseStoreService {
     required num lat,
     required num lng,
   }) async {
-    await _storeCollection(orderId).doc(storeId).update({
-      'lat': lat,
-      'lng': lng,
-    });
+    await _storeCollection(
+      orderId,
+    ).doc(storeId).update({'lat': lat, 'lng': lng});
   }
 
   Future<void> deleteOrderStore({
@@ -534,7 +667,9 @@ class FirebaseStoreService {
     required String orderId,
     required String itemId,
   }) {
-    return _orderItemsCollection(orderId).doc(itemId).snapshots().map((snapshot) {
+    return _orderItemsCollection(orderId).doc(itemId).snapshots().map((
+      snapshot,
+    ) {
       if (!snapshot.exists) {
         return null;
       }

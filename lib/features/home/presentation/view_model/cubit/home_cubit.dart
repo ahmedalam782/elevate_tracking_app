@@ -1,5 +1,6 @@
 // TODO: presentation HomeCubit
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/firebase_store_service.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_driver_model.dart';
 import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_item_model.dart';
@@ -146,6 +147,7 @@ class HomeCubit extends Cubit<HomeStates> {
         paymentType: orderData.paymentType ?? "",
         state: "inProgress",
         totalPrice: orderData.totalPrice ?? 0,
+        acceptedAt: Timestamp.now(),
       ),
     );
     await Future.wait([
@@ -179,6 +181,9 @@ class HomeCubit extends Cubit<HomeStates> {
       user: orderData.user!.toFirestoreOrderUserModel(
         lat: num.parse(orderData.shippingAddress!.lat!),
         lng: num.parse(orderData.shippingAddress!.long!),
+        address:
+            "${orderData.shippingAddress?.street ?? ""}, ${orderData.shippingAddress?.city ?? ""}"
+                .replaceAll(RegExp(r'^,\s*|\s*,\s*$'), ''),
       ),
 
       orderId: orderData.id ?? "",

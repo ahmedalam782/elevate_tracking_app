@@ -2,12 +2,13 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/config/di/injectable_config.dart';
-import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_model.dart';
+import 'package:elevate_tracking_app/core/helper/extensions/datetime_extensions.dart';
+import 'package:elevate_tracking_app/core/helper/firebase_store/models/firestore_order_details_model.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/custom_button.dart';
-import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/adress_container.dart';
+import 'package:elevate_tracking_app/features/order_tracking/presentation/view/widgets/order_item_widget.dart';
 import 'package:elevate_tracking_app/features/order_tracking/presentation/view/widgets/order_tracking_step.dart';
 import 'package:elevate_tracking_app/features/order_tracking/presentation/view_model/cubit/order_tracking_cubit.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,20 @@ class OrderTrackingBody extends StatefulWidget {
 
 class _OrderTrackingBodyState extends State<OrderTrackingBody> {
   late OrderTrackingCubit orderTrackingCubit;
+
+  String? _nextTrackingState(String? currentState) {
+    switch (currentState) {
+      case 'inProgress':
+        return 'arrivedAtPickup';
+      case 'arrivedAtPickup':
+        return 'delivering';
+      case 'delivering':
+        return 'deliveredToTheUser';
+      default:
+        return null;
+    }
+  }
+
   @override
   void initState() {
     orderTrackingCubit = getIt<OrderTrackingCubit>();
@@ -31,22 +46,44 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FirestoreOrderModel?>(
-      stream: orderTrackingCubit.listenToOrder(widget.id),
+    return StreamBuilder<FirestoreOrderDetailsModel?>(
+      stream: orderTrackingCubit.listenToOrderWithDetails(widget.id),
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
-        late int currentStep;
+        int currentStep = 0;
+        String statusText = "";
+        String buttonText = LocaleKeys.order_track_arrived_at_pcikup_point.tr();
         if (asyncSnapshot.hasData) {
-          if (asyncSnapshot.data?.state == "inProgress") {
+          final details = asyncSnapshot.data;
+          final data = details?.order;
+          final store = details?.store;
+          final user = details?.user;
+          final items = details?.items;
+          final nextState = _nextTrackingState(data?.state);
+
+          if (data?.state == "inProgress") {
             currentStep = 0;
-          } else if (asyncSnapshot.data?.state == "arrivedAtPickup") {
+            statusText = "Accepted";
+            buttonText = LocaleKeys.order_track_arrived_at_pcikup_point.tr();
+          } else if (data?.state == "arrivedAtPickup") {
             currentStep = 1;
-          } else if (asyncSnapshot.data?.state == "delivering") {
-          } else if (asyncSnapshot.data?.state == "arrived") {
-          } else if (asyncSnapshot.data?.state == "deliveredToTheUser") {
-          } else if (asyncSnapshot.data?.state == "completed") {}
+            statusText = "Arrived at pickup";
+            buttonText = "Start delivering";
+          } else if (data?.state == "delivering") {
+            currentStep = 2;
+            statusText = "Delivering";
+            buttonText = "Delivered to user";
+          } else if (data?.state == "deliveredToTheUser") {
+            currentStep = 3;
+            statusText = "Delivered to user";
+            buttonText = "Delivered";
+          } else if (data?.state == "completed") {
+            currentStep = 4;
+            statusText = "Completed";
+            buttonText = "Completed";
+          }
 
           return SafeArea(
             child: Padding(
@@ -72,9 +109,7 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                       children: List.generate(5, (index) {
                         return Expanded(
                           child: Padding(
-                            padding: EdgeInsetsGeometry.symmetric(
-                              horizontal: 8.w,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
                             child: OrderTrackingStep(
                               isActive: currentStep >= index,
                             ),
@@ -93,19 +128,23 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            "${LocaleKeys.order_track_status.tr()} : ${LocaleKeys.order_track_accepted.tr()}",
+                            "${LocaleKeys.order_track_status.tr()} : ${statusText}",
                             style: 16.semiBold.copyWith(
                               color: const Color(0xff0CB359),
                             ),
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            "${LocaleKeys.order_track_order_id.tr()}: #123456",
+                            "${LocaleKeys.order_track_order_id.tr()}: #${data?.id ?? ""}",
                             style: 16.semiBold,
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            "Wed, 03 Sep 2024, 11:00 AM ",
+                            data?.acceptedAt?.toDate().format(
+                                  "E, dd MMM yyyy, hh:mm a",
+                                ) ??
+                                "",
+                            // "Wed, 03 Sep 2024, 11:00 AM ",
                             style: 16.medium.copyWith(color: Color(0xff535353)),
                           ),
                         ],
@@ -116,19 +155,23 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                     AddressContainer(
                       addressTypText: LocaleKeys.order_track_pickup_address
                           .tr(),
-                      image: "https://placehold.co/600x400",
-                      name: "name",
-                      address: "address",
+                      image: (store?.image.isNotEmpty ?? false)
+                          ? store!.image
+                          : "https://placehold.co/600x400",
+                      name: store?.name ?? "",
+                      address: store?.address ?? "",
                       textStyle: 18.medium,
                     ),
                     SizedBox(height: 24.h),
 
                     AddressContainer(
-                      addressTypText: LocaleKeys.order_track_pickup_address
-                          .tr(),
-                      image: "https://placehold.co/600x400",
-                      name: "name",
-                      address: "address",
+                      addressTypText: LocaleKeys.order_track_user_address.tr(),
+                      image: (user?.photo.isNotEmpty ?? false)
+                          ? user!.photo
+                          : "https://placehold.co/600x400",
+                      name: "${user?.firstName ?? ""} ${user?.lastName ?? ""}"
+                          .trim(),
+                      address: user?.address ?? "",
                       textStyle: 18.medium,
                     ),
                     SizedBox(height: 24.h),
@@ -136,6 +179,26 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                       LocaleKeys.order_track_order_details.tr(),
                       style: 18.medium,
                     ),
+                    Column(
+                      children: [
+                        SizedBox(height: 16.h),
+                        if (items != null)
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return OrderItemWidget(
+                                orderItemModel: items![index],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(height: 8.h);
+                            },
+                            itemCount: items?.length ?? 0,
+                          ),
+                      ],
+                    ),
+
                     // SizedBox(height: 16.h),
                     // TODO ORDER DETAILS
                     SizedBox(height: 24.h),
@@ -163,7 +226,7 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                             style: 16.medium,
                           ),
                           Text(
-                            LocaleKeys.order_track_total.tr(),
+                            "${data?.totalPrice ?? 0}",
                             style: 14.medium.copyWith(color: Color(0xff535353)),
                           ),
                         ],
@@ -194,7 +257,7 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                             style: 16.medium,
                           ),
                           Text(
-                            LocaleKeys.order_track_total.tr(),
+                            data?.paymentType ?? "",
                             style: 14.medium.copyWith(color: Color(0xff535353)),
                           ),
                         ],
@@ -202,9 +265,15 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
                     ),
                     SizedBox(height: 24.h),
                     CustomButton(
-                      onPressed: () {},
-                      title: LocaleKeys.order_track_arrived_at_pcikup_point
-                          .tr(),
+                      onPressed: nextState == null
+                          ? null
+                          : () async {
+                              await orderTrackingCubit.updateOrderState(
+                                orderId: widget.id,
+                                state: nextState,
+                              );
+                            },
+                      title: buttonText,
                     ),
                   ],
                 ),
