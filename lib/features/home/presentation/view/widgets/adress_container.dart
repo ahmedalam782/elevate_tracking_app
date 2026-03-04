@@ -1,3 +1,4 @@
+import 'package:elevate_tracking_app/core/helper/extensions/string_extensions.dart';
 import 'package:elevate_tracking_app/core/shared/widgets/optimized_cached_image.dart';
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/core/theme/app_typography.dart';
@@ -9,6 +10,7 @@ class AddressContainer extends StatelessWidget {
   final String image;
   final String name;
   final String address;
+  final String? phone;
   final TextStyle? textStyle;
   const AddressContainer({
     super.key,
@@ -17,6 +19,7 @@ class AddressContainer extends StatelessWidget {
     required this.name,
     required this.address,
     this.textStyle,
+    this.phone,
   });
 
   @override
@@ -67,6 +70,29 @@ class AddressContainer extends StatelessWidget {
                   ],
                 ),
               ),
+              if (phone != null)
+                InkWell(
+                  onTap: () {
+                    phone?.callPhone();
+                  },
+                  child: Icon(
+                    Icons.call_rounded,
+                    color: AppColors.primerColor,
+                    size: 20.sp,
+                  ),
+                ),
+              SizedBox(width: 8.w),
+              if (phone != null)
+                InkWell(
+                  onTap: () {
+                    phone?.openWhatsApp();
+                  },
+                  child: Icon(
+                    Icons.whatshot_outlined,
+                    color: AppColors.primerColor,
+                    size: 20.sp,
+                  ),
+                ),
             ],
           ),
         ),

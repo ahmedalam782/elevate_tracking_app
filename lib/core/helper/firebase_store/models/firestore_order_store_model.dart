@@ -7,7 +7,7 @@ class FirestoreOrderStoreModel {
   final num lng;
   final String name;
   final String address;
-  final String phoneNumber;
+  final String? phoneNumber;
 
   const FirestoreOrderStoreModel({
     this.id,
@@ -16,7 +16,7 @@ class FirestoreOrderStoreModel {
     required this.lng,
     required this.name,
     required this.address,
-    required this.phoneNumber,
+    this.phoneNumber,
   });
 
   FirestoreOrderStoreModel copyWith({
@@ -93,15 +93,9 @@ class FirestoreStoreLocationModel {
   final num lat;
   final num lng;
 
-  const FirestoreStoreLocationModel({
-    required this.lat,
-    required this.lng,
-  });
+  const FirestoreStoreLocationModel({required this.lat, required this.lng});
 
-  FirestoreStoreLocationModel copyWith({
-    num? lat,
-    num? lng,
-  }) {
+  FirestoreStoreLocationModel copyWith({num? lat, num? lng}) {
     return FirestoreStoreLocationModel(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
@@ -116,9 +110,6 @@ class FirestoreStoreLocationModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'lat': lat,
-      'lng': lng,
-    };
+    return {'lat': lat, 'lng': lng};
   }
 }
