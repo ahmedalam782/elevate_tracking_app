@@ -1,4 +1,3 @@
-import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/contact_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,11 @@ class AddressCard extends StatelessWidget {
   final String? imageUrl;
   final bool isStore;
 
-  const AddressCard({super.key, 
+  static const _pink = Color(0xFFE91E8C);
+  static const _grey = Color(0xFF9E9E9E);
+
+  const AddressCard({
+    super.key,
     required this.label,
     required this.name,
     required this.address,
@@ -21,68 +24,81 @@ class AddressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.whiteFF,
-      padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsetsGeometry.all(16),
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
             style: const TextStyle(
-              color: AppColors.black,
-              fontSize: 14,
+              color: Colors.black,
+              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              _buildAvatar(),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: AppColors.black,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(Icons.location_on_outlined,
-                            size: 13, color: AppColors.gray53),
-                        const SizedBox(width: 2),
-                        Expanded(
-                          child: Text(
-                            address,
-                            style: const TextStyle(
-                              color: AppColors.gray53,
-                              fontSize: 12,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+          const SizedBox(height: 20),
+
+          // Card with border
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: const Color(0xFFEEEEEE)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                _buildAvatar(),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on_outlined,
+                              size: 13, color: _grey),
+                          const SizedBox(width: 2),
+                          Expanded(
+                            child: Text(
+                              address,
+                              style: const TextStyle(color: _grey, fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    ContactIcon(icon: Icons.phone_outlined, onTap: () {}),
+                    const SizedBox(width: 8),
+                    ContactIcon(icon: Icons.chat, onTap: () {}),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  ContactIcon(icon: Icons.phone_outlined, onTap: () {}),
-                  const SizedBox(width: 8),
-                  ContactIcon(
-                      icon: Icons.chat_bubble_outline, onTap: () {}),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -94,12 +110,11 @@ class AddressCard extends StatelessWidget {
       return Container(
         width: 44,
         height: 44,
-        decoration: const BoxDecoration(
-          color: AppColors.primerColor,
+        decoration: BoxDecoration(
+          color: _pink.withOpacity(0.1),
           shape: BoxShape.circle,
         ),
-        child: const Icon(Icons.store_outlined,
-            color: AppColors.primerColor, size: 22),
+        child: const Icon(Icons.store_outlined, color: _pink, size: 22),
       );
     }
     if (imageUrl != null &&
@@ -114,11 +129,11 @@ class AddressCard extends StatelessWidget {
       width: 44,
       height: 44,
       decoration: BoxDecoration(
-        color: AppColors.primerColor.withOpacity(0.1),
+        color: _pink.withOpacity(0.1),
         shape: BoxShape.circle,
       ),
-      child: const Icon(Icons.person_outline,
-          color: AppColors.primerColor, size: 22),
+      child:
+          const Icon(Icons.person_outline, color: _pink, size: 22),
     );
   }
 }

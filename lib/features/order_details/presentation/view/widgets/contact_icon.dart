@@ -1,12 +1,12 @@
-import 'package:elevate_tracking_app/core/theme/app_colors.dart';
-import 'package:flutter/widgets.dart';
-
+import 'package:flutter/material.dart';
 
 class ContactIcon extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
   const ContactIcon({super.key, required this.icon, required this.onTap});
+
+  static const _pink = Color(0xFFE91E8C);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,11 @@ class ContactIcon extends StatelessWidget {
       child: Container(
         width: 34,
         height: 34,
-        decoration: const BoxDecoration(
-          color: AppColors.primerColor,
+        decoration: BoxDecoration(
+          color: _pink.withOpacity(0.1),
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, color: AppColors.primerColor, size: 18),
+        child: Icon(icon, color: _pink, size: 18),
       ),
     );
   }

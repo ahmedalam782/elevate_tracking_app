@@ -1,82 +1,116 @@
-import 'package:elevate_tracking_app/core/theme/app_colors.dart';
-import 'package:elevate_tracking_app/features/order_details/domain/entities/order_details_entity.dart';
-import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/order_item_row.dart';
 import 'package:flutter/material.dart';
 
 class OrderItemsCard extends StatelessWidget {
-  final List<OrderItemEntity> items;
+  final String orderNumber;
   final double totalPrice;
   final String paymentType;
+  final bool isPaid;
 
-  const OrderItemsCard({super.key, 
-    required this.items,
+  static const _grey = Color(0xFF9E9E9E);
+
+  const OrderItemsCard({
+    super.key,
+    required this.orderNumber,
     required this.totalPrice,
     required this.paymentType,
+    required this.isPaid,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.whiteFF,
-      padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Order details',
             style: TextStyle(
-              color: AppColors.black,
+              color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 12),
-          ...items.map((item) => OrderItemRow(item: item)),
-          const Divider(color: AppColors.whiteFF, height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Total',
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                'EGP ${totalPrice.toStringAsFixed(0)}',
-                style: const TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+          const SizedBox(height: 10),
+
+          // Total Card
+          _InfoCard(
+            left: 'Total',
+            right: 'EGP ${totalPrice.toStringAsFixed(0)}',
+            rightStyle: const TextStyle(
+              color: Colors.black,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          const SizedBox(height: 16),
-          const Divider(color: AppColors.whiteFF, height: 1),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Payment method',
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                paymentType == 'cash' ? 'Cash on delivery' : paymentType,
-                style: const TextStyle(
-                  color: AppColors.gray53,
-                  fontSize: 13,
-                ),
-              ),
-            ],
+
+          const SizedBox(height: 10),
+
+          // Payment Method Card
+          _InfoCard(
+            left: 'Payment method',
+            right: paymentType == 'cash' ? 'Cash on delivery' : paymentType,
+            rightStyle: const TextStyle(color: _grey, fontSize: 13),
           ),
+
+          const SizedBox(height: 10),
+
+          // // Paid Status Card
+          // _InfoCard(
+          //   left: 'Payment status',
+          //   right: isPaid ? 'Paid' : 'Not paid',
+          //   rightStyle: TextStyle(
+          //     color: isPaid ? const Color(0xFF4CAF50) : const Color(0xFFE91E8C),
+          //     fontSize: 13,
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Info Card ────────────────────────────────────────────────────────────────
+class _InfoCard extends StatelessWidget {
+  final String left;
+  final String right;
+  final TextStyle rightStyle;
+
+  const _InfoCard({
+    required this.left,
+    required this.right,
+    required this.rightStyle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFEEEEEE)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            left,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(right, style: rightStyle),
         ],
       ),
     );
