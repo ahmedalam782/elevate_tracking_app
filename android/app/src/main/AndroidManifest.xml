@@ -15,6 +15,7 @@
         android:label="Tracking App"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+            <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -59,12 +60,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+              <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDPkm686PbXasp4jGwBU_Woi2sNN2i4af4"/>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao"/>
+      
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/launcher_icon" />

@@ -1,5 +1,9 @@
-import 'package:elevate_tracking_app/core/helper/location/location_exceptions.dart' hide LocationServiceDisabledException;
-import 'package:elevate_tracking_app/core/helper/location/loction_errors.dart' hide LocationException;
+import 'dart:async';
+
+import 'package:elevate_tracking_app/core/helper/location/location_exceptions.dart'
+    hide LocationServiceDisabledException;
+import 'package:elevate_tracking_app/core/helper/location/loction_errors.dart'
+    hide LocationException;
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart'
@@ -9,7 +13,7 @@ import 'package:permission_handler/permission_handler.dart'
 class LocationService {
   final Location _location = Location();
 
-  Future<({double latitude, double longitude})> getCurrentLocation() async {
+  Future<void> _checkServiceAndPermission() async {
     // Check if location service is enabled
     bool serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
@@ -39,6 +43,10 @@ class LocationService {
       await _openAppSettings();
       throw LocationPermissionPermanentlyDeniedException();
     }
+  }
+
+  Future<({double latitude, double longitude})> getCurrentLocation() async {
+    await _checkServiceAndPermission();
 
     // Fetch current location
     try {
@@ -60,5 +68,13 @@ class LocationService {
 
   Future<void> _openAppSettings() async {
     await permission_handler.openAppSettings();
+  }
+
+  Future<StreamSubscription<LocationData>> getLocationAsStream(
+    void Function(LocationData locationData) onListenFunction,
+  ) async {
+    await _checkServiceAndPermission();
+    await _location.changeSettings(distanceFilter: 50);
+    return _location.onLocationChanged.listen(onListenFunction);
   }
 }
