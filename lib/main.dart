@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'app.dart';
 import 'core/config/di/injectable_config.dart';
+import 'core/helper/background_task/background_callback_dispatcher.dart';
+import 'core/helper/background_task/background_task_helper.dart';
 import 'core/helper/bloc/bloc_observer.dart';
 import 'core/languages/lang.dart';
 import 'core/routes/url_strategy.dart';
@@ -24,6 +26,7 @@ void main() async {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
     ScreenUtil.ensureScreenSize(),
     configureDependencies(),
+    BackgroundTaskHelper.initialize(callbackDispatcher),
   ]);
 
   FlutterError.onError = (errorDetails) {

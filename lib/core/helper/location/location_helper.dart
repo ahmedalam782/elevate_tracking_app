@@ -77,4 +77,12 @@ class LocationService {
     await _location.changeSettings(distanceFilter: 50);
     return _location.onLocationChanged.listen(onListenFunction);
   }
+
+  Future<void> enableBackgroundMode() async {
+    await _location.enableBackgroundMode(enable: true);
+  }
+
+  Future<void> disableBackgroundMode() async {
+    await _location.enableBackgroundMode(enable: false);
+  }
 }

@@ -50,10 +50,15 @@ class OrderTrackingCubit extends Cubit<OrderTrackingState> {
     if (_locationSubscription != null && _listenedDriverId == driverId) {
       return; // Already listening for this driver
     }
-    await stopListeningToLocation();
+    // Cancel old subscription only (don't disable background mode mid-session).
+    await _locationSubscription?.cancel();
+    _locationSubscription = null;
     _listenedDriverId = driverId;
 
     try {
+      // Enable background mode so location continues when app is backgrounded.
+      await locationService.enableBackgroundMode();
+
       _locationSubscription = await locationService.getLocationAsStream((
         locationData,
       ) {
@@ -73,10 +78,23 @@ class OrderTrackingCubit extends Cubit<OrderTrackingState> {
     }
   }
 
+  /// Forces a fresh subscription regardless of the current driver ID.
+  /// Call this when the app resumes from background to recover a dead stream.
+  Future<void> restartListeningToLocation({
+    required String orderId,
+    required String driverId,
+  }) async {
+    // Reset tracked ID so startListeningToLocation won't short-circuit.
+    _listenedDriverId = null;
+    await startListeningToLocation(orderId: orderId, driverId: driverId);
+  }
+
   Future<void> stopListeningToLocation() async {
     await _locationSubscription?.cancel();
     _locationSubscription = null;
     _listenedDriverId = null;
+    // Disable background mode — page is fully exited.
+    await locationService.disableBackgroundMode();
   }
 
   @override

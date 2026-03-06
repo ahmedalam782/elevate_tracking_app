@@ -24,21 +24,53 @@ class OrderTrackingBody extends StatefulWidget {
   State<OrderTrackingBody> createState() => _OrderTrackingBodyState();
 }
 
-class _OrderTrackingBodyState extends State<OrderTrackingBody> {
+class _OrderTrackingBodyState extends State<OrderTrackingBody>
+    with WidgetsBindingObserver {
   late OrderTrackingCubit orderTrackingCubit;
   PageController pageController = PageController();
 
+  /// Tracks the current driver ID so we can resume tracking after app resume.
+  String? _currentDriverId;
+
   @override
   void initState() {
-    orderTrackingCubit = getIt<OrderTrackingCubit>();
     super.initState();
+    orderTrackingCubit = getIt<OrderTrackingCubit>();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     orderTrackingCubit.stopListeningToLocation();
     pageController.dispose();
     super.dispose();
+  }
+
+  /// Restart location tracking when the app comes back to the foreground,
+  /// because the location package's foreground service can die in the background.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && _currentDriverId != null) {
+      orderTrackingCubit.restartListeningToLocation(
+        orderId: widget.id,
+        driverId: _currentDriverId!,
+      );
+    }
+  }
+
+  void _onDriverAvailable(String driverId) {
+    if (_currentDriverId == driverId) return;
+    _currentDriverId = driverId;
+    // Use post-frame so we're not calling async logic inside build().
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        orderTrackingCubit.startListeningToLocation(
+          orderId: widget.id,
+          driverId: driverId,
+        );
+      }
+    });
   }
 
   @override
@@ -56,10 +88,7 @@ class _OrderTrackingBodyState extends State<OrderTrackingBody> {
           }
           final driver = details.driver;
           if (driver != null) {
-            orderTrackingCubit.startListeningToLocation(
-              orderId: widget.id,
-              driverId: driver.id,
-            );
+            _onDriverAvailable(driver.id);
           }
           print("DRIVER LAT ${driver?.lat}");
           return PageView(
