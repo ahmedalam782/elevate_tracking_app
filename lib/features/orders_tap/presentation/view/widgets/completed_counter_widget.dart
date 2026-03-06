@@ -24,7 +24,7 @@ class CompletedCounterWidget extends StatelessWidget {
 
           Row(
             children: [
-              SvgPicture.asset(AppIcons.completed),
+              SvgPicture.asset(AppIcons.iconsCompleted),
               const SizedBox(width: 4),
               Text('Completed', style: 16.medium),
             ],

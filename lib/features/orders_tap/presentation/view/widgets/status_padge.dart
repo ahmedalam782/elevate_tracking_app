@@ -34,9 +34,9 @@ extension StatusPadgeExtension on StatusPadge {
       case StatusPadge.pending:
         return '';
       case StatusPadge.completed:
-        return AppIcons.completed;
+        return AppIcons.iconsCompleted;
       case StatusPadge.cancelled:
-        return AppIcons.canceled;
+        return AppIcons.iconsCancelled;
     }
   }
 }

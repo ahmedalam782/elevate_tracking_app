@@ -29,7 +29,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.4.1
-  skeletonizer:
   dio: ^5.9.2
   easy_localization: ^3.0.8
   equatable: ^2.0.8
@@ -49,6 +48,7 @@ dependencies:
   go_router: ^17.1.0
   google_maps_flutter: ^2.14.2
   image: ^4.8.0
+  image_cropper: ^11.0.0
   image_picker: ^1.2.1
   injectable: ^2.7.1+2
   internet_connection_checker_plus: ^2.9.1+2
@@ -65,6 +65,7 @@ dependencies:
   retrofit: ^4.9.2
   shared_preferences: ^2.5.4
   shimmer: ^3.0.0
+  skeletonizer: null
   toastification: ^3.0.3
   video_player: ^2.11.0
 
@@ -130,13 +131,13 @@ flutter:
 # Flutter Assets Generator
 # ==============================================================
 # ---------- Icons (active) ----------
-# flutter_assets:
-#   assets_path: assets/icons
-#   output_path: lib/core/theme
-#   filename: app_icons.dart
-#   ignore_comments: true
-#   field_prefix: null
-#   classname: AppIcons
+flutter_assets:
+  assets_path: assets/icons
+  output_path: lib/core/theme
+  filename: app_icons.dart
+  ignore_comments: true
+  field_prefix: null
+  classname: AppIcons
 # ---------- Animations (inactive) ----------
 # flutter_assets:
 #   assets_path: assets/animations
@@ -162,10 +163,10 @@ flutter:
 #   field_prefix: null
 #   classname: AppVideos
 # ---------- Images (inactive) ----------
-flutter_assets:
-  assets_path: assets/images
-  output_path: lib/core/theme
-  filename: app_images.dart
-  ignore_comments: true
-  field_prefix: null
-  classname: AppImages
+# flutter_assets:
+#   assets_path: assets/images
+#   output_path: lib/core/theme
+#   filename: app_images.dart
+#   ignore_comments: true
+#   field_prefix: null
+#   classname: AppImages

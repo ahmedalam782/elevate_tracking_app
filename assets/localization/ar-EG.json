@@ -113,7 +113,7 @@
     "pin_length_error": "يجب أن يكون رمز التحقق {} رقمًا",
     "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
   },
-   "forget_password": {
+  "forget_password": {
     "password": "كلمة المرور",
     "forget_password": "نسيت الرقم السري",
     "please_enter_your_email": "من فضلك أدخل البريد الالكتروني المرتبط بالحساب",
@@ -130,15 +130,15 @@
     "new_password": "رقم سري جديد",
     "confirm_password": "تأكيد الرقم السري",
     "enter_your_password": "أدخل الرقم السري الخاص بك",
-    "password_rest_successfully": "تم تغير الرقم السري بنجاح"},
- "reset_password": {
+    "password_rest_successfully": "تم تغير الرقم السري بنجاح"
+  },
+  "reset_password": {
     "reset_password": "إعادة تعيين كلمة المرور",
     "new_password": "كلمة المرور الجديدة",
     "current_password": "كلمة المرور الحالية",
     "confirm_password": "تأكيد كلمة المرور",
     "update_button": "تحديث"
-  }
-,
+  },
   "login": {
     "title": "تسجيل الدخول",
     "subtitle": "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة",
@@ -156,13 +156,11 @@
     "Invalid_email_or_password": "بريد إلكتروني أو كلمة مرور غير صحيحة",
     "loading": "جارٍ التحميل"
   },
-
   "on_boarding": {
     "welcome_text": "مرحبا بك في /n تطبيق سائق تطبيق فلاوري",
     "login": "تسجيل الدخول",
     "apply_now": "تسجيل الأن"
   },
-
   "apply": {
     "app_bar_title": "تقديم",
     "welcome": "مرحبا",
@@ -215,7 +213,6 @@
     "reject": "رفض",
     "accept": "قبول"
   },
-
   "profile": {
     "profile_title": "الملف الشخصي",
     "my_orders": "طلباتي",
@@ -232,5 +229,4 @@
     "Arabic": "العربية",
     "English": "الإنجليزية"
   }
-
 }
