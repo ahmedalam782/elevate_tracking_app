@@ -36,6 +36,7 @@ class AddressContainer extends StatelessWidget {
               BoxShadow(
                 offset: const Offset(0, 0),
                 blurRadius: 4.r,
+                // ignore: use_full_hex_values_for_flutter_colors
                 color: const Color(0xff53535340).withAlpha(63),
               ),
             ],

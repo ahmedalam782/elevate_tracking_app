@@ -4,7 +4,7 @@ import 'package:elevate_tracking_app/core/shared/widgets/custom_skeltonizer_widg
 import 'package:elevate_tracking_app/features/home/data/models/accept_order_response/accept_order_response.dart';
 import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
 import 'package:elevate_tracking_app/features/home/domain/repositories/home_repository.dart';
-import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_use_case.dart';
+import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_user_case.dart';
 import 'package:elevate_tracking_app/features/home/domain/use_cases/get_pending_orders_use_case.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/pages/home_page.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/adress_container.dart';
@@ -57,7 +57,7 @@ HomeCubit _buildCubit(FakeHomeRepository repository) {
     getPendingOrdersUseCase: GetPendingOrdersUseCase(
       homeRepository: repository,
     ),
-    acceptOrderUsercase: AcceptOrderUsercase(homeRepository: repository),
+    acceptOrderUserCase:  AcceptOrderUserCase(homeRepository: repository),
   );
 }
 

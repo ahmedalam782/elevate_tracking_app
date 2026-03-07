@@ -1,8 +1,7 @@
-// TODO: presentation HomeCubit
 
 import 'package:elevate_tracking_app/core/shared/widgets/loading_flower_widget.dart';
 import 'package:elevate_tracking_app/features/home/domain/entities/pending_orders_entity.dart';
-import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_use_case.dart';
+import 'package:elevate_tracking_app/features/home/domain/use_cases/accept_order_user_case.dart';
 import 'package:elevate_tracking_app/features/home/domain/use_cases/get_pending_orders_use_case.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_events.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_states.dart';
@@ -12,11 +11,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeCubit extends Cubit<HomeStates> {
   final GetPendingOrdersUseCase getPendingOrdersUseCase;
-  final AcceptOrderUsercase acceptOrderUsercase;
+  final AcceptOrderUserCase acceptOrderUserCase;
 
   HomeCubit({
     required this.getPendingOrdersUseCase,
-    required this.acceptOrderUsercase,
+    required this.acceptOrderUserCase,
   }) : super(HomeStates.initial());
 
   Future<void> doIntent(HomeEvents event) async {
@@ -69,7 +68,7 @@ class HomeCubit extends Cubit<HomeStates> {
     if (index < 0 || index >= state.pendingOrders.items.length) return;
 
     showOverLayLoading();
-    final result = await acceptOrderUsercase.call(
+    final result = await acceptOrderUserCase.call(
       state.pendingOrders.items[index].id,
     );
     result.when(
