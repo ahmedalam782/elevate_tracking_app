@@ -10,7 +10,7 @@ import 'package:elevate_tracking_app/features/home/presentation/view/pages/home_
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/adress_container.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view/widgets/home_order_widget.dart';
 import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_cubit.dart';
-import 'package:elevate_tracking_app/features/home/presentation/view_model/cubit/home_events.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,7 +54,9 @@ class FakeHomeRepository implements HomeRepository {
 
 HomeCubit _buildCubit(FakeHomeRepository repository) {
   return HomeCubit(
-    getPendingOrdersUseCase: GetPendingOrdersUseCase(homeRepository: repository),
+    getPendingOrdersUseCase: GetPendingOrdersUseCase(
+      homeRepository: repository,
+    ),
     acceptOrderUsercase: AcceptOrderUsercase(homeRepository: repository),
   );
 }
@@ -70,10 +72,7 @@ Widget _buildTestWidget(Widget child) {
 
 Widget _buildHomePageWithCubit(HomeCubit cubit) {
   return _buildTestWidget(
-    BlocProvider<HomeCubit>.value(
-      value: cubit,
-      child: const HomePage(),
-    ),
+    BlocProvider<HomeCubit>.value(value: cubit, child: const HomePage()),
   );
 }
 
@@ -130,7 +129,13 @@ void main() {
       );
       await _pumpUntil(
         tester,
-        condition: () => find.byType(HomeOrderWidget).evaluate().isNotEmpty,
+        condition: () {
+          final skel = tester.widgetList<CustomSkeltonizerWidget>(
+            find.byType(CustomSkeltonizerWidget),
+          );
+          if (skel.isEmpty) return false;
+          return skel.first.isLoading == false;
+        },
       );
 
       expect(repository.getPendingOrdersCallCount, 1);
@@ -138,7 +143,9 @@ void main() {
       expect(find.byType(HomeOrderWidget), findsOneWidget);
     });
 
-    testWidgets('shows skeleton while loading then disables it', (tester) async {
+    testWidgets('shows skeleton while loading then disables it', (
+      tester,
+    ) async {
       final repository = FakeHomeRepository(
         pendingOrdersResult: Success<List<OrderEntity>>(
           data: <OrderEntity>[_buildOrder()],
@@ -153,16 +160,23 @@ void main() {
         tester,
         condition: () => find.byType(HomePage).evaluate().isNotEmpty,
       );
-      final fetchFuture = cubit.doIntent(GetPendingOrdersEvent());
-      await tester.pump();
 
       final loadingSkeleton = tester.widget<CustomSkeltonizerWidget>(
         find.byType(CustomSkeltonizerWidget),
       );
       expect(loadingSkeleton.isLoading, isTrue);
 
-      await fetchFuture;
-      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      await _pumpUntil(
+        tester,
+        condition: () {
+          final skel = tester.widgetList<CustomSkeltonizerWidget>(
+            find.byType(CustomSkeltonizerWidget),
+          );
+          if (skel.isEmpty) return false;
+          return skel.first.isLoading == false;
+        },
+      );
 
       final loadedSkeleton = tester.widget<CustomSkeltonizerWidget>(
         find.byType(CustomSkeltonizerWidget),
@@ -191,15 +205,24 @@ void main() {
         tester,
         condition: () => find.byType(HomePage).evaluate().isNotEmpty,
       );
-      await cubit.doIntent(GetPendingOrdersEvent());
-      await tester.pump();
+      await _pumpUntil(
+        tester,
+        condition: () {
+          final skel = tester.widgetList<CustomSkeltonizerWidget>(
+            find.byType(CustomSkeltonizerWidget),
+          );
+          if (skel.isEmpty) return false;
+          return skel.first.isLoading == false;
+        },
+      );
 
       expect(repository.getPendingOrdersCallCount, 1);
 
       final refreshState = tester.state<RefreshIndicatorState>(
         find.byType(RefreshIndicator),
       );
-      await refreshState.show();
+      // Don't await show() because it deadlocks until refresh finishes (which needs pumping)
+      refreshState.show();
       await _pumpUntil(
         tester,
         condition: () => repository.getPendingOrdersCallCount == 2,
@@ -222,8 +245,16 @@ void main() {
         tester,
         condition: () => find.byType(HomePage).evaluate().isNotEmpty,
       );
-      await cubit.doIntent(GetPendingOrdersEvent());
-      await tester.pump();
+      await _pumpUntil(
+        tester,
+        condition: () {
+          final skel = tester.widgetList<CustomSkeltonizerWidget>(
+            find.byType(CustomSkeltonizerWidget),
+          );
+          if (skel.isEmpty) return false;
+          return skel.first.isLoading == false;
+        },
+      );
 
       expect(find.byType(HomeOrderWidget), findsOneWidget);
 
@@ -240,7 +271,9 @@ void main() {
     ) async {
       final order = _buildOrder(id: 'order-accepted');
       final repository = FakeHomeRepository(
-        pendingOrdersResult: Success<List<OrderEntity>>(data: <OrderEntity>[order]),
+        pendingOrdersResult: Success<List<OrderEntity>>(
+          data: <OrderEntity>[order],
+        ),
       );
       final cubit = _buildCubit(repository);
       addTearDown(cubit.close);
@@ -250,8 +283,16 @@ void main() {
         tester,
         condition: () => find.byType(HomePage).evaluate().isNotEmpty,
       );
-      await cubit.doIntent(GetPendingOrdersEvent());
-      await tester.pump();
+      await _pumpUntil(
+        tester,
+        condition: () {
+          final skel = tester.widgetList<CustomSkeltonizerWidget>(
+            find.byType(CustomSkeltonizerWidget),
+          );
+          if (skel.isEmpty) return false;
+          return skel.first.isLoading == false;
+        },
+      );
 
       expect(find.byType(HomeOrderWidget), findsOneWidget);
 
@@ -267,7 +308,9 @@ void main() {
   });
 
   group('HomeOrderWidget tests', () {
-    testWidgets('renders content and triggers button callbacks', (tester) async {
+    testWidgets('renders content and triggers button callbacks', (
+      tester,
+    ) async {
       var rejectTapped = false;
       var acceptTapped = false;
       final order = _buildOrder(

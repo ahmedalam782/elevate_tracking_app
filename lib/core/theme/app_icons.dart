@@ -1,22 +1,20 @@
 // ignore_for_file: prefer_single_quotes
 class AppIcons {
   AppIcons._();
-
-  static const String location = "assets/icons/location.svg";
-
-  static const String canceled = "assets/icons/cancelled.svg";
-
-  static const String completed = "assets/icons/completed.svg";
-
-  static const String arrowDown = "assets/icons/arrow_down.svg";
-
+  
   static const String iconsAddImage = "assets/icons/add_image.svg";
 
+  static const String iconsArrowDown = "assets/icons/arrow_down.svg";
+
   static const String iconsCalendar = "assets/icons/calendar.svg";
+
+  static const String iconsCancelled = "assets/icons/cancelled.svg";
 
   static const String iconsCart = "assets/icons/cart.svg";
 
   static const String iconsCategory = "assets/icons/category.svg";
+
+  static const String iconsChangeImage = "assets/icons/change_image.svg";
 
   static const String iconsCheckCircle = "assets/icons/check_circle.svg";
 
@@ -28,8 +26,9 @@ class AppIcons {
 
   static const String iconsClosedEye = "assets/icons/closed_eye.svg";
 
-  static const String iconsConnectionError =
-      "assets/icons/connection_error.svg";
+  static const String iconsCompleted = "assets/icons/completed.svg";
+
+  static const String iconsConnectionError = "assets/icons/connection_error.svg";
 
   static const String iconsDelete = "assets/icons/delete.svg";
 
@@ -63,20 +62,20 @@ class AppIcons {
 
   static const String iconsOpenEye = "assets/icons/open_eye.svg";
 
+  static const String iconsOrders = "assets/icons/orders.svg";
+
   static const String iconsPhone = "assets/icons/phone.svg";
 
   static const String iconsProfile = "assets/icons/profile.svg";
 
   static const String iconsSearch = "assets/icons/search.svg";
 
-  static const String iconsTransactionOrder =
-      "assets/icons/transaction_order.svg";
+  static const String iconsTransactionOrder = "assets/icons/transaction_order.svg";
 
   static const String iconsTranslateLang = "assets/icons/translate_lang.svg";
 
-  static const String iconsWarning = "assets/icons/warning.svg";
-
   static const String iconsUpload = "assets/icons/upload.svg";
 
-  static const String orders = "assets/icons/orders.svg";
+  static const String iconsWarning = "assets/icons/warning.svg";
 }
+
