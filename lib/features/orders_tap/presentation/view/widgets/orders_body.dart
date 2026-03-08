@@ -122,12 +122,7 @@ class _OrdersBodyState extends State<OrdersBody> {
                         onTap: () {
                           context.push(
                             Routes.orderDetailsScreen,
-                            extra: state
-                                .orders
-                                .data!
-                                .orders[index]
-                                .orderDetails
-                                .orderId,
+                            extra: state.orders.data!.orders[index],
                           );
                         },
                         child: OrderCard(

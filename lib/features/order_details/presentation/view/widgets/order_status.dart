@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:elevate_tracking_app/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 enum OrderStatus {
   accepted,
@@ -25,7 +23,7 @@ extension OrderStatusExtension on OrderStatus {
       case OrderStatus.arrived:
         return 'Arrived';
       case OrderStatus.delivered:
-        return 'Delivered';
+        return 'Completed';
     }
   }
 
@@ -33,15 +31,15 @@ extension OrderStatusExtension on OrderStatus {
     switch (this) {
       case OrderStatus.accepted:
       case OrderStatus.arrivedAtPickup:
-        return AppColorsStatus.statusAccepted;
+        return const Color(0xFFE91E8C);
       case OrderStatus.picked:
-        return AppColorsStatus.statusPicked;
+        return const Color(0xFF2196F3);
       case OrderStatus.outForDelivery:
-        return AppColorsStatus.statusOutForDelivery;
+        return const Color(0xFFFF9800);
       case OrderStatus.arrived:
-        return AppColorsStatus.statusArrived;
+        return const Color(0xFF9C27B0);
       case OrderStatus.delivered:
-        return AppColorsStatus.statusDelivered;
+        return const Color(0xFF4CAF50);
     }
   }
 
