@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/base_response/result.dart';
 import '../entities/forget_password_entity/forget_password_entity.dart';
-import '../repositories/forget_Password_repository.dart';
+import '../repositories/forget_password_repository.dart';
 
 @injectable
 class SendOtpToEmailUseCase {

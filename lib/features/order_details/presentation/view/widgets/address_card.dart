@@ -26,7 +26,7 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsGeometry.all(16),
-      
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -74,13 +74,19 @@ class AddressCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(Icons.location_on_outlined,
-                              size: 13, color: _grey),
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 13,
+                            color: _grey,
+                          ),
                           const SizedBox(width: 2),
                           Expanded(
                             child: Text(
                               address,
-                              style: const TextStyle(color: _grey, fontSize: 12),
+                              style: const TextStyle(
+                                color: _grey,
+                                fontSize: 12,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -120,10 +126,7 @@ class AddressCard extends StatelessWidget {
     if (imageUrl != null &&
         imageUrl!.isNotEmpty &&
         imageUrl != 'default-profile.png') {
-      return CircleAvatar(
-        radius: 22,
-        backgroundImage: NetworkImage(imageUrl!),
-      );
+      return CircleAvatar(radius: 22, backgroundImage: NetworkImage(imageUrl!));
     }
     return Container(
       width: 44,
@@ -132,8 +135,7 @@ class AddressCard extends StatelessWidget {
         color: _pink.withOpacity(0.1),
         shape: BoxShape.circle,
       ),
-      child:
-          const Icon(Icons.person_outline, color: _pink, size: 22),
+      child: const Icon(Icons.person_outline, color: _pink, size: 22),
     );
   }
 }

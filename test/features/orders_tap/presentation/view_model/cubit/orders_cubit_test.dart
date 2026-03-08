@@ -37,6 +37,7 @@ void main() {
           (index) => OrderEntity(
             driver: "Driver $index",
             orderDetails: OrderDetailsEntity(
+              orderId: "ID-$index",
               orderNumber: "ORD-$index",
               totalPrice: 100,
               paymentType: "Cash",

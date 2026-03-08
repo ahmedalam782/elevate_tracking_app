@@ -113,7 +113,7 @@
     "pin_length_error": "Verification code must be {} digits",
     "password_min_length": "Password must be at least 6 characters"
   },
-   "forget_password": {
+  "forget_password": {
     "password": "Password",
     "forget_password": "Forget password",
     "please_enter_your_email": "Please enter your email associated to your account",
@@ -130,13 +130,15 @@
     "new_password": "New password",
     "confirm_password": "Confirm password",
     "enter_your_password": "Enter your password",
-    "password_rest_successfully": "Password changed successfully"},
-   "reset_password": {
+    "password_rest_successfully": "Password changed successfully"
+  },
+  "reset_password": {
     "reset_password": "Reset Password",
     "new_password": "New Password",
     "current_password": "Current Password",
     "confirm_password": "Confirm Password",
-    "update_button": "Update"},
+    "update_button": "Update"
+  },
   "apply": {
     "app_bar_title": "Apply",
     "welcome": "Welcome!!",
@@ -175,7 +177,6 @@
     "login": "Login",
     "apply_now": "Apply now"
   },
-
   "login": {
     "title": "Login",
     "subtitle": "Welcome back! Please login to continue",
@@ -201,7 +202,6 @@
     "reject": "Reject",
     "accept": "Accept"
   },
-
   "my_orders": {
     "title": "My orders",
     "recent_orders": "Recent orders",
@@ -212,7 +212,6 @@
     "completed": "Completed",
     "cancelled": "Cancelled"
   },
-
   "profile": {
     "profile_title": "Profile",
     "my_orders": "My orders",

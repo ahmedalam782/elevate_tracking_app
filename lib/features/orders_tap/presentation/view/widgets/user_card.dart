@@ -56,7 +56,7 @@ class UserCard extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        AppIcons.location,
+                        AppIcons.iconsLocation,
                         height: 16,
                         width: 16,
                         colorFilter: const ColorFilter.mode(

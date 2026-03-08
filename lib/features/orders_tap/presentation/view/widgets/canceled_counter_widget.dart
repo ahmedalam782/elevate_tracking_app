@@ -24,7 +24,7 @@ class CanceledCounterWidget extends StatelessWidget {
 
           Row(
             children: [
-              SvgPicture.asset(AppIcons.canceled),
+              SvgPicture.asset(AppIcons.iconsCancelled),
               const SizedBox(width: 4),
               Text('Canceled', style: 16.medium),
             ],
