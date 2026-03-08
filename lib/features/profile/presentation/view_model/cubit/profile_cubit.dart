@@ -1,33 +1,24 @@
+import 'package:elevate_tracking_app/features/profile/domain/use_cases/get_profile_data_use_case.dart';
+import 'package:elevate_tracking_app/features/profile/presentation/view_model/cubit/profile_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../core/config/base_state/base_state.dart';
-import '../../../domain/use_cases/get_profile_data_use_case.dart';
-import 'profile_events.dart';
-import 'profile_states.dart';
 
 @injectable
-class ProfileCubit extends Cubit<ProfileStates> {
-  ProfileCubit(this._getProfileDataUseCase) : super(ProfileStates());
-
+class ProfileCubit extends Cubit<ProfileState> {
   final GetProfileDataUseCase _getProfileDataUseCase;
 
-  void doIntent(ProfileEvents event) {
-    event.when(loadProfileData: _loadProfileData);
-  }
+  ProfileCubit(this._getProfileDataUseCase) : super(const ProfileInitial());
 
-  Future<void> _loadProfileData() async {
-    emit(state.copyWith(profileDataState: const BaseState.loading()));
+  Future<void> getProfileData() async {
+    emit(const ProfileLoading());
 
-    final result = await _getProfileDataUseCase.call();
+    final result = await _getProfileDataUseCase();
 
     result.when(
-      success: (data) {
-        emit(state.copyWith(profileDataState: BaseState.success(data)));
-      },
-      error: (error) {
-        emit(state.copyWith(profileDataState: BaseState.error(error)));
-      },
+      success: (driver) => emit(ProfileLoaded(driver!)),
+      error: (exception) => emit(ProfileError(exception?.toString() ?? 'Unknown error')),
     );
   }
 }
+

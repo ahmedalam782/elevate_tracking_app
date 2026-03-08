@@ -13,8 +13,14 @@ class ProfileDataModel {
   final String phone;
   final String photo;
   final String role;
-  final List<dynamic> wishlist;
-  final List<dynamic> addresses;
+  final String? country;
+  final String? vehicleType;
+  final String? vehicleNumber;
+  final String? vehicleLicense;
+  @JsonKey(name: 'NID')
+  final String? nid;
+  @JsonKey(name: 'NIDImg')
+  final String? nidImg;
   final String createdAt;
 
   ProfileDataModel({
@@ -26,8 +32,12 @@ class ProfileDataModel {
     required this.phone,
     required this.photo,
     required this.role,
-    required this.wishlist,
-    required this.addresses,
+    this.country,
+    this.vehicleType,
+    this.vehicleNumber,
+    this.vehicleLicense,
+    this.nid,
+    this.nidImg,
     required this.createdAt,
   });
 
