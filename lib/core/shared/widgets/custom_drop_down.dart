@@ -148,7 +148,7 @@ class _SearchSheetState<T> extends State<_SearchSheet<T>> {
                 // hintStyle: Colors.white70,
                 prefixIcon: const Icon(Icons.search, color: Colors.white),
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.15),
+                fillColor: Colors.white.withValues(alpha: 0.15),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -165,7 +165,7 @@ class _SearchSheetState<T> extends State<_SearchSheet<T>> {
                   scrollbarTheme: ScrollbarThemeData(
                     thumbColor: WidgetStateProperty.all(Colors.white),
                     trackColor: WidgetStateProperty.all(
-                      Colors.white.withOpacity(0.25),
+                      Colors.white.withValues(alpha: 0.25),
                     ),
                     radius: const Radius.circular(10),
                     thickness: WidgetStateProperty.all(3),
@@ -179,7 +179,7 @@ class _SearchSheetState<T> extends State<_SearchSheet<T>> {
                   child: ListView.separated(
                     itemCount: filteredItems.length,
                     separatorBuilder: (_, _) =>
-                        Divider(color: Colors.white.withOpacity(0.2)),
+                        Divider(color: Colors.white.withValues(alpha: 0.2)),
                     itemBuilder: (context, index) {
                       final item = filteredItems[index];
                       return ListTile(

@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
 
 import '../../../../core/config/base_response/result.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/forget_password_entity/forget_password_entity.dart';
-import '../../domain/repositories/forget_Password_repository.dart';
-import '../datasources/forget_Password_remote_data_source_contract.dart';
+import '../../domain/repositories/forget_password_repository.dart';
+import '../datasources/forget_password_remote_data_source_contract.dart';
 import '../models/forget_password_response/forget_password_response.dart';
 import '../models/reset_password_dto/reset_password_dto.dart';
 

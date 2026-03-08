@@ -114,7 +114,7 @@ class AddressCard extends StatelessWidget {
       width: 44,
       height: 44,
       decoration: BoxDecoration(
-        color: AppColors.primerColor.withOpacity(0.1),
+        color: AppColors.primerColor.withValues(alpha: 0.1),
         shape: BoxShape.circle,
       ),
       child: const Icon(Icons.person_outline,

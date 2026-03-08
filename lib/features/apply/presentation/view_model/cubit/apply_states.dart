@@ -12,6 +12,7 @@ class ApplyStates extends Equatable {
   final BaseState<VehiclesListEntity> vehicleState;
   final BaseState<ApplyResponse> applyState;
   final String errorMessage;
+  // ignore: non_constant_identifier_names
   final File? NIDImage;
   final File? licenseImage;
   final CountryEntity? selectedCountry;
@@ -25,6 +26,7 @@ class ApplyStates extends Equatable {
     this.selectedCountry,
     this.selectedVehicle,
     this.selectedGender = Gender.male,
+    // ignore: non_constant_identifier_names
     this.errorMessage = '',  this.NIDImage,  this.licenseImage,
   });
 
@@ -36,6 +38,7 @@ class ApplyStates extends Equatable {
     VehicleEntity? selectedVehicle,
     Gender? selectedGender,
     String? errorMessage,
+    // ignore: non_constant_identifier_names
     File? NIDImage,
     File? licenseImage
   }) => ApplyStates(
