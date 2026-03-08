@@ -370,6 +370,5 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

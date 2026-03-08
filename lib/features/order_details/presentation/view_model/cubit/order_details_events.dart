@@ -1,4 +1,3 @@
-// TODO: presentation Order_detailsEvents
 sealed class OrderDetailsEvents {}
 
 class GetOrderDetailsEvent extends OrderDetailsEvents {

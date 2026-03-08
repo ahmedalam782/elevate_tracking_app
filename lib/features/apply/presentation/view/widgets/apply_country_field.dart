@@ -39,10 +39,12 @@ class _ApplyCountryFieldState extends State<ApplyCountryField> {
         bool loading =
             state.state == StateType.loading || state.state == StateType.error;
         return DropdownButtonFormField<CountryEntity>(
+          isExpanded: true,
           dropdownColor: AppColors.whiteF9,
           hint: Text(
             loading ? "Loading..." : widget.hint ?? "",
             style: 14.regular.copyWith(color: AppColors.grayA6),
+            overflow: TextOverflow.ellipsis,
           ),
           menuMaxHeight: 300,
           iconSize: 24,
@@ -71,6 +73,7 @@ class _ApplyCountryFieldState extends State<ApplyCountryField> {
               child: Text(
                 country.name,
                 style: 16.regular.copyWith(color: AppColors.black0C),
+                overflow: TextOverflow.ellipsis,
               ),
             );
           }).toList(),

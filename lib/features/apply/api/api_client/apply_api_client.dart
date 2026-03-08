@@ -18,5 +18,5 @@ abstract class ApplyApiClient {
 
   @POST(EndPoints.apply)
   @MultiPart()
-  Future<ApplyResponse> apply(@Body() FormData formData);
+  Future<ApplyResponse> apply(@Body() dynamic formData);
 }

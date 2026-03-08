@@ -14,7 +14,7 @@ class AppLayoutData {
   static List<AppLayoutData> getAppLayoutData() {
     return [
       AppLayoutData(imagePath: AppIcons.iconsHome, index: 0, title: "Title 1"),
-      AppLayoutData(imagePath: AppIcons.orders, index: 1, title: "Title 2"),
+      AppLayoutData(imagePath: AppIcons.iconsOrders, index: 1, title: "Title 2"),
       AppLayoutData(
         imagePath: AppIcons.iconsProfile,
         index: 2,

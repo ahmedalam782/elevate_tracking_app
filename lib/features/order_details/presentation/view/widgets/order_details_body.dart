@@ -1,4 +1,3 @@
-// TODO: presentation Order_detailsBody
 import 'package:elevate_tracking_app/core/theme/app_colors.dart';
 import 'package:elevate_tracking_app/features/order_details/domain/entities/order_details_entity.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/action_button.dart';
@@ -9,6 +8,7 @@ import 'package:elevate_tracking_app/features/order_details/presentation/view/wi
 import 'package:elevate_tracking_app/features/order_details/presentation/view/widgets/status_header.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view_model/cubit/order_details_cubit.dart';
 import 'package:elevate_tracking_app/features/order_details/presentation/view_model/cubit/order_details_states.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,8 +38,12 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
       appBar: _buildAppBar(),
       body: BlocBuilder<OrderDetailsCubit, OrderDetailsState>(
         builder: (context, state) {
-          print('STATE: ${state.orderDetails.state}');
-    print('MESSAGE: ${state.message}');
+          if (kDebugMode) {
+            print('STATE: ${state.orderDetails.state}');
+          }
+          if (kDebugMode) {
+            print('MESSAGE: ${state.message}');
+          }
           return state.orderDetails.when(
             initial: () => const SizedBox(),
             loading: () => const Center(
