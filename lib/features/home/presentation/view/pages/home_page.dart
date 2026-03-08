@@ -94,9 +94,9 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return HomeOrderWidget(
                             onAcceptCallback: () {
-                              // context.read<HomeCubit>().doIntent(
-                              //   AcceptOrderEvent(index: index),
-                              // );
+                              context.read<HomeCubit>().doIntent(
+                                AcceptOrderEvent(index: index),
+                              );
                             },
                             onRejectCallback: () {
                               context.read<HomeCubit>().doIntent(

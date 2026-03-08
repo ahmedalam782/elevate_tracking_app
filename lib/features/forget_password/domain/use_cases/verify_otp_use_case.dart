@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/base_response/result.dart';
-import '../repositories/forget_Password_repository.dart';
+import '../repositories/forget_password_repository.dart';
 
 @injectable
 class VerifyOtpUseCase {

@@ -4,10 +4,10 @@ import 'package:elevate_tracking_app/features/home/domain/repositories/home_repo
 import 'package:injectable/injectable.dart';
 
 @injectable
-class AcceptOrderUsercase {
+class AcceptOrderUserCase {
   final HomeRepository homeRepository;
 
-  AcceptOrderUsercase({required this.homeRepository});
+  AcceptOrderUserCase({required this.homeRepository});
   Future<Result<AcceptOrderResponse>> call(String id) {
     return homeRepository.acceptOrder(id);
   }

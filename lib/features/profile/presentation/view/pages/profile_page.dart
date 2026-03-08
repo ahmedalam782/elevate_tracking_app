@@ -340,4 +340,7 @@ class _FlatRow extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

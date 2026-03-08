@@ -42,6 +42,7 @@ class _GenderSectionState extends State<GenderSection> {
             Row(
               children: [
                 Expanded(
+                  flex: 2,
                   child: Text(
                     LocaleKeys.apply_gender_hint.tr(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -51,15 +52,21 @@ class _GenderSectionState extends State<GenderSection> {
                   ),
                 ),
                 const SizedBox(width: GenderSection.spaceBetween),
-                _GenderOption(
-                  value: Gender.female,
-                  label: LocaleKeys.apply_gender_female.tr(),
-                  selectedGender: state,
+                Expanded(
+                  flex: 3,
+                  child: _GenderOption(
+                    value: Gender.female,
+                    label: LocaleKeys.apply_gender_female.tr(),
+                    selectedGender: state,
+                  ),
                 ),
-                _GenderOption(
-                  value: Gender.male,
-                  label: LocaleKeys.apply_gender_male.tr(),
-                  selectedGender: state,
+                Expanded(
+                  flex: 3,
+                  child: _GenderOption(
+                    value: Gender.male,
+                    label: LocaleKeys.apply_gender_male.tr(),
+                    selectedGender: state,
+                  ),
                 ),
               ],
             ),
@@ -84,22 +91,22 @@ class _GenderOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Radio<Gender>(value: value),
-          AnimatedDefaultTextStyle(
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Radio<Gender>(value: value),
+        Flexible(
+          child: AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: _animationDuration),
             style: 16.regular.copyWith(
               color: selectedGender == value
                   ? AppColors.black0C
                   : AppColors.gray53,
             ),
-            child: Text(label),
+            child: Text(label, overflow: TextOverflow.ellipsis),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

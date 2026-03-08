@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elevate_tracking_app/core/config/base_state/base_state.dart';
 import 'package:elevate_tracking_app/core/languages/locale_keys.g.dart';
@@ -76,139 +78,141 @@ class _ApplyBodyState extends State<ApplyBody> {
     final formKey = GlobalKey<FormState>();
     return Form(
       key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 25,
-        children: [
-          const WelcomeSection(),
-          ApplyCountryField(
-            hint: LocaleKeys.apply_country_hint.tr(),
-            label: LocaleKeys.apply_country_label.tr(),
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_first_name_hint.tr(),
-            label: LocaleKeys.apply_first_name_label.tr(),
-            controller: firstNameController,
-            textInputType: TextInputType.name,
-            validator: (value) => Validations.validateFirstName(value),
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_last_name_hint.tr(),
-            label: LocaleKeys.apply_last_name_label.tr(),
-            controller: lastNameController,
-            textInputType: TextInputType.name,
-            validator: (value) => Validations.validateLastName(value),
-          ),
-          ApplyVehcileField(
-            hint: LocaleKeys.apply_vehicle_type_hint.tr(),
-            label: LocaleKeys.apply_vehicle_type_label.tr(),
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_vehicle_number_hint.tr(),
-            label: LocaleKeys.apply_vehicle_number_label.tr(),
-            controller: vehicleNumberController,
-            textInputType: TextInputType.number,
-            validator: (value) => Validations.validateVehicleNumber(value),
-          ),
-          UploadField(
-            hint: LocaleKeys.apply_vehicle_license_hint.tr(),
-            label: LocaleKeys.apply_vehicle_license_label.tr(),
-            type: UploadType.license,
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_email_hint.tr(),
-            label: LocaleKeys.apply_email_label.tr(),
-            controller: emailController,
-            textInputType: TextInputType.emailAddress,
-            validator: (value) => Validations.validateEmail(value),
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_phone_hint.tr(),
-            label: LocaleKeys.apply_phone_label.tr(),
-            controller: phoneController,
-            textInputType: TextInputType.number,
-            validator: (value) =>
-                Validations.validatePhoneNumber(value, 11, "+20"),
-          ),
-          ApplyTextField(
-            hint: LocaleKeys.apply_id_number_hint.tr(),
-            label: LocaleKeys.apply_id_number_label.tr(),
-            controller: NIDController,
-            textInputType: TextInputType.number,
-            validator: (value) => Validations.validateNationalId(value),
-          ),
-          UploadField(
-            type: UploadType.NID,
-            hint: LocaleKeys.apply_id_image_hint.tr(),
-            label: LocaleKeys.apply_id_image_label.tr(),
-          ),
-
-          SizedBox(
-            height: 56,
-            child: Row(
-              spacing: 17,
-
-              children: [
-                Expanded(
-                  child: ApplyTextField(
-                    isPassword: true,
-                    hint: LocaleKeys.apply_password_hint.tr(),
-                    label: LocaleKeys.apply_password_label.tr(),
-                    controller: passwordController,
-                    textInputType: TextInputType.name,
-                    validator: (value) => Validations.validatePassword(value),
-                  ),
-                ),
-                Expanded(
-                  child: ApplyTextField(
-                    isPassword: true,
-                    hint: LocaleKeys.apply_confirm_password_hint.tr(),
-                    label: LocaleKeys.apply_confirm_password_label.tr(),
-                    controller: rePasswordController,
-                    textInputType: TextInputType.name,
-                    validator: (value) =>
-                        Validations.validatePasswordVerification(
-                          value,
-                          passwordController.text,
-                        ),
-                  ),
-                ),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 25,
+          children: [
+            const WelcomeSection(),
+            ApplyCountryField(
+              hint: LocaleKeys.apply_country_hint.tr(),
+              label: LocaleKeys.apply_country_label.tr(),
             ),
-          ),
-          const GenderSection(),
-          CustomButton(
-            isLoading: isLoading,
-            title: LocaleKeys.apply_submit.tr(),
-            onPressed: () async {
-              if (formKey.currentState!.validate()) {
-                await cubit.doIntent(
-                  ApplySubmitEvent(
-                    request: ApplyRequest(
-                      firstName: firstNameController.text,
-                      lastName: lastNameController.text,
-                      email: emailController.text,
-                      phone: phoneController.text,
-                      vehicleNumber: vehicleNumberController.text,
-                      NID: NIDController.text,
-                      password: passwordController.text,
-                      rePassword: rePasswordController.text,
+            ApplyTextField(
+              hint: LocaleKeys.apply_first_name_hint.tr(),
+              label: LocaleKeys.apply_first_name_label.tr(),
+              controller: firstNameController,
+              textInputType: TextInputType.name,
+              validator: (value) => Validations.validateFirstName(value),
+            ),
+            ApplyTextField(
+              hint: LocaleKeys.apply_last_name_hint.tr(),
+              label: LocaleKeys.apply_last_name_label.tr(),
+              controller: lastNameController,
+              textInputType: TextInputType.name,
+              validator: (value) => Validations.validateLastName(value),
+            ),
+            ApplyVehcileField(
+              hint: LocaleKeys.apply_vehicle_type_hint.tr(),
+              label: LocaleKeys.apply_vehicle_type_label.tr(),
+            ),
+            ApplyTextField(
+              hint: LocaleKeys.apply_vehicle_number_hint.tr(),
+              label: LocaleKeys.apply_vehicle_number_label.tr(),
+              controller: vehicleNumberController,
+              textInputType: TextInputType.number,
+              validator: (value) => Validations.validateVehicleNumber(value),
+            ),
+            UploadField(
+              hint: LocaleKeys.apply_vehicle_license_hint.tr(),
+              label: LocaleKeys.apply_vehicle_license_label.tr(),
+              type: UploadType.license,
+            ),
+            ApplyTextField(
+              hint: LocaleKeys.apply_email_hint.tr(),
+              label: LocaleKeys.apply_email_label.tr(),
+              controller: emailController,
+              textInputType: TextInputType.emailAddress,
+              validator: (value) => Validations.validateEmail(value),
+            ),
+            ApplyTextField(
+              hint: LocaleKeys.apply_phone_hint.tr(),
+              label: LocaleKeys.apply_phone_label.tr(),
+              controller: phoneController,
+              textInputType: TextInputType.number,
+              validator: (value) =>
+                  Validations.validatePhoneNumber(value, 11, "+20"),
+            ),
+            ApplyTextField(
+              hint: LocaleKeys.apply_id_number_hint.tr(),
+              label: LocaleKeys.apply_id_number_label.tr(),
+              controller: NIDController,
+              textInputType: TextInputType.number,
+              validator: (value) => Validations.validateNationalId(value),
+            ),
+            UploadField(
+              type: UploadType.NID,
+              hint: LocaleKeys.apply_id_image_hint.tr(),
+              label: LocaleKeys.apply_id_image_label.tr(),
+            ),
+
+            SizedBox(
+              height: 56,
+              child: Row(
+                spacing: 17,
+
+                children: [
+                  Expanded(
+                    child: ApplyTextField(
+                      isPassword: true,
+                      hint: LocaleKeys.apply_password_hint.tr(),
+                      label: LocaleKeys.apply_password_label.tr(),
+                      controller: passwordController,
+                      textInputType: TextInputType.name,
+                      validator: (value) => Validations.validatePassword(value),
                     ),
                   ),
-                );
-                if (cubit.state.applyState.state == StateType.success &&
-                    context.mounted) {
-                  //  context.go(Routes.home);
-                } else if (cubit.state.applyState.state == StateType.error &&
-                    context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(cubit.state.errorMessage)),
+                  Expanded(
+                    child: ApplyTextField(
+                      isPassword: true,
+                      hint: LocaleKeys.apply_confirm_password_hint.tr(),
+                      label: LocaleKeys.apply_confirm_password_label.tr(),
+                      controller: rePasswordController,
+                      textInputType: TextInputType.name,
+                      validator: (value) =>
+                          Validations.validatePasswordVerification(
+                            value,
+                            passwordController.text,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const GenderSection(),
+            CustomButton(
+              isLoading: isLoading,
+              title: LocaleKeys.apply_submit.tr(),
+              onPressed: () async {
+                if (formKey.currentState!.validate()) {
+                  await cubit.doIntent(
+                    ApplySubmitEvent(
+                      request: ApplyRequest(
+                        firstName: firstNameController.text,
+                        lastName: lastNameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        vehicleNumber: vehicleNumberController.text,
+                        NID: NIDController.text,
+                        password: passwordController.text,
+                        rePassword: rePasswordController.text,
+                      ),
+                    ),
                   );
+                  if (cubit.state.applyState.state == StateType.success &&
+                      context.mounted) {
+                    //  context.go(Routes.home);
+                  } else if (cubit.state.applyState.state == StateType.error &&
+                      context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(cubit.state.errorMessage)),
+                    );
+                  }
                 }
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
