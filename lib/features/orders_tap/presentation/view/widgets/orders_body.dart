@@ -120,6 +120,7 @@ class _OrdersBodyState extends State<OrdersBody> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
+                          //context.go(Routes.successPage);
                           context.push(
                             Routes.orderDetailsScreen,
                             extra: state
