@@ -12,7 +12,7 @@ class AppLayoutCubit extends Cubit<AppLayoutState> {
     const HomePage(),
     // HomePage()
     const OrdersPage(),
-    const ProfilePage(),
+    const ProfileScreen(),
   ];
   void changeIndex(int index) {
     this.index = index;

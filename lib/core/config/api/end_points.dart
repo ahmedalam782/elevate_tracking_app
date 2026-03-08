@@ -13,7 +13,7 @@ class EndPoints {
   static const String startOrder = "/orders/start";
   static const String orderDetails = "/orders/driver-orders/{id}";
   static const String ordersPage = "/orders/driver-orders";
-  static const String profileData = "/auth/profile-data";
+  static const String profileData = "/drivers/profile-data";
 
   //! TERMS AND CONDITIONS
   //! لو عاوزين تغير مكنها  معنديش مشكلة <Kareem>

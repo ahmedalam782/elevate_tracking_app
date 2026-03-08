@@ -1,25 +1,24 @@
+import 'package:elevate_tracking_app/features/profile/api/api_client/profile_api_client.dart';
+import 'package:elevate_tracking_app/features/profile/data/models/profile_response_model.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/config/base_response/result.dart';
-import '../../data/datasources/profile_remote_data_source_contract.dart';
-import '../../data/models/profile_response_model.dart';
-import '../api_client/profile_api_client.dart';
 
-@Injectable(as: ProfileRemoteDataSourceContract)
-class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSourceContract {
+abstract class ProfileRemoteDataSource {
+  Future<ProfileResponseModel> getProfileData();
+}
+
+@Injectable(as: ProfileRemoteDataSource)
+class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final ProfileApiClient _apiClient;
 
-  ProfileRemoteDataSourceImpl(this._apiClient);
+  const ProfileRemoteDataSourceImpl(this._apiClient);
 
   @override
-  Future<Result<ProfileResponseModel>> getProfileData() async {
+  Future<ProfileResponseModel> getProfileData() async {
     try {
-      final response = await _apiClient.getProfileData();
-      return Success<ProfileResponseModel>(data: response);
-    } catch (exception) {
-      return Error<ProfileResponseModel>(
-        exception: Exception(exception.toString()),
-      );
+      return await _apiClient.getProfileData();
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

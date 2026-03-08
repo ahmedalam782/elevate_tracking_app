@@ -1,15 +1,16 @@
+import 'package:elevate_tracking_app/core/config/base_response/result.dart';
+import 'package:elevate_tracking_app/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/config/base_response/result.dart';
-import '../entities/profile_data_entity.dart';
+
 import '../repositories/profile_repository.dart';
 
-@Injectable()
+@injectable
 class GetProfileDataUseCase {
-  final ProfileRepository repository;
+  final ProfileRepository _repository;
 
-  GetProfileDataUseCase({required this.repository});
+  const GetProfileDataUseCase(this._repository);
 
-  Future<Result<ProfileDataEntity>> call() async {
-    return await repository.getProfileData();
+  Future<Result<DriverEntity>> call() {
+    return _repository.getProfileData();
   }
 }

@@ -1,6 +1,7 @@
-import '../../../../core/config/base_response/result.dart';
-import '../entities/profile_data_entity.dart';
+import 'package:elevate_tracking_app/core/config/base_response/result.dart';
+import 'package:elevate_tracking_app/features/profile/domain/entities/profile_data_entity.dart';
+
 
 abstract class ProfileRepository {
-  Future<Result<ProfileDataEntity>> getProfileData();
+  Future<Result<DriverEntity>> getProfileData();
 }
